@@ -1,25 +1,13 @@
 import axios from 'axios'
 
-
-
-// export function auth () {
-//   return(
-//     axios.post('http://127.0.0.1:8000/api/auth/login', {
-//         phone: '+998909037045',
-//         password: '12'
-//       })
-//       .then(function (response) {
-//         localStorage.setItem('jwt', response.data.access_token)
-//         return response.data
-//       })
-//   )
-// }
+//const base = 'http://127.0.0.1:8000/api'
+const base = 'http://91.186.196.131/api'
 
 export function auth (data) {
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: 'http://127.0.0.1:8000/api/auth/login',
+    url: `${base}/auth/login`,
     data:data
 
   };
@@ -37,7 +25,7 @@ export function authMe () {
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: 'http://127.0.0.1:8000/api/auth/me',
+    url: `${base}/auth/me`,
     headers: { 
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }
@@ -56,7 +44,7 @@ export function getTable () {
   let config = {
     method: 'get',
     maxBodyLength: Infinity,
-    url: `http://127.0.0.1:8000/api/v1/table`,
+    url: `${base}/v1/table`,
     // headers: { 
     //   'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     // }
@@ -75,7 +63,7 @@ export function getGroupByUserId (id) {
   let config = {
     method: 'get',
     maxBodyLength: Infinity,
-    url: `http://127.0.0.1:8000/api/v1/users/${id}/groups`,
+    url: `${base}/v1/users/${id}/groups`,
     headers: { 
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }
@@ -94,7 +82,7 @@ export function getLessonsByGroup (group_id) {
   let config = {
     method: 'get',
     maxBodyLength: Infinity,
-    url: `http://127.0.0.1:8000/api/v1/groups/${group_id}/lessons`,
+    url: `${base}/v1/groups/${group_id}/lessons`,
     headers: { 
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }
@@ -113,7 +101,7 @@ export function getUsersByGroup (group_id) {
   let config = {
     method: 'get',
     maxBodyLength: Infinity,
-    url: `http://127.0.0.1:8000/api/v1/groups/${group_id}/users`,
+    url: `${base}/v1/groups/${group_id}/users`,
     headers: { 
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }
@@ -132,7 +120,7 @@ export function getAllUsers () {
   let config = {
     method: 'get',
     maxBodyLength: Infinity,
-    url: `http://127.0.0.1:8000/api/v1/users`,
+    url: `${base}/v1/users`,
     headers: { 
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }
@@ -151,7 +139,7 @@ export function getAllCourses () {
   let config = {
     method: 'get',
     maxBodyLength: Infinity,
-    url: `http://127.0.0.1:8000/api/v1/courses`,
+    url: `${base}/v1/courses`,
     headers: { 
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }
@@ -170,7 +158,7 @@ export function getCourseById (id) {
   let config = {
     method: 'get',
     maxBodyLength: Infinity,
-    url: `http://127.0.0.1:8000/api/v1/courses/${id}`,
+    url: `${base}/courses/${id}`,
     headers: { 
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }
@@ -189,7 +177,7 @@ export function getAllGroups () {
   let config = {
     method: 'get',
     maxBodyLength: Infinity,
-    url: `http://127.0.0.1:8000/api/v1/groups`,
+    url: `${base}/groups`,
     headers: { 
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }
@@ -208,7 +196,7 @@ export function getGroupsById (id) {
   let config = {
     method: 'get',
     maxBodyLength: Infinity,
-    url: `http://127.0.0.1:8000/api/v1/groups/${id}`,
+    url: `${base}/groups/${id}`,
     headers: { 
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }
@@ -228,7 +216,7 @@ export function getGroups (id) {
   let config = {
     method: 'get',
     maxBodyLength: Infinity,
-    url: `http://127.0.0.1:8000/api/v1/groups/courseId?course_id=${id}`,
+    url: `${base}/v1/groups/courseId?course_id=${id}`,
     headers: { 
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }
@@ -248,7 +236,7 @@ export function createNewGroup (data) {
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: 'http://127.0.0.1:8000/api/v1/groups',
+    url: `${base}/v1/groups`,
     headers: { 
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     },
@@ -268,7 +256,7 @@ export function createNewStudent (data) {
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: 'http://127.0.0.1:8000/api/v1/users',
+    url: `${base}/v1/users`,
     headers: { 
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     },
@@ -288,7 +276,7 @@ export function changeStudent (data, id) {
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: `http://127.0.0.1:8000/api/v1/users/${id}`,
+    url: `${base}/v1/users/${id}`,
     headers: { 
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     },
@@ -308,7 +296,7 @@ export function changeUsersTask (data, id) {
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: `http://127.0.0.1:8000/api/v1/users/${id}/task_completed`,
+    url: `${base}v1/users/${id}/task_completed`,
     headers: { 
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     },
@@ -328,7 +316,7 @@ export function getThemesByCoursesId (id) {
   let config = {
     method: 'get',
     maxBodyLength: Infinity,
-    url: `http://127.0.0.1:8000/api/v1/courses/${id}/themes`,
+    url: `${base}/v1/courses/${id}/themes`,
     headers: { 
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }
@@ -347,7 +335,7 @@ export function createNewLesson (data) {
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: `http://127.0.0.1:8000/api/v1/lessons`,
+    url: `${base}/v1/lessons`,
     headers: { 
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     },
