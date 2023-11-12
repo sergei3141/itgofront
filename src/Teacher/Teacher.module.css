@@ -1,0 +1,59 @@
+.teacher{
+  background-color: rgb(216, 222, 236);
+  min-height: 100vh;
+  padding-bottom: 100px;
+}
+
+.underTable{
+  display: flex;
+  padding: 20px
+}
+
+.underTable > div{
+  margin: 20px
+}
+
+.tasks{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px;
+ 
+}
+
+.tasks > div{
+  height: 36px;
+  width:36px;
+  background-color: rgb(233, 233, 242);
+  border:1px rgb(180, 184, 199) solid;
+  text-align: center;
+  border-radius: 3px;
+  transition: .2s;
+  cursor: pointer;
+}
+
+.tasks > div:hover{
+  background-color: rgb(212, 212, 242); 
+}
+
+.lessonEnd{
+  margin:20px 0px 60px 0px;
+  width:100%;
+  height: 30px;
+  text-align: center;
+  padding-top: 10px;
+  background-color:rgb(207, 221, 238);
+  transition: .2s;
+  color:rgb(74, 102, 162);
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.lessonEnd:hover{
+  background-color:rgb(153, 179, 211);
+  color:rgb(41, 64, 111)
+}
+
+.lessonEnd:active{
+  background-color:rgb(94, 125, 162);
+    color:white
+}
