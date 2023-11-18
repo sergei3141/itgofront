@@ -4,16 +4,18 @@ import css from './Landing.module.css'
 import ReactSlidy from 'react-slidy'
 import 'react-slidy/lib/styles.css'
 import { NavLink } from 'react-router-dom';
-import { Icon } from '@iconify/react';
 import Fireflies from 'fireflies.js'
 
 import Map from '../Other/Map';
 import Footer from '../Other/Footer';
 
-import pic1 from '../img/photo/photo1.jpeg'
-import pic2 from '../img/photo/photo2.jpeg'
+import pic2 from '../img/photo/photo1.jpeg'
+import pic1 from '../img/photo/photo2.jpeg'
 import pic3 from '../img/photo/photo3.jpeg'
 import pic4 from '../img/photo/photo4.jpeg'
+import pic7 from '../img/photo/photo7.jpg'
+import pic8 from '../img/photo/photo8.jpg'
+import pic9 from '../img/photo/photo9.jpg'
 
 import p1 from '../img/programms/p1.jpeg'
 import p2 from '../img/programms/p2.jpg'
@@ -22,8 +24,13 @@ import p4 from '../img/programms/p4.jpg'
 import p5 from '../img/programms/p5.jpg'
 import p6 from '../img/programms/p6.jpg'
 import p7 from '../img/programms/p7.jpg'
+import iconitgo from '../img/programms/iconitgo.png'
 
-const SLIDES = [pic1, pic2, pic3, pic4]
+const SLIDES = [
+  {'pic': pic1, 'marginTop' : '130px', 'text': `Качество знаний - наш приоритет. Поэтому мы проводим обучение исключительно в мини-группах не более 6 студентов. Преподаватель уделит время каждому`}, 
+  {'pic': pic7, 'marginTop' : '130px', 'text': `Наша онлайн-платформа работает круглосуточно. Студент может выполнить задания в любое удобное время и сразу же получить результат!`}, 
+  {'pic': pic3, 'marginTop' : '130px', 'text': 'Мы гарантируем качество знаний. После успешной сдачи экзамена вы получите сертификат об окончании образовательной программы '}, 
+  {'pic': pic8, 'marginTop' : '110px', 'text': 'Наши классы оборудованы всем необходимым. Обучение проводится на соверменных компьютерах, но при желании вы можете использовать ваши личные устройства на платформе Windows или MacOS'}]
 const createStyles = isActive => ({
   background: 'transparent',
   border: 0,
@@ -33,12 +40,12 @@ const createStyles = isActive => ({
 })
 
 const PROGRAMMS = [
-  {id:0, name: "Web-разработка Полный курс", description: "Изучение основных технологий, используемых для frontend разработки. Базовый JS, вёрстка, библиотека React ", time: "90 часов", age: 8, img: p4, filter: "linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 30%, rgba(0, 0, 0, 0.25) 80%, rgba(0, 0, 0, 0.5) 93%, rgba(0, 0, 0, 0.6) 100%);"},
-  {id:1, name: `Web-разработка "Экспресс курс`, description: "Изучение JavaScript, HTML, CSS", time: "60 часов", age: 12, img: p3},
-  {id:2, name: "JavaScript", description: "Целенаправенное изучение языка JavaScript и браузерного окружения", time: "45 часов", age: 12, img: p7},
-  {id:3, name: "Вёрстка и дизайн HTML + CSS + Figma", description: "Научитесь создавать сайты с современным дизайном, работать с вёрсткой и макетами", time: "40 часов", age: 12, img: p5},
+  {id:0, name: "Web-разработка Полный курс", description: "Изучите основные технологии и станьте востребованным специалистом в IT-индустрии.", time: "90 часов", age: 8, img: p4, filter: "linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 30%, rgba(0, 0, 0, 0.25) 80%, rgba(0, 0, 0, 0.5) 93%, rgba(0, 0, 0, 0.6) 100%);"},
+  {id:1, name: `Web-разработка Экспресс курс`, description: "Изучение базовые технологии web-разработки и создайте ваш первый сайт!", time: "60 часов", age: 12, img: p3},
+  {id:2, name: "Программирование JavaScript", description: "Целенаправенное изучение языка JavaScript. Напишите вашу первую программу!", time: "45 часов", age: 12, img: p7},
+  {id:3, name: "3D моделирование и дизайн", description: "Научитесь создавать дизайны интерьеров, 3D-анимациию и освойте основы рендеринга в 3ds MAX", time: "40 часов", age: 12, img: p5},
   {id:4, name: "React + Redux", description: "Научитесь разрабатывать полнофункциональные приложения с применением соверменных библиотек. Требуется знание Java Script", time: "45 часов", age: 12, img: p1},
-  {id:5, name: "Собеседования", description: "Индивидуальные занятия. Подготовка портфолио, проведение собеседований", time: "?? часов", age: 18, img: p6}
+  {id:5, name: "Собеседования", description: "Индивидуальные занятия. Подготовьте портфолио и пройдите тестовое собеседование с опытным специалистом", time: "?? часов", age: 18, img: p6}
 ]
 
 const QUESTIONS = [
@@ -46,6 +53,7 @@ const QUESTIONS = [
   {user: ["Бахитёр", "Какие документы нужны?"], admin: ["IT-GO", "Для заключения договора достаточно любого документа, удостоверяющего личность"]},
   {user: ["Оксана", "Я не знаю, какой курс подойдёт моему ребёнку"], admin: ["IT-GO", "Свяжитесь с нами любым удобным вам способом! Более того, вы можете прийти и посмотреть, как проходят занятия. Это бесплатно."]},
 ]
+
 
 function Landing() {
   Fireflies.initialize(undefined, [10, 22], [{ fill: '#ffffff', glow: '#4651b3' }], true, true, true, false)
@@ -72,38 +80,84 @@ setTimeout(()=>{
 
   return (
     <div>
-            <head style={{display:"flex", justifyContent:"space-between", position:"absolute", top:0, color: "white", width:"calc(100% - 40*2px)", height:"65px", alignItems:"center", padding:'10px 40px 10px 40px', borderBottom:'1px rgba(255, 255, 255, 0.21) solid', backgroundColor:'rgba(255, 255, 255, 0.08)'}}>
-              <div style={{fontSize:"36px"}}><b>IT GO!</b></div>
-              <nav style={{cursor:"pointer", position:"relative", zIndex:"12"}} onClick={()=>{Fireflies.terminate()}}>
-                <div className={css.menu__section}><NavLink to="/grade">ПОСТУПЛЕНИЕ</NavLink></div>
-                <div className={css.menu__section}><NavLink to="/login">ЭЛЕКТРОННЫЙ ДНЕВНИК</NavLink></div>
-                <div className={css.menu__section}><NavLink to="/table">РАСПИСАНИЕ</NavLink></div>
-                <div className={css.menu__section}><a href="#programms">ПРОГРАММЫ</a></div>
-              </nav>
-              <div className={css.num}>+998 (33) 322-48-55</div>
-            </head>
-            
-      {/* <Header /> */}
+      <head style={{display:"flex", justifyContent:"space-between", position:"absolute", top:0, color: "white", width:"calc(100% - 40*2px)", height:"65px", alignItems:"center", padding:'10px 40px 10px 40px', borderBottom:'1px rgba(255, 255, 255, 0.21) solid', backgroundColor:'rgba(255, 255, 255, 0.08)'}}>
+        <div style={{fontSize:"36px"}}><b>IT GO!</b></div>
+        <nav style={{cursor:"pointer", position:"relative", zIndex:"12"}} onClick={()=>{Fireflies.terminate()}}>
+          <div className={css.menu__section}><NavLink to="/grade">ПОСТУПЛЕНИЕ</NavLink></div>
+          <div className={css.menu__section}><NavLink to="/login">ЭЛЕКТРОННЫЙ ДНЕВНИК</NavLink></div>
+          <div className={css.menu__section}><NavLink to="/table">РАСПИСАНИЕ</NavLink></div>
+          <div className={css.menu__section}><a href="#programms">ПРОГРАММЫ</a></div>
+        </nav>
+        <div className={css.num}>+998 (33) 322-48-55</div>
+      </head>
       {/*      =========    SECTION ONE     =========     */}
-        <section id="sec">
-          <div className={css.back} id="back">
+      <section id="sec">
+        <div className={css.back} id="back">
+        </div>
+        <div className={css.mainText} style={{zIndex:"1", position:"absolute", top:'calc(30vh - 41px)'}}>Учебный центр <br/> IT GO!</div>
+        <div className={css.mainText__subtitle} style={{zIndex:"1", position:"absolute", top:'55vh', fontWeight:'700px'}}>Получи профессию программиста <br/>и стань специалистом в сфере айти разработки</div>
+        <div className={css.mainText__join}>Присоединяйтесь!</div>
+      </section>
+      <div style={{height:"12.2vh", width:"100vw", backgroundColor:"rgb(242, 242, 242)", position: "absolute", zIndex:"100", bottom:"-12.7vh"}}></div>
 
+      <section style={{background: "linear-gradient(180deg, rgb(242, 242, 242) 0%, rgb(255, 255, 255) 100%)"}}>
+      <img src={iconitgo} style={{width:'100px', height:'80px', marginBottom:'-35px', marginTop:"40px", zIndex:'3000', position:'relative'}}></img>
+        <h1 >IT GO в цифрах</h1>
+
+        <div className={css.icon}></div>
+        <h3 style={{marginTop:'-38px', fontSize:'24px'}}>Наши курсы дадут вам практические навыки для работы в сфере айти</h3>
+        <div style={{display:'flex', justifyContent:'center'}}>
+          <div сlassName={css.statistic_section} style={{minWidth:'200px', margin:'20px 30px 0px 30px'}}>
+            <div class={css.statistic_number}>3 года</div>
+            <div class={css.statistic_text}>СРЕДНИЙ СТАЖ <br/> ПРЕПОДАВАТЕЛЯ</div>
           </div>
+          <div сlassName={css.statistic_section} style={{minWidth:'200px', margin:'20px 30px 0px 30px'}}>
+            <div class={css.statistic_number}>6</div>
+            <div class={css.statistic_text}>СТУДЕНТОВ <br/> В ОДНОЙ ГРУППЕ</div>
+          </div>
+          <div сlassName={css.statistic_section} style={{minWidth:'200px', margin:'20px 30px 0px 30px'}}>
+            <div class={css.statistic_number}>93%</div>
+            <div class={css.statistic_text}>ОТМЕЧАЮТ, ЧТО <br/>ДОСТИГЛИ ЦЕЛЕЙ</div>
+          </div>
+          <div сlassName={css.statistic_section} style={{minWidth:'200px', margin:'20px 30px 0px 30px'}}>
+            <div class={css.statistic_number}>190+</div>
+            <div class={css.statistic_text}>ЗАДАНИЙ НА НАШЕЙ <br/>ОНЛАЙН ПЛАТФОРМЕ</div>
+          </div>
+        </div>
+        <div style={{ margin:'30px', marginTop:'45px', height:'500px', maxWidth:'1300px', marginLeft:'auto', marginRight:'auto'}} className={css.school_background}>
+          
+        </div>
 
-         <div className={css.mainText} style={{zIndex:"1", position:"absolute", top:'calc(30vh - 41px)'}}>Учебный центр <br/> IT GO!</div>
-         <div className={css.mainText__subtitle} style={{zIndex:"1", position:"absolute", top:'55vh', fontWeight:'700px'}}>Получи профессию программиста <br/>и стань специалистом в сфере айти разработки</div>
-         <div className={css.mainText__join}>Присоединяйтесь!</div>
-         {/* <div className={css.mainText__subtitle} style={{zIndex:"1", position:"absolute", top:'85vh'}}>Ташкент, улица Фучика 14<br></br><div style={{fontSize:'20px', fontWeight:'400', lineHeight: 2}}>+998 (33) 322-48-55</div></div> */}
-        </section>
+              <img src={'../img/programms/iconitgo.jpg'}></img>
+        <div className={css.reactSlide} style={{width:"50%", position:"relative", zIndex:10, marginTop:"-350px", marginLeft:'auto', marginRight:'auto', width:'1000px', boxShadow:  '0px 0px 43px -3px rgba(0, 0, 0, 0.23)' }}>
+          <ReactSlidy doAfterSlide={updateSlide} slide={actualSlide} infiniteLoop>
+            {SLIDES.map(src => (
+              <div style={{height:'400px', display:'flex', justifyContent:'center', padding:'30px', backgroundColor:'white'}}>
+                njnioljnoi
+                <div style={{backgroundImage:`url(${src.pic})`, backgroundSize:"cover", height:"400px", width:'50%',  backgroundPosition: "center"}}>
+                </div>
+                <div style={{height:"400px", width:'50%',  backgroundColor:'white', paddig:'30px', color: 'black'}}><textarea style={{width:'90%', height:'400px', border:'0px', resize: 'none', fontFamily:'tilda', fontSize:'24px', backgroundColor:'white', marginTop:`${src.marginTop}`}} disabled={true}>{src.text}</textarea></div>
+              </div>
+            ))}
+          </ReactSlidy>
+          <div>
+            {SLIDES.map((_, index) => {
+              return (
+                <button
+                  key={index}
+                  style={createStyles(index === actualSlide)}
+                  onClick={() => updateSlide({currentSlide: index})}
+                >
+                  &bull;
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      </section>
 
-
-        <div style={{height:"6vh", width:"100vw", backgroundColor:"white", position: "absolute", zIndex:"100", bottom:"-6.5vh"}}>
-
-</div>
-
-        <section className = {css.sectionOne} style={{backgroundColor:'white', display:'flex', justifyContent:'space-between'}}>
-
-      <div style={{textAlign:"start", paddingRight:'20px', lineHeight:1.5, width:'40%', padding: "20px 20px 0px 50px", fontSize:"18px"}}> 
+        {/* <section className = {css.sectionOne} style={{backgroundColor:'white', display:'flex', justifyContent:'space-between'}}>
+        <div style={{textAlign:"start", paddingRight:'20px', lineHeight:1.5, width:'40%', padding: "20px 20px 0px 50px", fontSize:"18px"}}> 
 
         <h1 style={{marginTop:"0px"}}>Наши классы</h1>
         
@@ -113,39 +167,19 @@ setTimeout(()=>{
         <br></br>
         <div>• Наши филиалы расположены в пяти минутрах от метро. Наши филиалы расположены в пяти минутрах от метро. Тут должна быть ещё инфа... Наши филиалы расположены в пяти минутрах от метро. Наши филиалы расположены в пяти минутрах</div>
       </div>
-      
-        <div className={css.reactSlide} style={{width:"50%"}}>
-          <ReactSlidy doAfterSlide={updateSlide} slide={actualSlide} infiniteLoop>
-            {SLIDES.map(src => (
-              <div style={{backgroundImage:`url(${src})`, backgroundSize:"cover", height:"550px",   backgroundPosition: "center"}}></div>
-            ))}
-          </ReactSlidy>
-          {/* <div>
-            {SLIDES.map((_, index) => {
-              return (<></>
-                // <button
-                //   key={index}
-                //   style={createStyles(index === actualSlide)}
-                //   onClick={() => updateSlide({currentSlide: index})}
-                // >
-                //   &bull;
-                // </button>
-              )
-            })}
-          </div> */}
-        </div>
-    </section >
+
+    </section > */}
 
 
 
 
         {/*      =========    SECTION TWO     =========     */}
-        <div style={{maxWidth:"1300px", margin: "auto"}}>
-        <section style={{ background: "linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(238, 238, 238) 2%, rgb(238, 238, 238) 100%)", paddingTop:"50px", paddingBottom:"50px"}}>
+        <div style={{}}>
+        <section style={{ paddingTop:"50px", paddingBottom:"50px", maxWidth:"1300px", margin: "auto"}}>
           <div style={{width:"60%", margin:"auto"}}>
           <a name="programms"></a>
             <h1>Программы обучения</h1>
-            <h3>Учебный центр IT-GO! предлагает на выбор несколько курсов по различным направлениям разработки и программирования</h3>
+            <h3 style={{marginTop:'-35px'}}>Запишитесь на курсы по следующим направлениям</h3>
           </div>
           <div className={css.galery} >
             {PROGRAMMS.map(el=>{
@@ -166,23 +200,10 @@ setTimeout(()=>{
             )})}
           </div>
         </section>
-
-
-
-
-
-
-
-
-
-
-        <h1>Почему выбирают нашу образовательную платформу?</h1>
-
-
-        
-
-    <div>
-
+        <h1>Как проходят наши занятия?</h1>
+        <div style={{height:'1000px', backgroundImage:`url(${pic9})`, backgroundSize: 'cover', left:0, position:'relative', backgroundPosition:'center', width:'100%'}}></div>
+        <div style={{position:'absolute', left:0,  backgroundImage:`url(${pic9})`, height:'1000px'}}></div>
+          {/* <div>
             <div className={css.parallax} style={{backgroundImage:`url(${pic2})`}}>
             <div className={css.parallax} style={{ background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.5) 30%, rgba(0, 0, 0, 0.2) 80%, rgba(0, 0, 0, 0.1) 93%, rgba(0, 0, 0, 0.0) 100%)'}}>
                 <div >
@@ -213,7 +234,7 @@ setTimeout(()=>{
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <section>
             <h1>У вас есть вопросы?</h1>
@@ -237,14 +258,15 @@ setTimeout(()=>{
 
    
               {/*      =========    SECTION FIVE     =========     */}
-              <Map />
-              <Footer/>
+
   
 
               {/*      =========    SECTION FOOTER     =========     */}
 
 
     </div>
+    <Map />
+    <Footer/>
 
       </div>
   )

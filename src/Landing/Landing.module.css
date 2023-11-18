@@ -27,6 +27,12 @@ h3{
   font-weight: 100;
 }
 
+/* .iconITGO{
+  width:100px;
+  height:100px;
+  background-image:url(../img/iconitgo.png);
+} */
+
 .back{
   background-image: url(../img/back.jpg);
   background-position: center;
@@ -49,6 +55,21 @@ h3{
   display: block;
   position: absolute;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.65) 30%, rgba(0, 0, 0, 0.55) 80%, rgba(0, 0, 0, 0.7) 93%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+.statistic_number{
+  font-size: 46px;
+  font-weight: 700;
+  color: rgb(77, 102, 224);
+}
+
+.statistic_text {
+  color:rgb(106, 108, 110);
+  margin-top:15px;
+}
+
+.statistic_section{
+  width:200px;
 }
 
 .menu__section{
@@ -118,8 +139,8 @@ h3{
   cursor: pointer;
   width: calc(40vw);
   /* margin: 20px; */
-  max-width:560px;
-  min-width: 450px;
+  max-width:350px;
+  min-width: 300px;
   height:400px;
   position: relative;
   /* filter: contrast(0.9) grayscale(100%); */
@@ -127,17 +148,17 @@ h3{
   display: inline-block; /* Строчно-блочный элемент */
   overflow: hidden;
   transition: .3s;
-
 }
 
 .preCard{
+  box-shadow:  0px 0px 34px 4px rgba(0, 0, 0, 0.35);
   pointer-events: none;
   color: white;
   position: relative;
   z-index: 1;
   width: calc(40vw);
-  max-width:560px;
-  min-width: 450px;
+  max-width:350px;
+  min-width: 300px;
   height:400px;
   filter: grayscale(0%); 
   transition: .3s;
@@ -145,9 +166,15 @@ h3{
   /* clip-path: polygon(50% 0, 100% 28%, 100% 72%, 50% 100%, 0 72%, 0 28%); */
 }
 
+.preCard:hover{
+  box-shadow:  0px 0px 0px 4px rgba(0, 0, 0, 0.0);
+  
+}
+
 .prePreCard {
  position: relative;
-  bottom: 0px
+  bottom: 0px;
+
 }
 
 .prePreCard:hover {
@@ -159,6 +186,7 @@ h3{
 .card:hover{
   transform: scale(1.1);
   position: relative; 
+  filter: grayscale(100%) brightness(50%); 
 }
 
 .card__button{
@@ -187,7 +215,7 @@ h3{
 }
 
 .card:hover ~ .preCard .card__title{
-  margin-top: 130px;
+  margin-top: 100px;
     position: relative;
 }
 
@@ -196,8 +224,7 @@ h3{
 }
 
 .card__title{
-
-  font-size:36px;
+  font-size:28px;
   margin-top: 200px;
   font-weight:600;
   transition: .3s;
@@ -212,6 +239,15 @@ h3{
   opacity: 0;
 }
 
+.icon{
+  background-image: url(../img/programms/iconitgo.jpg);
+  background-repeat: no-repeat;
+}
+
+.school_background{
+  background-image: url(../img/photo/photo6.jpg);
+  background-size: cover;
+}
 
 .card__subtitle{
 color:rgb(238, 238, 238)
