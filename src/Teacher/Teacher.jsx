@@ -156,6 +156,8 @@ function Row(props) {
     obj.append('cw', props.r.cw)
     obj.append('hw', props.r.hw)
     obj.append('marks', marks)
+    console.log(obj.get('marks'))
+    debugger
     const notifySucces = () => toast.success("Урок успешно проведён!");
     createNewLesson(obj).then(()=>{
       notifySucces()

@@ -1,7 +1,8 @@
 import axios from 'axios'
 
-const base = 'http://127.0.0.1:8000/api'
+// const base = 'http://127.0.0.1:8000/api'
 // const base = 'http://91.186.196.131/api'
+const base = 'https://it-go.su:90/api'
 
 export function auth (data) {
   let config = {
@@ -177,7 +178,7 @@ export function getAllGroups () {
   let config = {
     method: 'get',
     maxBodyLength: Infinity,
-    url: `${base}/groups`,
+    url: `${base}/v1/groups`,
     headers: { 
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }
@@ -196,7 +197,7 @@ export function getGroupsById (id) {
   let config = {
     method: 'get',
     maxBodyLength: Infinity,
-    url: `${base}/groups/${id}`,
+    url: `${base}/v1/groups/${id}`,
     headers: { 
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }
@@ -296,7 +297,7 @@ export function changeUsersTask (data, id) {
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: `${base}v1/users/${id}/task_completed`,
+    url: `${base}/v1/users/${id}/task_completed`,
     headers: { 
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     },

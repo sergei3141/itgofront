@@ -8,9 +8,12 @@ import css from './Grade.module.css'
 import 'react-slidy/lib/styles.css'
 import { NavLink } from 'react-router-dom';
 import { Icon } from '@iconify/react';
+import Header from '../Header/HeaderLanding';
 
 import Map from '../Other/Map'
 import Footer from '../Other/Footer'
+
+import pic11 from '../img/photo/photo12.jpg'
 
 const QUESTIONS = [
   {
@@ -18,45 +21,80 @@ const QUESTIONS = [
     questions: [{
         userName:"wf",
         adminName:"rjkegkql",
-        question:"53432",
-        answer:"ldks"
+        question:"Что нужно для поступления?",
+        answer:"Для большинства курсов начальных знаний не требуется. Чтобы заключить договор с IT GO достаточно сообщить администратору номер телефона и имя студента. Вы можете это сделать как по телефону, так и лично, приехав к нам в офис."
         },
         {
-        userName:"4",
-        adminName:"ewfwq",
-        question:"verv",
-        answer:"reqg"
-        },
+          userName:"wf",
+          adminName:"rjkegkql",
+          question:"На какой возраст расчитаны курсы?",
+          answer:"Большинство курсов расчитаны на студентов от 12 лет. Как показывает практика, это оптимальный возраст для прохождения программы. Однако мы рекомендуем также принимать во внимание и личностные качества студента."
+          },
+          {
+            userName:"wf",
+            adminName:"rjkegkql",
+            question:"Когда начинается набор в группу?",
+            answer:'IT GO набирает группы несколько раз в год. Ближайший набор в группу, а также время и дни занятий вы сможете найти во вкладке "Расписание" (находится наверху страницы).'
+          },
+          {
+            userName:"",
+            adminName:"",
+            question:"На каком языке ведётся обучение?",
+            answer:"На данный момент обучение предусмотрено только на русском языке"
+            },
       ]
+  },
+  {
+    title: "Оплата",
+    questions: [{
+      userName:"ewgwg",
+      adminName:"gewgwe",
+      question:"Как происходит оплата?",
+      answer:"Оплата производится наличными в офисе, через терминал или банковским переводом. Вы можете вносить оплату ежемесячно, однако мы рекомендуем оплатить курс целиком и получить скидку в 10% его стоимости."
+      },
+      {
+      userName:"",
+      adminName:"",
+      question:"Мы передумали, можем ли мы вернуть деньги?",
+      answer:"Конечно! В любой момент вы можете вернуть остаток средств за все оставшиеся календарные месяцы с месяца, следующего за месяцем обращения в администрацию. Обратите внимание, что в целях безопасности мы можем запросить документ, удостоверяющий личность."
+      },]
   },
   {
     title: "Процесс обучения",
     questions: [{
       userName:"ewgwg",
       adminName:"gewgwe",
-      question:"ewgwgqqd",
-      answer:"rtweberb"
+      question:"Как будут проходить занятия?",
+      answer:"Урок длится один час двадцать минут. В начале пары преподаватель отметит присутствующих, после чего начнёт разбор новой темы. Лекция, презентация и ряд самостоятельных заданий для закрепления результата - ни один студент не останется без внимания!"
       },
       {
       userName:"",
       adminName:"",
-      question:"",
-      answer:""
-      },]
+      question:"Будут ли задания на дом?",
+      answer:"Да, но перегружать студентов - не наша политика. В качестве домашнего задания мы выдаём лишь необходимый минимум, расчитанный на 30-40 минут работы. Однако если студент почувствует необходимость, наша онлайн-платформа обладает огромной базой заданий различной степени сложности. Задания проверяются автоматически - студенту сразу получи результат своей работы!"
+      },{
+      userName:"",
+      adminName:"",
+      question:"Могу ли я контролировать обучение своего ребёнка?",
+      answer:"Конечно! У каждого студента имеется электронный дневник, в котором проставляется информация о посещённых занятиях, назначенных и выполненных заданяих а также отметках, полученных в ходе урока."
+      },
+      
+    
+    ]
   },
   {
-    title: "Что даст обучение в IT-GO",
+    title: "Что потом?",
     questions: [{
       userName:"32",
       adminName:"424",
-      question:"g",
-      answer:"sdva"
+      question:"Можно ли получить профессию после окончаия IT GO?",
+      answer:"Да. У нас есть курсы, которые подразумевают получение профессии с нуля, обычно они длятся 10 месяцев. Более короткие курсы (3-5 месяцев) предполагают изучение отдельно выбранной технологии. Если возникают сомнения, какой курс подойдёт именно вам, наша администрация с радостью вам поможет!"
       },
       {
       userName:"sdav",
       adminName:"lkrgq",
-      question:"ewgq34",
-      answer:"235"
+      question:"Будет ли у меня портфолио?",
+      answer:"Да. В зависимости от выбранного курса по окончании вы сможете пополнить ваше портфолио несколькими проек"
       },]
   },
 ]
@@ -73,38 +111,27 @@ export default function Grade () {
 
 return(
   <div style={{backgroundColor:"rgb(241, 244, 247)"}}>
-    <head style={{display:"flex", justifyContent:"space-between", color: "white", width:"calc(100% - 40*2px)", height:"65px", alignItems:"center", padding:'10px 40px 10px 40px', backgroundColor:"rgb(55, 84, 135)"}}>
-      <div style={{fontSize:"24px", cursor:"pointer"}}><NavLink to="/"><b>IT GO!</b></NavLink></div>
-      <nav style={{cursor:"pointer", position:"relative", zIndex:"12"}}>
-        <div className={css.menu__section}><NavLink to="/grade">ПОСТУПЛЕНИЕ</NavLink></div>
-        <div className={css.menu__section}><NavLink to="/students">ЭЛЕКТРОННЫЙ ДНЕВНИК</NavLink></div>
-        <div className={css.menu__section}>РАСПИСАНИЕ</div>
-        <div className={css.menu__section}><a href="#programms">ПРОГРАММЫ</a></div>
-      </nav>
-      <div className={css.num}>+998 (33) 322-48-55</div>
-    </head>
+    <div className={css.head_setting} >
+      <Header />
+    </div>
     <div style={{margin:'auto', maxWidth:'1100px'}}>
-      <h1 style={{maxWidth:'900px', textAlign:'center',margin:'40px auto', fontSize:"48px"}}>В этом разделе мы собрали самые частые вопросы о поступлении и обучении в IT-GO</h1>
+      <h1 className={css.title}>В этом разделе мы собрали самые частые вопросы о поступлении и обучении в IT-GO</h1>
         {QUESTIONS.map(el=>{return(
-            <div>
+            <div className={css.accordeon}>
               <Accordion expanded={expanded === el.title} onChange={handleChange(el.title)}>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel4bh-content"
                   id="panel4bh-header"
                 >
-                  <Typography sx={{ flexShrink: 0 }} style={{fontSize:'22px', fontWeight:'300', padding:"3px"}}>{el.title}</Typography>
+                  <Typography sx={{ flexShrink: 0 }} className={css.accordeon__title}>{el.title}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography>
                   {el.questions.map(underEl=>{return(
                   <div className={css.question}>
-                    <div style={{ }}>
-                      <div style={{fontWeight:"100", color:"rgb(92, 92, 92)", marginBottom:"20px", fontWeight:'100'}}>{underEl.userName}:</div>
-                      <div style={{marginRight:"50px", fontWeight:"100", color:"rgb(92, 92, 92)", width:'70px'}}>{underEl.adminName}:</div>
-                    </div>
                     <div >
-                      <div style={{marginBottom:"20px"}}><b>{underEl.answer}</b></div>
+                      <div style={{marginBottom:"20px"}}><b>{underEl.question}</b></div>
                       <div style={{fontWeight:'300'}}>{underEl.answer}</div>
                     </div>
                   </div>
@@ -115,10 +142,12 @@ return(
 
             </div>
         )})}
-                  <Map/>
 
     </div>
-    <Footer />
+    <div style={{backgroundImage:`url(${pic11})`, backgroundSize:"cover", paddingTop:'1px', backgroundPosition:'center', marginTop:'80px'}}>
+      <Map />
+      <Footer/>
+    </div>
   </div>
 )
 }

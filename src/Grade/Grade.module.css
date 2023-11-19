@@ -6,13 +6,60 @@
 
 .question{
   padding: 30px;
-  border: 1px blue solid;
+  background-color: rgb(243, 248, 252);
   margin: 18px auto;
   max-width: 800px;
-  border-radius: 8px;
+  border-radius: 3px;
   text-align: left;
   font-size: 18px;
   display: flex;
   line-height: 1.5;
-  
+}
+
+.head_setting{
+  background-color: rgb(31, 61, 115);
+  height: 80px;
+}
+
+.title{
+  max-width: 900px;
+  text-align: center;
+  margin: 40px auto;
+  font-size: 48px;
+  padding: 0px 20px;
+}
+
+.accordeon{
+  margin: 0px 40px;
+}
+
+.accordeon__title{
+  font-size: 22px;
+  font-weight: 300;
+  padding: 3px;
+}
+
+@media (max-width: 820px) {
+  .head_setting {
+    height: 44px;
+  }
+
+  .title{
+    font-size: 24px;
+  }
+
+  h1{
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 580px) {
+  .accordeon{
+    margin: 0px 20px;
+    font-size: 16px;
+  }
+
+  .accordeon__title{
+    font-size: 18px
+  }
 }

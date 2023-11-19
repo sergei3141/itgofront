@@ -1,5 +1,7 @@
 import css from './Table.module.css'
 import Footer from '../Other/Footer'
+import Header from '../Header/HeaderLanding';
+import Map from '../Other/Map'
 import HeaderLanding from '../Header/HeaderLanding'
 
 import * as React from 'react';
@@ -13,6 +15,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 import { getTable } from '../API/API';
+
+import pic11 from '../img/photo/photo12.jpg'
 
 // FOR TABLE //
 
@@ -40,16 +44,6 @@ function createData(name, mon, tue, wed, thu, fri, sat, sun) {
   return {name, mon, tue, wed, thu, fri, sat, sun};
 }
 
-
-
-// const rows = [
-//   createData('React-01', '', '', '10:30-11:50', '', '', '', '10:30-11:50'),
-//   createData('JavaScript-02', '', '', '', '', '', '', '10:30-13:20'),
-//   createData('HTML-02', '16:00-17:20', '', '16:00-17:20', '', '16:00-17:20', '', ''),
-//   createData('WebExpress-01', '', '16:00-17:20', '', '16:00-17:20', '', '16:00-17:20', ''),
-//   createData('WebExpress-02', '10:30-11-20', '', '', '', '', '', ''),
-// ];
-
 // FOR TABLE //
 
 export default function Tables () {
@@ -69,8 +63,10 @@ export default function Tables () {
   }, [])
 
 return(
-  <div style={{backgroundColor:"rgb(241, 244, 247)", paddingBottom:'100px', minHeight:"calc(100vh - 100px)"}}>
-    <HeaderLanding />
+  <div style={{backgroundColor:"rgb(241, 244, 247)", minHeight:"calc(100vh - 100px)"}}>
+        <div className={css.head_setting} >
+          <Header />
+        </div>
     <div style={{maxWidth:"1100px", margin:'50px auto'}}>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -104,6 +100,11 @@ return(
         </TableBody>
       </Table>
     </TableContainer>
+    </div>
+
+    <div style={{backgroundImage:`url(${pic11})`, backgroundSize:"cover", paddingTop:'1px', backgroundPosition:'center', marginTop:'80px'}}>
+      <Map />
+      <Footer/>
     </div>
   </div>
 )
