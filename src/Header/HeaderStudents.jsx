@@ -4,19 +4,17 @@ import { NavLink } from "react-router-dom";
 
 function Header(props) {
     return (
-       <header className={css.header} style={{display:"felx", justifyContent:"space-between"}}>
+       <header className={css.header} style={{display:"felx", justifyContent:"space-between", width:'100%', top:0, position:'relative', marginBottom:'60px'}}>
             <nav>
                 <NavLink to="/">
-                <div style={{width:'90px', display: 'flex', alignItems: 'center', marginTop:"16px", fontWeight:'700', fontSize:"24px", cursor:"pointer"}}>IT-GO!</div>
+                <div style={{width:'90px', display: 'flex', alignItems: 'center', marginTop:"16px", fontWeight:'700', fontSize:"24px", cursor:"pointer"}}>IT GO!</div>
                 </NavLink>
                 <div style={{display:"flex", justifyContent:"center", width:'100%'}}>
                     <div className={css.header__link}><a>{props.propsHeaderData?.name}</a></div>
-                    <div className={css.header__link}><a>Балл: 4,8</a></div>
-                    <div className={css.header__link}><a>Заданий: 10</a></div>
                 </div>
             </nav>
             <NavLink to="/codewings">
-                <Button type="primary" style={{color: 'white', opacity:1}}>CodeWings</Button>
+                <Button type="primary" style={{color: 'white', opacity:1, marginRight:'50px'}}>CodeWings</Button>
             </NavLink>
        </header>
     )

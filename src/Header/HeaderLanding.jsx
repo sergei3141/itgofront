@@ -74,7 +74,7 @@ function Header() {
             <ListItemIcon>
               <SchoolIcon />
             </ListItemIcon>
-            <ListItemText primary={'Поступление'} onClick={()=>{Fireflies.terminate()}}/>
+            <ListItemText primary={'Вопросы'} onClick={()=>{Fireflies.terminate()}}/>
           </ListItemButton>
         </ListItem>
         </NavLink>
@@ -132,12 +132,12 @@ function Header() {
       <Divider />
       <List>
       <div style={{textAlign:'center', margin:'30px 0px 15px 0px'}}>Наш адрес:</div>
-      <ListItem key={'Ташкент, улица Фучика 14'} disablePadding>
+      <ListItem key={'Ташкент, Юнусабад 13 64/1. Ориентир: Mega Planet, метро Юнусабад (4 мин)'} disablePadding>
             <ListItemButton>
               <ListItemIcon>
                 <AddLocationIcon/> 
               </ListItemIcon>
-              <ListItemText primary={'Ташкент, улица Фучика 14'} />
+              <ListItemText primary={localStorage.getItem('adress-1')} />
             </ListItemButton>
           </ListItem>
       </List>
@@ -150,13 +150,14 @@ function Header() {
   {/* For desktop Only */}
         <head class={css.head}>
         <NavLink to="/"><div className={css.head_itgo}><b>IT GO!</b></div></NavLink>
-          <nav class={css.head_nav} onClick={()=>{Fireflies.terminate()}}>
-            <div className={css.menu__section}><NavLink to="/grade">ПОСТУПЛЕНИЕ</NavLink></div>
-            <div className={css.menu__section}><NavLink to="/login">ЭЛЕКТРОННЫЙ ДНЕВНИК</NavLink></div>
-            <div className={css.menu__section}><NavLink to="/table">РАСПИСАНИЕ</NavLink></div>
-            <div className={css.menu__section}><a href="#programms">ПРОГРАММЫ</a></div>
+          <nav class={css.head_nav} >
+          <div className={css.menu__section} onClick={()=>{Fireflies.terminate()}}><NavLink to="/courses">КУРСЫ</NavLink></div>
+          <div className={css.menu__section}><NavLink to="/">ГЛАВНАЯ</NavLink></div>
+            <div className={css.menu__section} onClick={()=>{Fireflies.terminate()}}><NavLink to="/login">ДНЕВНИК</NavLink></div>
+            <div className={css.menu__section} onClick={()=>{Fireflies.terminate()}}><NavLink to="/table">РАСПИСАНИЕ</NavLink></div>
+            <div className={css.menu__section} onClick={()=>{Fireflies.terminate()}}><NavLink to="/grade">ВОПРОСЫ</NavLink></div>
           </nav>
-          <div className={css.num}>+998 (33) 322-48-55</div>
+          <div className={css.num}><a href="tel:+998333224855" style={{cursor:'pointer'}}>+998 (33) 322-48-55</a></div>
         </head>
   
   {/* For mobile Only */}

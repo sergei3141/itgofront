@@ -1,58 +1,25 @@
 import React, {useEffect, useState} from 'react'
 import css from './Landing.module.css'
+import FormDialog from './FormDialog'
 import { Icon } from '@iconify/react';
-
 import ReactSlidy from 'react-slidy'
 import 'react-slidy/lib/styles.css'
 import { NavLink } from 'react-router-dom';
 import Fireflies from 'fireflies.js'
+import { getTable } from '../API/API';
 
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import BorderColorIcon from '@mui/icons-material/BorderColor';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import AddLocationIcon from '@mui/icons-material/AddLocation';
+import { PROGRAMMS, QUESTIONS, SLIDES } from './InfoBase';
 
 import Map from '../Other/Map';
 import Footer from '../Other/Footer';
-
-import pic2 from '../img/photo/photo1.jpeg'
-import pic1 from '../img/photo/photo2.jpeg'
-import pic3 from '../img/photo/photo3.jpeg'
-import pic4 from '../img/photo/photo4.jpeg'
-import pic7 from '../img/photo/photo7.jpg'
-import pic8 from '../img/photo/photo8.jpg'
 import pic9 from '../img/photo/photo9.jpg'
 import pic10 from '../img/photo/photo10.jpg'
 import pic11 from '../img/photo/photo12.jpg'
-import itgo from '../img/programms/iconitgo.png'
 
-import p1 from '../img/programms/p1.jpeg'
-import p2 from '../img/programms/p2.jpg'
-import p3 from '../img/programms/p3.jpg'
-import p4 from '../img/programms/p4.jpg'
-import p5 from '../img/programms/p5.jpg'
-import p6 from '../img/programms/p6.jpg'
-import p7 from '../img/programms/p7.jpg'
 import iconitgo from '../img/programms/iconitgo.png'
 import Header from '../Header/HeaderLanding';
 
-const SLIDES = [
-  {'pic': pic1, 'marginTop' : '130px', 'text': `Качество знаний - наш приоритет. Поэтому мы проводим обучение исключительно в мини-группах не более 6 студентов. Преподаватель уделит время каждому`}, 
-  {'pic': pic7, 'marginTop' : '130px', 'text': `Наша онлайн-платформа работает круглосуточно. Студент может выполнить задания в любое удобное время и сразу же получить результат!`}, 
-  {'pic': pic3, 'marginTop' : '130px', 'text': 'Мы гарантируем качество знаний. После успешной сдачи экзамена вы получите сертификат об окончании образовательной программы '}, 
-  {'pic': pic8, 'marginTop' : '110px', 'text': 'Наши классы оборудованы всем необходимым. Обучение проводится на соверменных компьютерах, но вы можете использовать и ваши личные устройства'}]
+
 const createStyles = isActive => ({
   background: 'transparent',
   border: 0,
@@ -61,26 +28,55 @@ const createStyles = isActive => ({
   fontSize: '32px'
 })
 
-const PROGRAMMS = [
-  {id:0, name: "Web-разработка Полный курс", description: "Изучите основные технологии и станьте востребованным специалистом в IT-индустрии.", time: "90 часов", age: 8, img: p4, filter: "linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 30%, rgba(0, 0, 0, 0.25) 80%, rgba(0, 0, 0, 0.5) 93%, rgba(0, 0, 0, 0.6) 100%);"},
-  {id:1, name: `Web-разработка Экспресс курс`, description: "Изучение базовые технологии web-разработки и создайте ваш первый сайт!", time: "60 часов", age: 12, img: p3},
-  {id:2, name: "Программирование JavaScript", description: "Целенаправенное изучение языка JavaScript. Напишите вашу первую программу!", time: "45 часов", age: 12, img: p7},
-  {id:3, name: "3D моделирование и дизайн", description: "Научитесь создавать дизайны интерьеров, 3D-анимациию и освойте основы рендеринга в 3ds MAX", time: "40 часов", age: 12, img: p5},
-  {id:4, name: "React + Redux", description: "Научитесь разрабатывать полнофункциональные приложения с применением соверменных библиотек. Требуется знание Java Script", time: "45 часов", age: 12, img: p1},
-  {id:5, name: "Собеседования", description: "Индивидуальные занятия. Подготовьте портфолио и пройдите тестовое собеседование с опытным специалистом", time: "?? часов", age: 18, img: p6}
-]
+export function Programms () {
 
-const QUESTIONS = [
-  {user: ["Елизавета", "Как попасть на курсы?"], admin: ["IT-GO", "Свяжитесь с нашим администратором и выберите интересующий вас курс или посетите наш учебный центр лично. Для большинства курсов предварительных знаний не требуется. "]},
-  {user: ["Бахитёр", "Какие документы нужны?"], admin: ["IT-GO", "Для заключения договора достаточно любого документа, удостоверяющего личность"]},
-  {user: ["Оксана", "Я не знаю, какой курс подойдёт моему ребёнку"], admin: ["IT-GO", "Свяжитесь с нами любым удобным вам способом! Более того, вы можете прийти и посмотреть, как проходят занятия. Это бесплатно."]},
-]
+  const [open, setOpen] = useState([])
 
 
-function Landing() {
+  React.useEffect(()=>{
+
+
+    getTable().then((data)=>{
+      let arr = []
+      for(let i = 0; i < data.data.length; i++){
+        if(data.data[i].open){
+          let obj = {base: data.data[i].base, splash: data.data[i].open}
+          arr.push(obj)
+        }
+      }
+      setOpen(arr)})
+  }, [])
+
+  return(
+    <div className={css.galery} >
+    {PROGRAMMS.map((el)=>{
+      open.map((b)=>{if (b.base == el.base){el.splash = b.splash}})
+      return(
+        <NavLink to="/courses" state={{from: {el} }} key={el.id} onClick={()=>{Fireflies.terminate()}}>
+          {open.map((b)=>{if (b.base == el.base){return(<div className={css.splash}>{b.splash}</div>)}})} 
+          <div style={{display:"inline-block", overflow:"hidden", margin:"20px"}} onClick={()=>console.log(9)}>
+            <div className={css.card} style={{backgroundImage:`url(${el.img})`, backgroundSize:"cover", backgroundPosition:'center'}}></div>
+            <div className={css.preCard} style={{zIndex:1, position:"absolute"}}>
+              <div className={css.prePreCard}>
+                <div className={css.card__time}>{el.time}</div>
+                <div>
+                <div className={css.card__title} style={{verticalAlign:"bottom", display:"inline-block"}}>{el.name}</div>
+                <div>{el.description}</div>
+                </div>
+                <div className={css.card__button} onClick={()=>console.log(9)}>Узнать больше</div>
+              </div>
+            </div>
+          </div>
+        </NavLink>
+    )})}
+  </div>
+  )
+}
+
+function Landing(props) {
+
   Fireflies.initialize(undefined, [10, 22], [{ fill: '#ffffff', glow: '#4651b3' }], true, true, true, false)
 
-  
   const [actualSlide, setActualSlide] = useState(0)
 
 
@@ -90,7 +86,8 @@ function Landing() {
 
   //change fireflughts screen
   window.onresize = function(event) {
-    document.querySelectorAll('canvas')[0].style.width =  + document.body.clientWidth + 'px'
+    if(document.querySelectorAll('canvas')[0]){document.querySelectorAll('canvas')[0].style.width =  + document.body.clientWidth + 'px'}
+
   };
 
 setTimeout(()=>{
@@ -106,7 +103,6 @@ setTimeout(()=>{
   document.querySelectorAll('canvas')[0].style.zIndex = "10"
 }, 0)
 
-
   return (
     <div>
 
@@ -118,12 +114,13 @@ setTimeout(()=>{
         </div>
         <div className={css.mainText} >Учебный центр <br/> IT GO!</div>
         <div className={css.mainText__subtitle}>Получи профессию программиста <br/>и стань специалистом в сфере айти разработки</div>
-        <div className={css.mainText__join}>Присоединяйтесь!</div>
+        <div className={css.mainText__join}><FormDialog /></div>
+        <div className={css.mainText__subtitle_adress} id='adress-1'>Поиск ближайшего филиала...</div>
       </section>
       <div style={{height:"12.2vh", width:"100vw", backgroundColor:"rgb(242, 242, 242)", position: "absolute", zIndex:"100", bottom:"-12.7vh"}}></div>
 
       <section style={{background: "linear-gradient(180deg, rgb(242, 242, 242) 0%, rgb(255, 255, 255) 100%)"}}>
-      <img src={iconitgo} style={{width:'100px', height:'80px', marginBottom:'-35px', marginTop:"40px", zIndex:'3000', position:'relative'}}></img>
+      <img src={iconitgo} style={{width:'100px', height:'80px', marginBottom:'-35px', marginTop:"40px", zIndex:'1', position:'relative'}}></img>
         <h1 >IT GO в цифрах</h1>
 
         <div className={css.icon}></div>
@@ -155,13 +152,20 @@ setTimeout(()=>{
           <ReactSlidy doAfterSlide={updateSlide} slide={actualSlide} infiniteLoop>
             {SLIDES.map(src => (
               <div className={css.inSlider}>
-                njnioljnoi
                 <div className={css.inSlider_pic} style={{backgroundImage:`url(${src.pic})`}}>
                 </div>
                 <div className={css.inSlider_text}><textarea className={css.inSlider_textarea} style={{ marginTop:`${src.marginTop}`}} disabled={true}>{src.text}</textarea></div>
               </div>
             ))}
           </ReactSlidy>
+          <div className={css.sliderArrowsForPhone}>
+            <div className={css.whiteGrad} style={{position:'absolute',  left:10, bottom:15}}>
+              <Icon icon="lucide:arrow-left"  className={css.sliderArrowsText}style={{ marginTop:'9px'}}  onClick={() => {if(actualSlide == 0){updateSlide({currentSlide: SLIDES.length-1})}else{updateSlide({currentSlide: actualSlide-1})}}}/>
+            </div>
+            <div className={css.whiteGrad} style={{position:'absolute', right:10, bottom:15}}>     
+            <Icon icon="lucide:arrow-right" className={css.sliderArrowsText}style={{ marginTop:'9px'}} onClick={() => {if(actualSlide == SLIDES.length -1){updateSlide({currentSlide: 0})}else{updateSlide({currentSlide: actualSlide+1})}}}/>
+            </div>
+          </div>
           <div>
             {SLIDES.map((_, index) => {
               return (
@@ -187,24 +191,8 @@ setTimeout(()=>{
             <h3 className={css.courses_subtitle}>Запишитесь на курсы по следующим направлениям</h3>
           </div>
           
-          <div className={css.galery} >
-            {PROGRAMMS.map(el=>{
-              return(
-                <div style={{display:"inline-block", overflow:"hidden", margin:"20px"}} onClick={()=>console.log(9)}>
-                  <div className={css.card} style={{backgroundImage:`url(${el.img})`, backgroundSize:"cover"}}></div>
-                  <div className={css.preCard} style={{zIndex:1, position:"absolute"}}>
-                    <div className={css.prePreCard}>
-                      <div className={css.card__time}>{el.time}</div>
-                      <div>
-                      <div className={css.card__title} style={{verticalAlign:"bottom", display:"inline-block"}}>{el.name}</div>
-                      <div>{el.description}</div>
-                      </div>
-                      <div className={css.card__button} onClick={()=>console.log(9)}>Узнать больше</div>
-                    </div>
-                  </div>
-                </div>
-            )})}
-          </div>
+          <Programms/>
+
         </section>
         <h1>Как проходят наши занятия?</h1>
         <div style={{ backgroundImage:`url(${pic9})`, backgroundSize: 'cover', left:0, position:'relative', backgroundPosition:'center', width:'100%', padding:'100px 0px 100px 0px'}}>
@@ -259,7 +247,7 @@ setTimeout(()=>{
                 <div className={css.question}>
                   <div style={{ }}>
                     <div style={{fontWeight:"100", color:"rgb(62, 62, 62)", marginBottom:"20px"}} >{el.user[0]}:</div>
-                    <div style={{marginRight:"50px", fontWeight:"100", color:"rgb(62, 62, 62)", width:'70px'}}>IT-GO:</div>
+                    <div style={{marginRight:"50px", fontWeight:"100", color:"rgb(62, 62, 62)", width:'70px'}}>IT GO:</div>
                   </div>
                   <div >
                     <div style={{marginBottom:"20px"}}><b>{el.user[1]}</b></div>
@@ -267,18 +255,9 @@ setTimeout(()=>{
                   </div>
                 </div>
               )})}
-              <NavLink to="/grade" onClick={()=>{Fireflies.terminate()}} onClick="scroll(0,0); return false" ><div className={css.question__button} style={{marginBottom:'90px', marginTop:'40px'}}>Больше вопросов</div></NavLink>
+              <NavLink to="/grade" onClick={()=>{Fireflies.terminate()}}><div className={css.question__button} style={{marginBottom:'90px', marginTop:'40px'}}>Больше вопросов</div></NavLink>
             </div>
           </section>
-
-   
-              {/*      =========    SECTION FIVE     =========     */}
-
-  
-
-              {/*      =========    SECTION FOOTER     =========     */}
-
-
     </div>
     <div style={{backgroundImage:`url(${pic11})`, backgroundSize:"cover", paddingTop:'1px', backgroundPosition:'center'}}>
       <Map />

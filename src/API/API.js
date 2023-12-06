@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-// const base = 'http://127.0.0.1:8000/api'
+ const base = 'http://127.0.0.1:8000/api'
 // const base = 'http://91.186.196.131/api'
-const base = 'https://it-go.su:90/api'
+// const base = 'https://it-go.su:90/api'
 
 export function auth (data) {
   let config = {
@@ -49,6 +49,66 @@ export function getTable () {
     // headers: { 
     //   'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     // }
+  };
+  return(
+    axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+  }))
+}
+
+export function createTable (data) {
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: `${base}/v1/table`,
+    headers: { 
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    },
+    data:data
+  };
+  return(
+    axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+  }))
+}
+
+export function changeTableById (id, data) {
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: `${base}/v1/table/${id}`,
+    headers: { 
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    },
+    data:data
+  };
+  return(
+    axios.request(config)
+    .then((response) => {
+      console.log(response)
+      return response;
+    })
+    .catch((error) => {
+      console.log(error);
+  }))
+}
+
+export function deleteTableById (id) {
+  let config = {
+    method: 'delete',
+    maxBodyLength: Infinity,
+    url: `${base}/v1/table/${id}`,
+    headers: { 
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    },
   };
   return(
     axios.request(config)
@@ -117,11 +177,11 @@ export function getUsersByGroup (group_id) {
   }))
 }
 
-export function getAllUsers () {
+export function getAllUsersAdminOnly (active) {
   let config = {
     method: 'get',
     maxBodyLength: Infinity,
-    url: `${base}/v1/users`,
+    url: `${base}/v1/users/adminOnly?active=${active}`,
     headers: { 
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }
@@ -207,6 +267,27 @@ export function getGroupsById (id) {
     .then((response) => {
       console.log(response)
       return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+  }))
+}
+
+export function changeGroupById (id, data) {
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: `${base}/v1/groups/${id}`,
+    headers: { 
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    },
+    data:data
+  };
+  return(
+    axios.request(config)
+    .then((response) => {
+      console.log(response)
+      return response;
     })
     .catch((error) => {
       console.log(error);
@@ -351,3 +432,280 @@ export function createNewLesson (data) {
       console.log(error);
   }))
 }
+
+export function getExerciseById (id) {
+  let config = {
+    method: 'get',
+    maxBodyLength: Infinity,
+    url: `${base}/v1/exercises/${id}`,
+    headers: { 
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    }
+  };
+  return(
+    axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+  }))
+}
+
+export function getAllExercises () {
+  let config = {
+    method: 'get',
+    maxBodyLength: Infinity,
+    url: `${base}/v1/exercises`,
+    headers: { 
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    }
+  };
+  return(
+    axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+  }))
+}
+
+export function createNewExercise (data) {
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: `${base}/v1/exercises`,
+    headers: { 
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    },
+    data:data
+  };
+  return(
+    axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+  }))
+}
+
+export function changeExerciseById (data, id) {
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: `${base}/v1/exercises/${id}`,
+    headers: { 
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    },
+    data:data
+  };
+  return(
+    axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+  }))
+}
+
+export function sendToTelegram(){}
+
+export function createNewCourse (data) {
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: `${base}/v1/courses`,
+    headers: { 
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    },
+    data:data
+  };
+  return(
+    axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+  }))
+}
+
+export function changeCourseById (data, id) {
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: `${base}/v1/courses/${id}`,
+    headers: { 
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    },
+    data:data
+  };
+  return(
+    axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+  }))
+}
+
+export function deleteThemeById (id) {
+  let config = {
+    method: 'delete',
+    maxBodyLength: Infinity,
+    url: `${base}/v1/themes/${id}`,
+    headers: { 
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    },
+  };
+  return(
+    axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+  }))
+}
+
+export function changeThemeById (id, data) {
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: `${base}/v1/themes/${id}`,
+    headers: { 
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    },
+    data:data
+  };
+  return(
+    axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+  }))
+}
+
+export function createNewTheme (data) {
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: `${base}/v1/themes`,
+    headers: { 
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    },
+    data:data
+  };
+  return(
+    axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+  }))
+}
+
+export function createNewClient (data) {
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: `${base}/v1/clients`,
+    headers: { 
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    },
+    data:data
+  };
+  return(
+    axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+  }))
+}
+
+export function getAllClients (num) {
+  let config = {
+    method: 'get',
+    maxBodyLength: Infinity,
+    url: `${base}/v1/clients?page=${num}`,
+    headers: { 
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    },
+  };
+  return(
+    axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+  }))
+}
+
+export function deleteClientById (id) {
+  let config = {
+    method: 'delete',
+    maxBodyLength: Infinity,
+    url: `${base}/v1/clients/${id}`,
+    headers: { 
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    },
+  };
+  return(
+    axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+  }))
+}
+
+export function getAdress () {
+  let config = {
+    method: 'get',
+    maxBodyLength: Infinity,
+    url: `${base}/v1/contantmap`,
+    headers: { 
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    },
+  };
+  return(
+    axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+  }))
+}
+
+export function setAdress (data) {
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: `${base}/v1/contantmap/1`,
+    headers: { 
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    },
+    data:data,
+  };
+  return(
+    axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+  }))
+}
+

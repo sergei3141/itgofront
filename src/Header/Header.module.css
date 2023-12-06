@@ -5,15 +5,13 @@
     align-items: center;
     justify-content: space-between;
     padding: 25px;
+    z-index: 9999;
+    position: absolute;
 }
 
 .head_itgo{
     width:120px;
     cursor: pointer;
-}
-
-.num{
-
 }
 
 nav {
@@ -103,5 +101,11 @@ nav {
 @media (min-width: 821px) {
   .head_mobile{
     display: none;
+  }
+}
+
+@media (max-height: 600px) {
+  .head{
+    padding:0px 40px 0px 40px; 
   }
 }

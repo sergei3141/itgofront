@@ -14,3 +14,14 @@
   padding: 25px;
   min-height: 100px;
 }
+
+table input{
+  border: 0;
+  background-color: rgba(0, 0, 0, 0.0);
+  width: 75px;
+
+}
+
+td{
+  padding: 3px
+}

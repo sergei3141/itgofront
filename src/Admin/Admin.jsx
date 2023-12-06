@@ -2,6 +2,13 @@ import * as React from 'react';
 import HeaderTeacher from '../Header/HeaderTeacher'
 import AdminCreateUser from './AdminCreateUser'
 import AdminChangeUser from './AdminChangeUser'
+import AdminChangeTable from './AdminChangeTable';
+import AdminThemesTable from './AdminThemesTable';
+import AdminChangeGroup from './AdminChangeGroup';
+import AdminCreateExercise from './AdminCreateExercise';
+import AdminChangeExercise from './AdminChangeExercise';
+import AdminCreateCourse from './AdminCreateCourse'
+import AdminChangeCourse from './AdminChangeCourse'
 import css from './Admin.module.css'
 
 import PropTypes from 'prop-types';
@@ -10,12 +17,15 @@ import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import { styled } from '@mui/material/styles';
 import { autocompleteClasses } from '@mui/material/Autocomplete';
-import { getAllCourses, getAllUsers, getGroups, createNewGroup, authMe } from '../API/API';
+import { getAllCourses, getAllUsersAdminOnly, getGroups, createNewGroup, authMe } from '../API/API';
 import { Button } from 'antd';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
 import { ToastContainer,toast}from'react-toastify';import'react-toastify/dist/ReactToastify.css';
+import { NavLink } from 'react-router-dom';
+
+
  
 
 {/* =================  CREATE NEW GROUP JS START  ================= */}
@@ -46,13 +56,23 @@ export default function Admin() {
   const [coursesChosen, setCoursesChosen] = React.useState()
   const [currentGroupNumber, setCurrentGroupNumber] = React.useState()
 
+  function getUnactiveUsers () {
+    getAllUsersAdminOnly().then((data)=>{
+      let myData = Object.keys(data.data).map(key => {return data.data[key];})
+      setUsers(myData)
+    })
+  }
+
   React.useEffect(()=>{
     authMe().then((data)=>{
       setMyRole(data.role)
     })
 
-    getAllUsers().then((data)=>{
-      setUsers(data.data)
+    getAllUsersAdminOnly(1).then((data)=>{
+      var myData = Object.keys(data.data).map(key => {
+        return data.data[key];
+    })
+      setUsers(myData)
     })
 
     getAllCourses().then((data)=>{
@@ -81,18 +101,19 @@ const {
   defaultValue: [],
   multiple: true,
   options: users,
-  getOptionLabel: (option) => option.name,
 });
+
 
   function sendNewGroup () {
     let obj = new FormData()
     let string = ''
-    debugger
     for(let i = 0; i < value.length; i++){string = string + value[i].id + ','}; string = string.substring(0, string.length - 1)                       // users id parse
     for(let i = 0; i < courses.length; i++){if(courses[i].label === document.getElementById('combo-box-demo').value){obj.append('course_id', courses[i].id)}}  // course id parse
     obj.append('users_id', string);
+    obj.append('price', document.getElementById('coursePrice').value);
+    console.log(obj.get('price'))
+    debugger
     obj.append('name', (coursesChosen + '_' + currentGroupNumber))
-    console.log(obj.get('users_id'))
     if(obj.get('users_id') && obj.get('course_id') && obj.get('name')){
       createNewGroup(obj).then((data)=>{
         if(data?.status == 200){
@@ -110,6 +131,8 @@ const {
   return (
     <div className={css.teacher}>
       <HeaderTeacher data={myRole}/>
+      <NavLink to="/clients"><Button style={{position:'absolute', top:'24px', right:'120px', zIndex:99999}}>Клиенты</Button></NavLink>
+      <NavLink to="/content"><Button style={{position:'absolute', top:'24px', right:'220px', zIndex:99999}}>Контент</Button></NavLink>
 {/* =================  CREATE NEW GROUP HTML START  ================= */}
       <div className={css.card}>
         <div style={{textAlign:'left', fontSize:'18px', marginBottom:'12px', color:'rgb(55, 84, 135)'}}><b>Создать группу</b></div>
@@ -159,12 +182,24 @@ const {
       <div>Recommended name</div>
     <TextField id="outlined-basic"  variant="outlined" style={{marginTop:'8px'}} value={(coursesChosen?coursesChosen:'') + '_' + (currentGroupNumber?currentGroupNumber:'')}/>
     </div>
+    <div>
+      <div>Стоимость курса</div>
+      <input id='coursePrice' type="number" min="0" style={{marginTop:'8px', height:'50px'}}></input>
+    </div>
     <Button onClick={()=>{sendNewGroup()}} style={{height:'54px', marginTop:'28px', backgroundColor:'#D0D0F1', padding:"0px 40px"}}>Создать</Button>
       <ToastContainer autoClose={1500}/>
       </div>
     </div>
+    <AdminChangeGroup />
     <AdminCreateUser />
-    <AdminChangeUser usersData={users}/>
+    <AdminChangeUser usersData={users} getUnactiveUsers={getUnactiveUsers}/>
+    <AdminChangeTable/>
+    <AdminCreateExercise/>
+    <AdminChangeExercise/>
+    <AdminCreateCourse/>
+    <AdminChangeCourse courses={courses}/>
+    <AdminThemesTable courses={courses}/>
+
 
 {/* =================  CREATE NEW GROUP HTML END  ================= */}
     </div>

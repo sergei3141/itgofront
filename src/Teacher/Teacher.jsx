@@ -21,11 +21,12 @@ import Radio from '@mui/material/Radio';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import SelectMUI from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import { ToastContainer,toast}from'react-toastify';import'react-toastify/dist/ReactToastify.css';
-
+import { Select } from 'antd';
+import StudentsList from './StudentsList';
 
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { DatePicker, Space } from 'antd';
@@ -37,6 +38,7 @@ import { authMe, getAllGroups, getGroups, getLessonsByGroup, getGroupsById, getT
 import css from './Teacher.module.css'
 
 import HeaderTeacher from '../Header/HeaderTeacher'
+import { ProgressTypes } from 'antd/es/progress/progress';
 
 
 const dateFormatList = ['DD.MM.YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
@@ -81,7 +83,7 @@ function createData(id, course_id, theme, cw, hw, pptx, docx, lesson_num, type, 
   };
 }
 
-function StudentsMark(mark, name){
+function StudentsMark(mark, name, lesson_id){
 
   const [age, setAge] = React.useState(mark);
 
@@ -93,9 +95,9 @@ function StudentsMark(mark, name){
   return(
     <FormControl style={{width:"90px"}} size="small">
     <InputLabel id="demo-simple-select-label">Балл</InputLabel>
-    <Select
+    <SelectMUI
       labelId="demo-simple-select-label"
-      id={name.replace(/[^a-zA-Z]+/g, '')}
+      id={name.replace(/[^a-zA-Z]+/g, '') + lesson_id}
       value={age}
       label="Mark"
       onChange={handleChange}
@@ -107,7 +109,7 @@ function StudentsMark(mark, name){
       <MenuItem value={3}>3</MenuItem>
       <MenuItem value={4}>4</MenuItem>
       <MenuItem value={5}>5</MenuItem>
-    </Select>
+    </SelectMUI>
   </FormControl>
   )
 }
@@ -128,22 +130,30 @@ function CommentForStudent(){
 }
 
 function Row(props) {
+
   const { row } = props;
 
   const [open, setOpen] = React.useState(false);
+  const[cwOptions, setCwOptions] = React.useState([])
+  const[hwOptions, setHwOptions] = React.useState([])
+
+  React.useEffect(()=>{
+
+    if(props.r.cw && props.r.hw){
+      setCwOptions(props?.r?.cw.split(','))
+      setHwOptions(props?.r?.hw.split(','))
+    }
+  }, [])
+
+
+
+  
 
   function sendToServer () {
-    // console.log(props.currentGroupId)
-    // console.log(props.currentGroupName.split("_")[0])
-    // console.log(props.currentGroupName)
-    // console.log(props.r.lesson_num)
-    // console.log(props.r.theme)
-    // console.log(props.r.cw)
-    // console.log(props.r.hw)
 
     let arr = []
     props.r.studentsAndMarks.map((el)=>{
-      arr.push(+document.getElementById(el.student.name.replace(/[^a-zA-Z]+/g, '')).innerText)
+      arr.push(+document.getElementById(el.student.name.replace(/[^a-zA-Z]+/g, '')+props.r.id).innerText)
     })
     let marks = arr.join(',')
 
@@ -153,18 +163,30 @@ function Row(props) {
     obj.append('group', props.currentGroupName)
     if(props.r.lesson_num){obj.append('lesson_num', props.r.lesson_num)}
     obj.append('theme', props.r.theme)
-    obj.append('cw', props.r.cw)
-    obj.append('hw', props.r.hw)
+    obj.append('cw', cwOptions)
+    obj.append('hw', hwOptions)
     obj.append('marks', marks)
-    console.log(obj.get('marks'))
-    debugger
+    obj.append('studentsIdInGroup', props.studentsIdInGroup)
     const notifySucces = () => toast.success("Урок успешно проведён!");
+console.log(obj.get('studentsIdInGroup'))
+debugger
     createNewLesson(obj).then(()=>{
+
       notifySucces()
       window.location.reload()
     })
 
+
+
   }
+
+  const handleChangeCW = (value) => {
+    setCwOptions(value.join(','))
+  };
+
+  const handleChangeHW = (value) => {
+    setHwOptions(value.join(','))
+  };
 
 
   return (
@@ -200,13 +222,34 @@ function Row(props) {
                 <div  style={{width:'calc(45vw - 20% + 20px)'}}>
                   <div style={{marginLeft:"15px"}}>Задания в классе:</div>
                   <div className={css.tasks}>
-                    {props.r.cw.split(',').map((el)=>{return(<div>{el}</div>)})}
+                  <Select
+                    mode="tags"
+                    style={{
+                      width: '100%',
+                      height: 'auto'
+                    }}
+                    onChange={handleChangeCW}
+                    tokenSeparators={[',']}
+                    defaultValue={cwOptions}
+                    id='CW'
+                  />
+                    {/* {props.r.cw.split(',').map((el)=>{return()})} */}
                   </div>
                 </div>
                 <div  style={{width:'calc(45vw - 20% + 20px)'}}>
                   <div style={{marginLeft:"15px"}}>Задания на дом:</div>
                   <div className={css.tasks}>
-                  {props.r.hw.split(',').map((el)=>{return(<div>{el}</div>)})}
+                  {/* {props.r.hw.split(',').map((el)=>{return(<div>{el}</div>)})} */}
+                  <Select
+                    mode="tags"
+                    style={{
+                      width: '100%',
+                      height: 'auto'
+                    }}
+                    onChange={handleChangeHW}
+                    tokenSeparators={[',']}
+                    defaultValue={hwOptions}
+                  />
                   </div>
                 </div>
               </div>
@@ -227,7 +270,7 @@ function Row(props) {
                       {/* <TableCell style={{width:'130px'}}>
                         {RadioGroup()}
                       </TableCell> */}
-                      <TableCell align="center" >{StudentsMark(markAndStudent.mark, markAndStudent.student.name)}</TableCell>
+                      <TableCell align="center" >{StudentsMark(markAndStudent.mark, markAndStudent.student.name, props.r.id)}</TableCell>
                       <TableCell align="center">
                       {CommentForStudent()}
                       </TableCell>
@@ -258,6 +301,8 @@ export default function CollapsibleTable() {
   const[lessons, setLessons] = React.useState()
   const[students, setStudents] = React.useState()
   const[compose, setCompose] = React.useState()
+  const[price, setPrice] = React.useState()
+  const[studentsIdInGroup, setStudentsIdInGroup] = React.useState()
 
 
   //FOR SEND TO SERVER
@@ -269,24 +314,36 @@ export default function CollapsibleTable() {
     rows2.push(createData(el.id, el.course_id, el.theme, el.cw, el.hw, el.pptx, el.docx, el.marks, el.type, el.created_at, el.studentsAndMarks))
   })
 
-  const handleChange = (event, newValue) => {   //TABS
+  const handleChange = (newValue) => {   //TABS
 
     let lessonsCurrent
     let studentsCurrent
     let coursesCurrent
 
-    setValue(newValue);
-    getLessonsByGroup(allGroups[newValue].id).then((data)=>{
+    getLessonsByGroup(newValue).then((data)=>{
+      let sortedLessons = 0
       setLessons(data.data)
       lessonsCurrent = data.data
-    getGroupsById(allGroups[newValue].id).then((data2)=>{
+    getGroupsById(newValue).then((data2)=>{
+      setPrice(data2.price)
       setCurrentGroupName(data2.name)
-      getUsersByGroup(allGroups[newValue].id).then((data3)=>{
-        setCurrentGroupId(allGroups[newValue].id)
+      getUsersByGroup(newValue).then((data3)=>{
+        let arr = []
+        data3.data.map((el)=>{arr.push(el.id)})
+        let str = arr.join()
+        setStudentsIdInGroup(str)
+        setCurrentGroupId(newValue)
         setStudents(data3.data)
         studentsCurrent = data3.data
         getThemesByCoursesId(data2.course_id).then((data4)=>{
-          setCourses(data4.data)
+
+
+          let sorted = data4.data.sort(function(a,b){ 
+            let x = a.lesson_num < b.lesson_num? -1:1; 
+            return x; 
+        });
+
+          setCourses(sorted)
           coursesCurrent = data4.data
           composeData(lessonsCurrent, studentsCurrent, coursesCurrent)
         })
@@ -294,6 +351,10 @@ export default function CollapsibleTable() {
     })
     }) 
   };
+
+  function setUnderline (e,value) {
+    setValue(value)
+  }
 
   function composeData (lessonsCurrent, studentsCurrent, coursesCurrent) {
     let lessonsAndCourses = []
@@ -304,8 +365,13 @@ export default function CollapsibleTable() {
       obj.id = i
       obj.pptx = coursesCurrent[i].pptx;
       obj.docx = coursesCurrent[i].docx;
+
       obj.hw = lessonsCurrent[i]?.hw || coursesCurrent[i].hw
       obj.cw = lessonsCurrent[i]?.cw || coursesCurrent[i].cw
+
+      if (lessonsCurrent[i]?.hw === null){obj.hw = ''}
+      if (lessonsCurrent[i]?.cw === null){obj.cw = ''}
+
       obj.theme = coursesCurrent[i].theme 
       let marks = lessonsCurrent[i]?.marks?.split(',') || []
       for(let j = 0; j < studentsCurrent.length; j++){
@@ -322,10 +388,6 @@ export default function CollapsibleTable() {
     }
     setCompose(lessonsAndCourses)
   }
-
-
-
-
 
   CustomTabPanel.propTypes = {  //TABS
     children: PropTypes.node,
@@ -353,24 +415,25 @@ export default function CollapsibleTable() {
 
   }, [])
 
-  function getGroupsFunction (id) {
-    getGroups(id).then((data)=>{
-    })
-  }
+  // function getGroupsFunction (id) {
+  //   getGroups(id).then((data)=>{
+  //   })
+  // }
 
   if(myRole == 'admin' || myRole == 'teacher'){
   return (
     <div className={css.teacher}>
             <HeaderTeacher data={myRole}/>
             <div style={{width: '90%', margin: '30px auto 30px auto'}}>
+            <StudentsList students={students} compose={compose} lessons={lessons}></StudentsList>
 
     <TableContainer component={Paper} style={{width: '90%', margin: '30px auto 30px auto'}}>
     <Box sx={{backgroundColor:'white'}}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example"  variant="scrollable" id="tableHeader">
-              {allGroups?.map((el)=>{return(
-                <Tab label={el.name} {...a11yProps(el.id)} />
-              )})}
+            <Tabs value={value} onChange={setUnderline} aria-label="basic tabs example"  variant="scrollable" id="tableHeader">
+              {allGroups?.map((el)=>{
+                if (el.active !== 0)
+                return(<Tab label={el.name} {...a11yProps(el.id)} onClick={()=>{handleChange(el.id)}} />)})}
             </Tabs>
           </Box>
 
@@ -378,7 +441,7 @@ export default function CollapsibleTable() {
       <Table aria-label="collapsible table">
         <TableBody>
           {rows2?.map((row) => {return(
-            <Row key={row.id + row.created_at + row.theme} r={row} currentGroupId={currentGroupId} currentGroupName={currentGroupName}/>
+            <Row key={row.id + row.created_at + row.theme} r={row} currentGroupId={currentGroupId} currentGroupName={currentGroupName} price={price} studentsIdInGroup={studentsIdInGroup}/>
           )}
           )}
           {!rows2[0] ? <div style={{height:"400px"}}><h3>Choose your group to start</h3></div> : <div></div>}

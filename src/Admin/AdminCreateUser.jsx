@@ -4,7 +4,8 @@ import { createNewStudent } from '../API/API';
 
 import TextField from '@mui/material/TextField';
 import { Button } from 'antd';
-import { ToastContainer,toast}from'react-toastify';import'react-toastify/dist/ReactToastify.css';
+import { ToastContainer,toast}from'react-toastify';
+import'react-toastify/dist/ReactToastify.css';
 
 export default function AdminCreateUser() {
 
@@ -13,7 +14,6 @@ export default function AdminCreateUser() {
 
   function sendNewStudent () {
     let obj = new FormData()
-    debugger
     obj.append('name', document.getElementById('outlined-basic-name').value)
     obj.append('phone', document.getElementById('outlined-basic-phone').value)
     obj.append('email', document.getElementById('outlined-basic-mail').value)

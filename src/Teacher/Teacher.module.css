@@ -4,6 +4,18 @@
   padding-bottom: 100px;
 }
 
+.card{
+  width: calc(90%);
+  box-sizing: border-box;
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  box-shadow:  0px 3px 4px 3px rgba(0, 0, 0, 0.097);
+  padding: 25px;
+  min-height: 100px;
+  margin: auto;
+  text-align: start;
+}
+
 .underTable{
   display: flex;
   padding: 20px
@@ -56,4 +68,28 @@
 .lessonEnd:active{
   background-color:rgb(94, 125, 162);
     color:white
+}
+
+.tasks__table{
+  background-color: rgb(216, 222, 236);
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+  min-height: 34px;
+}
+
+.tasks__cell{
+  margin: 4px;
+  padding: 3px;
+  border: 1px solid rgb(175, 185, 209);
+  width:44px;
+  background-color: aliceblue;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: .14s;
+}
+
+.tasks__cell:hover{
+  background-color: white;
 }

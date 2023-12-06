@@ -6,7 +6,7 @@ import Card from '@mui/material/Card';
 import { Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../API/API';
-
+import InputAdornment from '@mui/material/InputAdornment';
 
 
 export default function Login() {
@@ -25,11 +25,14 @@ export default function Login() {
       <Card style={{width: '400px', height:'320px', margin:'calc(50vh - 190px) auto', padding:"30px"}}>
         <h2>Войдите в вашу учётную запись</h2>
           <TextField
-            style={{width:'60%', margin:"10px"}}
+            style={{width:'60%', margin:"10px", color:'black'}}
             required
             id="loginPhone"
             label="Телефон"
             defaultValue=""
+            InputProps={{
+              startAdornment: <InputAdornment position="start" style={{color:'black'}}>+998</InputAdornment>,
+            }}
           />
           <TextField
             style={{width:'60%', margin:"10px"}}

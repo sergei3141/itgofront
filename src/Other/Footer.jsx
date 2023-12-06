@@ -2,36 +2,44 @@ import css from './Other.module.css'
 import { NavLink } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import itgo from '../img/programms/iconitgo.png'
+import Fireflies from 'fireflies.js'
+import { useState, useEffect } from 'react';
+import { getAdress } from '../API/API';
 
 function Map() {
+
+  const [adress, setAdress] = useState([])
+
+  useEffect(()=>{
+    getAdress().then((data)=>{
+      setAdress(data.data[0])
+    })
+  },[])
+
     return (
     <footer className={css.footer}>
         <div className={css.footer__row}>
-          <img src={itgo} style={{filter:'invert(100%)', width:'100px', marginTop:'30px'}}></img>
-          <h2 style={{fontWeight:"100"}}>Ташкент, улица Фучика 14</h2>
+          <img src={itgo} style={{filter:'invert(100%)', width:'100px', marginTop:'0px'}}></img>
+          <h2 style={{fontWeight:"100"}}>{adress?.adressTitle}<br></br> <div style={{fontSize:'18px',marginTop:'10px'}}>{adress?.adressSubtitle1}<br/>{adress?.adressSubtitle2}</div></h2>
         </div>
         <div className={css.footer__row}>
-                  <div className={css.footer__section}>ПОСТУПЛЕНИЕ</div>
-                  <div className={css.footer__section}><NavLink to="/students">ЭЛЕКТРОННЫЙ ДНЕВНИК</NavLink></div>
-                  <div className={css.footer__section}>РАСПИСАНИЕ</div>
-                  <div className={css.footer__section}><a href="/" >ПРОГРАММЫ</a></div>
-                  <div className={css.footer__section}>ВОПРОСЫ</div>
+                  <div className={css.footer__section}> <NavLink to="/">ГЛАВНАЯ</NavLink> </div>
+                  <div className={css.footer__section} onClick={()=>{Fireflies.terminate()}}><NavLink to="/login">ДНЕВНИК</NavLink></div>
+                  <div className={css.footer__section} onClick={()=>{Fireflies.terminate()}}><NavLink to="/table">РАСПИСАНИЕ</NavLink></div>
+                  <div className={css.footer__section} onClick={()=>{Fireflies.terminate()}}><NavLink to="/table">КУРСЫ</NavLink></div>
+                  <div className={css.footer__section} onClick={()=>{Fireflies.terminate()}}><NavLink to="/grade">ВОПРОСЫ</NavLink></div>
         </div>
         <div className={css.footer__row} >
           <div class={css.footer__title} style={{marginTop:'8px'}}>Наши контакты:</div>
           <div style={{display:'flex', paddingLeft:'calc(50% - 75px'}}>
-              <div className={css.footer__icons}><Icon icon="bi:telegram" /></div>
-              <div className={css.footer__icons}><Icon icon="brandico:instagram-filled" /></div>
-              <div className={css.footer__icons}><Icon icon="bi:telephone-fill" /></div>
+              <div className={css.footer__icons}><a href="https://telegram.me/Uz_it_go"><Icon icon="bi:telegram" /></a></div>
+              <div className={css.footer__icons}><a href="https://www.instagram.com/sergei314159/"><Icon icon="brandico:instagram-filled" /></a></div>
+              <div className={css.footer__icons}><a href="tel:+998333224855"><Icon icon="bi:telephone-fill" /></a></div>
           </div>
-          <div style={{textAlign:"left", marginBottom:'6px', lineHeight:2, paddingLeft:'calc(50% - 70px'}}>itgoschool@mail.ru  </div>
-          <div style={{textAlign:"left", marginBottom:'16px', lineHeight:2, paddingLeft:'calc(50% - 80px', width:'200px'}}>+998 (33) 322-48-55</div>
-
-            
-      
+          <div style={{textAlign:"left", marginBottom:'6px', lineHeight:2, paddingLeft:'calc(50% - 70px'}}><a href="https://e.mail.ru/compose/?to=itgoschool@mail.ru">itgoschool@mail.ru</a></div>
+          <div style={{textAlign:"left", marginBottom:'16px', lineHeight:2, paddingLeft:'calc(50% - 80px', width:'200px'}}><a href="tel:+998333224855">+998 (33) 322-48-55</a></div>
         </div>
         <div>
-      
         </div>
       </footer>
 

@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
@@ -13,14 +12,31 @@
     />
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400&display=swap" rel="stylesheet">
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-
     <title>IT GO школа программирования</title>
   </head>
   <body>
+
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div></div>
     <div id="root"></div>
   </body>
+  <script>
+    fetch('http://127.0.0.1:8000/api/v1/contantmap')
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response data
+        document.getElementById('adress-1').innerHTML = data.data[0].adressTitle
+        localStorage.setItem('adress-1', data.data[0].adressTitle)
+      })
+      .catch(error => {
+        // Handle any errors
+        debugger
+        console.error('Error:', error);
+      });
+  </script>
 </html>

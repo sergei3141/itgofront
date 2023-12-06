@@ -57,6 +57,33 @@ h3{
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.65) 30%, rgba(0, 0, 0, 0.55) 80%, rgba(0, 0, 0, 0.7) 93%, rgba(0, 0, 0, 0.8) 100%);
 }
 
+.splash{
+  position: absolute;
+  transform: rotate(-8deg);
+  font-weight: 700;
+  z-index: 1000;
+  margin-top: 20px;
+  color:yellow;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1) rotate(-8deg);
+  }
+  50%{
+    transform: scale(1.2) rotate(-8deg);
+  }
+  95% {
+    transform: scale(1) rotate(-8deg);
+  }
+  100% {
+    transform: scale(1) rotate(-8deg);
+  }
+}
+
 .statistic_number{
   font-size: 46px;
   font-weight: 700;
@@ -96,7 +123,7 @@ h3{
   top:calc(30vh - 41px);
 }
 
-.mainText__subtitle{
+.mainText__subtitle, .mainText__subtitle_adress{
   font-family:"Tilda";
   font-weight: 200;
   font-size: 28px;
@@ -109,6 +136,11 @@ h3{
   font-weight:700px;
 }
 
+.mainText__subtitle_adress{
+  top:90vh;
+}
+
+
 .mainText__join{
   font-family:"Tilda";
   font-weight: 200;
@@ -118,8 +150,8 @@ h3{
   z-index:100;
   position:absolute;
   top:75vh; 
-  padding: 10px 30px;
-  left: calc(50% - 140px);
+  margin: 14px 30px;
+  left: calc(50% - 110px);
   background-color: rgba(240, 248, 255, 0.8);
   cursor: pointer;
   transition: .2s;
@@ -130,6 +162,15 @@ h3{
   background-color: rgba(240, 248, 255, 1);
   box-shadow: 0px 0px 3px 3px rgba(255, 255, 255, 0.5);
   color:rgb(22, 22, 67)
+}
+
+.mainText__subtitle_subadres{
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.join{
+  padding:14px 30px;
 }
 
 .galery{
@@ -164,7 +205,7 @@ h3{
   height:400px;
   filter: grayscale(0%); 
   transition: .3s;
-  background: linear-gradient(0deg, rgba(5, 40, 95, 0.837) 0%, rgba(29, 77, 136, 0.613) 30%, rgba(113, 151, 212, 0.46) 60%, rgba(71, 140, 208, 0.61) 80%, rgba(13, 40, 72, 0.6) 100%);
+  background: linear-gradient(0deg, rgba(5, 40, 95, 0.837) 0%, rgba(29, 77, 136, 0.513) 30%, rgba(113, 151, 212, 0.40) 60%, rgba(71, 140, 208, 0.51) 80%, rgba(13, 40, 72, 0.6) 100%);
   /* clip-path: polygon(50% 0, 100% 28%, 100% 72%, 50% 100%, 0 72%, 0 28%); */
 }
 
@@ -531,6 +572,8 @@ margin-top: 80px;
     width:100%;
   }
   .inSlider{
+      width: calc(100vw - 60px);
+      padding: 30px 0;
       display:block;
       height: auto;
   }
@@ -564,6 +607,21 @@ margin-top: 80px;
     width:90%;
     margin: auto;
   }
+
+  .sliderArrowsForPhone{
+    display: block;
+  }
+
+  .sliderArrowsText{
+    color:#68c2fe
+  }
+}
+
+@media (min-width: 850px) {
+  .sliderArrowsForPhone{
+    display: none;
+  }
+
 }
 
 @media (max-width: 820px) {
@@ -628,7 +686,7 @@ margin-top: 80px;
   }
 
   .mainText__join{
-    top:85vh; 
+    top:72vh; 
   }
 
   .ourLessons_img{
@@ -721,25 +779,13 @@ margin-top: 80px;
     font-size: 24px;
   }
 
-  .mainText__join{
-    font-family:"Tilda";
-    font-weight: 200;
-    font-size: 18px;
-    color:rgb(31, 29, 45);
-    text-align: center;
-    z-index:100;
-    position:absolute;
-    top:85vh; 
-    padding: 5px 20px;
-    left: calc(50% - 90px);
-    background-color: rgba(240, 248, 255, 0.8);
-    cursor: pointer;
-    transition: .2s;
-    border-radius: 3px;
-  }
 
   .statistic_subtitle{
     margin-top: 15px;
+  }
+
+  .mainText__subtitle_adress{
+    top:90vh;
   }
 
   .courses_subtitle{
@@ -800,17 +846,88 @@ margin-top: 80px;
     margin-top: 50px;
   }
 
+  .mainText__subtitle_adress{
+    font-size: 20px;
+  }
+
+}
+
+@media (max-height: 600px) {
+  .mainText{
+    top:30vh;
+    font-size: 48px;
+  }
+}
+
+@media (max-height: 600px) {
+  .mainText__join{
+    top:67vh
+  }
+
+  .mainText__subtitle{
+    top:50vh;
+  }
+  
+  .mainText__subtitle_adress{
+    top:85vh;
+    font-size: 20px;
+  }
+
+  .mainText__subtitle_subadres{
+    margin: 0;
+  }
+
+  .join{
+    padding:4px 30px;
+  }
 }
 
 
-@media (max-height: 400px) {
+@media (max-height: 530px) {
   .mainText{
-    top:30vh;
+    top:20vh;
     font-size: 32px;
   }
 
   .mainText__subtitle{
     font-size: 20px;
+    top:40vh
+  }
+
+  .mainText__join{
+    top:65vh
+  }
+}
+
+@media (max-height: 460px) {
+  .mainText__subtitle_adress{
+    top:90vh;
+    font-size: 20px;
+  }
+
+  .mainText__join{
+    top:75vh
+  }
+
+  .mainText__subtitle{
+    font-size: 20px;
+    top:50vh
+  }
+}
+
+@media (max-height: 400px) {
+  .mainText__subtitle_adress{
+    top:90vh;
+    font-size: 20px;
+  }
+
+  .mainText__join{
+    top:70vh
+  }
+
+  .mainText__subtitle{
+    font-size: 20px;
+    top:50vh
   }
 }
 
@@ -849,6 +966,7 @@ margin-top: 80px;
     height: 106.5vh;
     width: 119vw;
   }
+
 }
 
 @media (max-width: 400px) {

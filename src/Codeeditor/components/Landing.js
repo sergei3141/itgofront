@@ -18,15 +18,21 @@ import LanguagesDropdown from "./LanguagesDropdown";
 import {Button} from 'antd'
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import css from '../../Teacher//Teacher.module.css'
 
 import EditorTerminal from "@monaco-editor/react";
 
 import Header from '../../Header/HeaderCodewings'
-import exercise from "./Tasks";
-import {authMe, changeUsersTask} from "../../API/API"
+//import exercise from "./Tasks";
+import {authMe, changeUsersTask, getExerciseById} from "../../API/API"
+import { useLocation } from "react-router-dom";
 
 
 const Landing = () => {
+  const location = useLocation();
+  const { state } = location;
+
+let exercise = [{id:"1"}, {id:"2"}, {id:"3"}]
 
   useEffect(()=>{
     authMe().then((data)=>{
@@ -37,11 +43,22 @@ const Landing = () => {
       a?.sort(function(a, b) { return a - b;});
       a = a?.join(',')
 
-      setTasksCompleted(a || 0);
+      setTasksCompleted(a || 1);
       setUsersId(data.id)
     })
+    let id = state?.from?.el || 1
+    getExerciseById(id).then((data)=>{
+      setCurrentExercise(data)
+      setCurrentTaskId(document.getElementById('taskId').value)
+      setExerciseText(data.description)
+      setExerciseTest(data.tests)
+      setExerciseTestKeys(data.testKeys)
+    })
+
+    changeTask()
   },[])
 
+  const [currentExercise, setCurrentExercise] = useState()
   const [currentTaskId, setCurrentTaskId] = useState(0);
   const [tasksCompleted, setTasksCompleted] = useState(0);
   const [usersId, setUsersId] = useState(0);
@@ -61,15 +78,14 @@ const Landing = () => {
   const ctrlPress = useKeyPress("Control");
 
   const onSelectChange = (sl) => {
-    console.log("selected Option...", sl);
     setLanguage(sl);
   };
 
   function testing (response){
-    let resultArray = atob(response.stdout).split('\n')
-    resultArray.pop()
-    debugger
-    if (JSON.stringify(resultArray)==JSON.stringify(exerciseTestKeys)){
+    let result = atob(response.stdout)
+    result = result.replace(/[^\w!?,.-]/g,'')
+    let keys = exerciseTestKeys.split(',').join('')
+    if (result===keys){
       showSuccessToast(`Тесты пройдены!`);
       //POST here new tast completed Здесь мы постим и проверяем, чтобы масисв был уникален
       let obj = new FormData()
@@ -135,13 +151,13 @@ const Landing = () => {
         checkStatus(token);
       })
       .catch((err) => {
+        
         let error = err.response ? err.response.data : err;
         // get error status
         let status = err.response.status;
         console.log("status", status);
         if (status === 429) {
           console.log("too many requests", status);
-
           showErrorToast(
             `Quota of 100 requests exceeded for the Day! Please read the blog on freeCodeCamp to learn how to setup your own RAPID API Judge0!`,
             10000
@@ -228,17 +244,22 @@ const Landing = () => {
   };
 
   const defaultProps = {
-    options: exercise,
+    options: {exercise},
     getOptionLabel: (option) => option.id,
   }
 
   function changeTask () {
-    setTimeout(()=>{
+
+    let id = document.getElementById('taskId').value || 1
+    getExerciseById(id).then((data)=>{
+      setCurrentExercise(data)
       setCurrentTaskId(document.getElementById('taskId').value)
-      setExerciseText(exercise[document.getElementById('taskId').value].description)
-      setExerciseTest(exercise[document.getElementById('taskId').value].tests)
-      setExerciseTestKeys(exercise[document.getElementById('taskId').value].testKeys)
-    },0)
+      setExerciseText(data.description)
+      setExerciseTest(data.tests)
+      setExerciseTestKeys(data.testKeys)
+    })
+
+
 
 
   }
@@ -281,13 +302,14 @@ const Landing = () => {
                   {...defaultProps}
                   disablePortal
                   id="taskId"
+                  defaultValue={{id: state?.from?.el || 1}}
                   options={exercise}
                   sx={{ width: 'calc(100% - 10px)' }}
                   renderInput={(params) => <TextField  style={{backgroundColor:'grey', margin:'6px'}} {...params} label="Task number" />}
                 />
                 {/* <Button style={{backgroundColor:'rgba(120,120,120,0.7)', height:'30px', borderRadius:'2px', cursor:'pointer', color:'white', marginBottom:'5px'}} class={'monaco-editor no-user-select mac  showUnused showDeprecated vs-dark'}>Следующая</Button> */}
               </div>
-              <div style={{width:'calc(100% - 4px - 20px)', height:'calc(69vh - 50px)', border:'0px solid red', resize:'none', fontFamily:'monospace', fontSize:'10px', padding:'10px'}} class={'monaco-editor no-user-select mac  showUnused showDeprecated vs-dark'}>
+              <div style={{width:'calc(100% - 4px - 20px)', height:'calc(69vh - 50px)', border:'0px solid red', resize:'none', fontFamily:'monospace', fontSize:'10px', padding:'10px', fontSize:'15px'}} class={'monaco-editor no-user-select mac  showUnused showDeprecated vs-dark'}>
                 {exerciseText}
               </div>
             </div>
@@ -348,7 +370,8 @@ const Landing = () => {
           {outputDetails && <OutputDetails outputDetails={outputDetails} />}
         </div>
       </div>
-      {tasksCompleted}
+      <div style={{marginTop:'20px', marginBottom:'8px'}}>Выполненные задания:</div>
+      <div style={{display:'flex', flexWrap:'wrap', margin:'auto', maxWidth:'1250px'}}>{tasksCompleted ? tasksCompleted.split(',').map((el)=>{return(<div className={css.tasks__cell} style={{color: 'black', opacity:0.6}}>{el}</div>)}) : <div></div>}</div>
     </div>
   );
 };

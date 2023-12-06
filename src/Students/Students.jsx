@@ -14,7 +14,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import css from './Students.module.css'
-import dayjs from 'dayjs';
+import { Icon } from '@iconify/react';
+import { NavLink } from 'react-router-dom';
 
 import Header from '../Header/HeaderStudents'
 
@@ -62,6 +63,7 @@ export default function BasicTable() {
   const [myGroup, setMyGroup] = React.useState();
   const [myLessons, setMyLessons] = React.useState(['','']);
   const [markPlace, setMarkPlace] = React.useState();
+  const [balance, setBalance] = React.useState(0);
 
   const [allTasks, setAllTasks] = React.useState(['','']);
   const [completedTasks, setCompletedTasks] = React.useState('');
@@ -74,8 +76,10 @@ export default function BasicTable() {
 
   React.useEffect(()=>{
     authMe().then((authMeData)=>{
-      if(authMeData.role==='teacher' || authMeData.role==='admin'){return navigate("/teacher")}
+      if(authMeData.role==='teacher' || authMeData.role==='admin'){return navigate("/teacher")}  // REDIRECT FOR STUFF ONLY
       setHeaderData(authMeData)
+
+      setBalance(Math.ceil(authMeData.balance))
       setCompletedTasks(authMeData.tasks_completed)
 
       getGroupByUserId(authMeData.id).then((data_group)=>{
@@ -102,7 +106,6 @@ export default function BasicTable() {
 
            for (let i = 0; i < data_group.data.length; i++){
             getLessonsByGroup(data_group?.data[i]?.id).then((lessonH)=>{
-              console.log(lessonH)
               let tasks = []
               lessonH.data.map((lesson)=>{
                 tasks.push(lesson?.cw || 0)
@@ -112,7 +115,6 @@ export default function BasicTable() {
               })
               tasks = tasks.join('').split(',')
               const uniqueTasks = Array.from(new Set(tasks)); //оставляем только уникальные значения
-              console.log(uniqueTasks)
               tasksFromAllGroups = [].concat(uniqueTasks, tasksFromAllGroups)
               let tasksFromAllGroups2 = Array.from(new Set(tasksFromAllGroups))
               setAllTasks(tasksFromAllGroups2)
@@ -139,26 +141,37 @@ export default function BasicTable() {
     })
   }
 
-  function composeAllTasks(){
-    // getLessonsByGroup(data_group?.data[0]?.id).then((lessons)=>{  //Пусть по дефолту будет группа первая по списку
-    //   debugger
-    //   setMyLessons(lessons) //
-    // });
-
-  }
-
   return (
     <div className={css.students}>
       <Header propsHeaderData={headerData}/>
       <div style={{width: '80%', margin: '30px auto 30px auto'}}>
       <Box sx={{ width: 'calc(100% - 60px)', backgroundColor:'white'}} style={{marginBottom: '50px', padding:'30px'}}>
-        Заданные 
-        {allTasks?.sort(function(a, b) {return a - b})?.map((el)=>{return(<div key={el}>{el}</div>)})}
-        Выполненные
-        {completedTasks?.split(',')?.sort(function(a, b) {return a - b}).map(el=>{return(<div>{el}</div>)})}
-        Разница
-        {allTasks?.sort(function(a, b) {return a - b;}).filter(n => !completedTasks.includes(n)).map(el=>{return(<div>{el}</div>)})
-        }
+        <div style={{textAlign: 'start'}}>
+          <div style={{display:'flex', margin:'20px', fontSize:'24px'}}>
+            <div>{headerData?.name}</div>
+            <div style={{paddingTop:'5px'}}>{headerData?.active == 1 ? <div  className={css.studentActive} title="Ваша учётная запись активна"><Icon icon="lets-icons:check-fill" color="green"/></div> : <Icon icon="material-symbols:error" color="red" className={css.studentActive} title="Ваша учётная запись приостоновлена, но вы всё ещё можете пользоваться CodeWings"/>}</div>
+            <div style={{marginLeft:'auto'}}>{headerData?.phone}</div>
+          </div>
+        <div style={{textAlign:'center'}}>Состоит в группах: 
+        <div className={css.tasks__table}>
+        {myGroup?.data.map((group)=>{
+          return(<div key={group.name} className={css.tasks__cell} style={{width:'auto'}}>{group.name}</div>)})}
+  </div>
+  </div>
+  </div>
+        Задания на дом
+        <div className={css.tasks__table}>
+        {allTasks?.sort(function(a, b) {return a - b})?.map((el)=>{if(el !== "")return(<NavLink to="/codewings" state={{from: {el}}}><div key={el} className={css.tasks__cell}>{el}</div></NavLink>)})}
+        </div>
+        Выполненные задания
+        <div className={css.tasks__table}>
+        {completedTasks?.split(',')?.sort(function(a, b) {return a - b}).map(el=>{return(<NavLink to="/codewings" state={{from: {el}}}><div className={css.tasks__cell}>{el}</div></NavLink>)})}
+        </div>
+        Осталось выполнить
+        <div className={css.tasks__table}>
+        {completedTasks ?
+        (allTasks?.sort(function(a, b) {return a - b;}).filter((n) => {return !completedTasks.split(',').includes(n)}).map(el=>{return(<NavLink to="/codewings" state={{from: {el}}}><div>{el !== "" ? <div className={css.tasks__cell}>{el}</div>:<div></div> }</div></NavLink>)})) : <div></div>}
+        </div>
       </Box>
         <Box sx={{ width: '100%', backgroundColor:'white'}}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -201,7 +214,13 @@ export default function BasicTable() {
             </TableBody>
           </Table>
         </TableContainer>
+
+        <Box sx={{ width: 'calc(100% - 60px)', backgroundColor:'white'}} style={{marginTop:'50px', padding:'30px', display:'flex', justifyContent:'space-between'}}>
+          <div>Баланс:</div>
+          {balance >= 0 ? <div style={{color:'green'}}><b>{new Intl.NumberFormat('ru-RU').format(balance || 0)} UZS</b></div> : <div style={{color:'red'}}><b>{new Intl.NumberFormat('ru-RU').format(balance || 0)} UZS</b></div>}
+        </Box>
       </div>
+
     </div>
   );
 }

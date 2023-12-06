@@ -17,6 +17,7 @@ import Paper from '@mui/material/Paper';
 import { getTable } from '../API/API';
 
 import pic11 from '../img/photo/photo12.jpg'
+import { Programms } from '../Landing/Landing';
 
 // FOR TABLE //
 
@@ -40,20 +41,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(name, mon, tue, wed, thu, fri, sat, sun) {
-  return {name, mon, tue, wed, thu, fri, sat, sun};
+function createData(name, mon, tue, wed, thu, fri, sat, sun, open) {
+  return {name, mon, tue, wed, thu, fri, sat, sun, open};
 }
 
 // FOR TABLE //
 
 export default function Tables () {
-
+  window.scroll(0,0);
   const [table, setTable] = React.useState([])
 
   const rows = []
-  debugger
   table?.map((el)=>{
-    rows.push(createData(el.name, el.mon, el.tue, el.wed, el.thu, el.fri, el.sat, el.sun))
+    rows.push(createData(el.name,el.mon, el.tue, el.wed, el.thu, el.fri, el.sat, el.sun,  el.open, ))
   })
 
   React.useEffect(()=>{
@@ -67,7 +67,7 @@ return(
         <div className={css.head_setting} >
           <Header />
         </div>
-    <div style={{maxWidth:"1100px", margin:'50px auto'}}>
+    <div className={css.table}>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
@@ -86,7 +86,8 @@ return(
           {rows.map((row) => (
             <StyledTableRow key={row.name}>
               <StyledTableCell component="th" scope="row">
-                {row.name}
+                <div className={css.name_title}>{row.name}</div>
+                {row.open ? <div className={css.splash}>{row.open}</div> : <div></div>}
               </StyledTableCell>
               <StyledTableCell align="center">{row.mon}</StyledTableCell>
               <StyledTableCell align="center">{row.tue}</StyledTableCell>
@@ -101,6 +102,10 @@ return(
       </Table>
     </TableContainer>
     </div>
+
+    <h1>Чему вас научит выбранный курс:</h1>
+
+    <Programms />
 
     <div style={{backgroundImage:`url(${pic11})`, backgroundSize:"cover", paddingTop:'1px', backgroundPosition:'center', marginTop:'80px'}}>
       <Map />

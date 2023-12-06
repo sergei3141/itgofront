@@ -20,9 +20,7 @@ const exercise =
       onCodewars:'',
       tests:"console.log(function1());",
       testKeys:["Hello World!"],
-      description: `Напишите функцию, которая возвращает строку "Hello World!".
-      
-      function() => Hello World!`,
+      description: 'Напишите функцию, которая возвращает строку "Hello World!". function() => Hello World!',
     },{
       id:2,
       tag:'conditional',
