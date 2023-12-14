@@ -17,6 +17,7 @@ export default function AdminCreateCourse(props) {
   function sendCourse () {
     let obj = new FormData
     obj.append('name', document.getElementById('outlined-basic-renameCourse').value)
+    obj.append('price', document.getElementById('outlined-basic-priceCourse').value)
     changeCourseById(obj, id).then((data)=>{
       if(data.status == 200){notifySucces();window.location.reload()}else{notifyError()}
     })
@@ -29,7 +30,7 @@ export default function AdminCreateCourse(props) {
 
   return(
     <div className={css.card}>
-        <div style={{textAlign:'left', fontSize:'18px', marginBottom:'12px', color:'rgb(55, 84, 135)', margin:'10px'}}><b>Переименовать курс</b></div>
+        <div style={{textAlign:'left', fontSize:'18px', marginBottom:'12px', color:'rgb(55, 84, 135)', margin:'10px'}}><b>Переименовать или изменить стоимость курса</b></div>
         <div style={{display:'flex', justifyContent:'space-between'}}>
 
         <Autocomplete
@@ -50,12 +51,18 @@ export default function AdminCreateCourse(props) {
       />
 
       <div style={{marginTop:'-20px'}}>
-      <div>Новое название курса</div>
-      <TextField id="outlined-basic-renameCourse" variant="outlined" style={{width:'600px'}} />
+        <div>Новое название курса</div>
+        <TextField id="outlined-basic-renameCourse" variant="outlined" style={{width:'450px'}} />
       </div>
-        <Button onClick={()=>{sendCourse()}} style={{height:'54px', backgroundColor:'#D0D0F1', padding:"0px 40px", marginLeft:'30px'}}>переименовать</Button>
+      <div style={{marginTop:'-20px'}}>
+        <div>Новая цена курса</div>
+        <TextField id="outlined-basic-priceCourse" variant="outlined" style={{width:'150px'}} />
+      </div>
+      
+        <Button onClick={()=>{sendCourse()}} style={{height:'54px', backgroundColor:'#D0D0F1', padding:"0px 40px", marginLeft:'30px'}}>изменить</Button>
         <ToastContainer autoClose={1500}/>
         </div>
+        <div style={{marginTop:'20px'}}>Цена указывается лишь для отображения на главной странице (для пользователей). На технические вычисления не влияет!</div>
 
     </div>
   )

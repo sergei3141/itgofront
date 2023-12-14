@@ -6,7 +6,7 @@ import ReactSlidy from 'react-slidy'
 import 'react-slidy/lib/styles.css'
 import { NavLink } from 'react-router-dom';
 import Fireflies from 'fireflies.js'
-import { getTable } from '../API/API';
+import { getAllCourses, getTable } from '../API/API';
 
 import { PROGRAMMS, QUESTIONS, SLIDES } from './InfoBase';
 
@@ -31,9 +31,16 @@ const createStyles = isActive => ({
 export function Programms () {
 
   const [open, setOpen] = useState([])
+  const [courses, setCourses] = useState([])
 
 
   React.useEffect(()=>{
+
+    getAllCourses().then((data)=>{
+      setCourses(data.data)
+      console.log(data.data)
+      debugger
+    })
 
 
     getTable().then((data)=>{
@@ -51,6 +58,9 @@ export function Programms () {
     <div className={css.galery} >
     {PROGRAMMS.map((el)=>{
       open.map((b)=>{if (b.base == el.base){el.splash = b.splash}})
+      courses.map((b)=>{if (b.name == el.base){el.price = b.price}})
+      console.log(el)
+      debugger
       return(
         <NavLink to="/courses" state={{from: {el} }} key={el.id} onClick={()=>{Fireflies.terminate()}}>
           {open.map((b)=>{if (b.base == el.base){return(<div className={css.splash}>{b.splash}</div>)}})} 
@@ -115,7 +125,7 @@ setTimeout(()=>{
         <div className={css.mainText} >Учебный центр <br/> IT GO!</div>
         <div className={css.mainText__subtitle}>Получи профессию программиста <br/>и стань специалистом в сфере айти разработки</div>
         <div className={css.mainText__join}><FormDialog /></div>
-        <div className={css.mainText__subtitle_adress} id='adress-1'>Поиск ближайшего филиала...</div>
+        <div className={css.mainText__subtitle_adress} >Чиланзар Ц 1А/2</div>
       </section>
       <div style={{height:"12.2vh", width:"100vw", backgroundColor:"rgb(242, 242, 242)", position: "absolute", zIndex:"100", bottom:"-12.7vh"}}></div>
 
@@ -128,8 +138,8 @@ setTimeout(()=>{
         <div className={css.statistic}>
           <div style={{display:'flex', justifyContent:'center', flexWrap:'wrap'}}>
             <div сlassName={css.statistic_section} style={{minWidth:'200px', margin:'20px 30px 0px 30px'}}>
-              <div class={css.statistic_number}>3 года</div>
-              <div class={css.statistic_text}>СРЕДНИЙ СТАЖ <br/> ПРЕПОДАВАТЕЛЯ</div>
+              <div class={css.statistic_number}>5 лет</div>
+              <div class={css.statistic_text}>СТАЖ <br/> ПРЕПОДАВАТЕЛЯ</div>
             </div>
             <div сlassName={css.statistic_section} style={{minWidth:'200px', margin:'20px 30px 0px 30px'}}>
               <div class={css.statistic_number}>6</div>

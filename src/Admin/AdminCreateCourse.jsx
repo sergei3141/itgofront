@@ -28,7 +28,7 @@ export default function AdminCreateCourse(props) {
         <TextField id="outlined-basic-createCourse" label="Course name" variant="outlined" style={{width:'80%'}} />
         <Button onClick={()=>{sendNewCourse()}} style={{height:'54px', backgroundColor:'#D0D0F1', padding:"0px 40px", marginLeft:'30px'}}>Создать</Button>
         <ToastContainer autoClose={1500}/>
-        <div style={{display:'flex', flexWrap:'wrap'}}><div style={{textAlign:'start', marginTop:'16px'}}>На данный момент на главной странице имеются курсы:</div> {PROGRAMMS.map((el)=>{return(<div style={{marginLeft:'16px', marginTop:'16px'}}>{el.base}</div>)})}</div>
+        <div style={{display:'flex', flexWrap:'wrap'}}><div style={{textAlign:'start', marginTop:'16px'}}>Название ОБЯЗАТЕЛЬНО ДОЛЖНО совпадать!!! На данный момент на главной странице имеются курсы:</div> {PROGRAMMS.map((el)=>{return(<div style={{marginLeft:'16px', marginTop:'16px'}}>{el.base}</div>)})}</div>
     </div>
   )
 }

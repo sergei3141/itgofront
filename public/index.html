@@ -6,10 +6,7 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
+    <meta name="description" content="Web site created using create-react-app"/>
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,18 +22,5 @@
     <div></div>
     <div id="root"></div>
   </body>
-  <script>
-    fetch('http://127.0.0.1:8000/api/v1/contantmap')
-      .then(response => response.json())
-      .then(data => {
-        // Handle the response data
-        document.getElementById('adress-1').innerHTML = data.data[0].adressTitle
-        localStorage.setItem('adress-1', data.data[0].adressTitle)
-      })
-      .catch(error => {
-        // Handle any errors
-        debugger
-        console.error('Error:', error);
-      });
-  </script>
+
 </html>

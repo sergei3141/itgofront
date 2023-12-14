@@ -78,8 +78,10 @@ export default function Admin() {
     getAllCourses().then((data)=>{
       data.data = data.data.map((el)=>{return{
         label: el.name,
-        id: el.id
+        id: el.id,
+        price: el.price
       }})
+      debugger
       setCourses(data.data)
     })
   },[])
@@ -112,7 +114,6 @@ const {
     obj.append('users_id', string);
     obj.append('price', document.getElementById('coursePrice').value);
     console.log(obj.get('price'))
-    debugger
     obj.append('name', (coursesChosen + '_' + currentGroupNumber))
     if(obj.get('users_id') && obj.get('course_id') && obj.get('name')){
       createNewGroup(obj).then((data)=>{
@@ -161,10 +162,12 @@ const {
       <div>
         <div style={{marginBottom:'8px'}}>Выберите курс</div>
         <Autocomplete
-        onChange={(e)=>{
+        onChange={(e, obj)=>{
+          debugger
           setCoursesChosen(e.target.innerHTML);
           //Help to add 0001 or other number at the ean of groupname START
           let course_id_
+          document.getElementById('coursePrice').value = obj.price
           for(let i = 0; i < courses.length; i++){
             if(courses[i].label === e.target.innerHTML){course_id_ = courses[i].id}} 
             getGroups(course_id_).then((data)=>{

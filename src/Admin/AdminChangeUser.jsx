@@ -27,7 +27,6 @@ export default function AdminChangeUser(props) {
         if(props.usersData[i].id == id){currentUser = props.usersData[i]}
       }
       if(currentUser){
-debugger
         document.getElementById('changeStudentName').value = currentUser.name
         document.getElementById('changeStudentPhone').value = currentUser.phone
         currentUser.email ? document.getElementById('changeStudentMail').value = currentUser.email : document.getElementById('changeStudentMail').value = ''
@@ -37,7 +36,6 @@ debugger
         currentUser.parents_phone ? document.getElementById('changeStudentParentsPhone').value = currentUser.parents_phone : document.getElementById('changeStudentParentsPhone').value = ''
         setBalance(currentUser.balance)
         currentUser.sales ? document.getElementById('changeStudentSales').defaultValue = currentUser.sales : document.getElementById('changeStudentSales').defaultValue = ''
-        debugger
 
         getGroupByUserId(id).then((data)=>{
         setStudentsGroup(data.data)
@@ -63,12 +61,6 @@ debugger
     document.getElementById('changeStudentParentsPhone').value ? obj.append('parents_phone', document.getElementById('changeStudentParentsPhone').value) : obj.append('parents_phone', '')
     document.getElementById('changeStudentSales').value ? obj.append('sales', document.getElementById('changeStudentSales').value) : obj.append('sales', '')
     obj.append('balance', sumBallance)
-debugger
-    console.log(obj.get('parents'))
-    console.log(obj.get('parents_phone'))
-    console.log(obj.get('sales'))
-    console.log(obj.get('balance'))
-debugger
       changeStudent(obj, id).then((data)=>{
         if(data.status == 200){notifySucces();window.location.reload()}else{notifyError()}
       })

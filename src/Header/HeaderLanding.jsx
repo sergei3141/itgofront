@@ -132,12 +132,12 @@ function Header() {
       <Divider />
       <List>
       <div style={{textAlign:'center', margin:'30px 0px 15px 0px'}}>Наш адрес:</div>
-      <ListItem key={'Ташкент, Юнусабад 13 64/1. Ориентир: Mega Planet, метро Юнусабад (4 мин)'} disablePadding>
+      <ListItem key={'adress'} disablePadding>
             <ListItemButton>
               <ListItemIcon>
                 <AddLocationIcon/> 
               </ListItemIcon>
-              <ListItemText primary={localStorage.getItem('adress-1')} />
+              <ListItemText primary={'Чиланзар Ц 1А/2 (400 м. от метро)'} />
             </ListItemButton>
           </ListItem>
       </List>

@@ -169,7 +169,6 @@ function Row(props) {
     obj.append('studentsIdInGroup', props.studentsIdInGroup)
     const notifySucces = () => toast.success("Урок успешно проведён!");
 console.log(obj.get('studentsIdInGroup'))
-debugger
     createNewLesson(obj).then(()=>{
 
       notifySucces()

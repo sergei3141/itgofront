@@ -30,7 +30,6 @@ let u
 
         let tasks = ''
     for(let i = 0; i < props.lessons.length; i++){
-      debugger
       if(props.lessons[i].hw){tasks = tasks + props.lessons[i].hw + ','}
       if(props.lessons[i].cw){tasks = tasks + props.lessons[i].cw + ','}
     }

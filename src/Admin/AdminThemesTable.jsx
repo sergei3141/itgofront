@@ -30,7 +30,7 @@ export default function AdminThemesTable (props) {
       setCourseId(id)
       getThemesByCoursesId(id).then((data)=>{
 
-        let sorted = data.data.sort(function(a,b){ 
+        let sorted = data?.data?.sort(function(a,b){ 
           let x = a.lesson_num < b.lesson_num? -1:1; 
           return x; 
       });

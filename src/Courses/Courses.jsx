@@ -44,12 +44,9 @@ function Courses () {
           {state?.from.el.description || PROGRAMMS[0].description}
         </div>
         <div className={css.backPrice}>
-
-          {state?.from.el.price || PROGRAMMS[0].price} <div className={css.backCurrency}>UZS/месяц</div>
+          {new Intl.NumberFormat('ru-RU').format(state?.from.el.price || PROGRAMMS[0].price) } <div className={css.backCurrency}>UZS/месяц</div>
           <div className={css.mainText__join} style={{top:'260px', position:'absolute'}}><FormDialog /></div>
         </div>
-
-      
       </div>
 
       <div className={css.textContainer}>

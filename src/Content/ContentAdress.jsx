@@ -12,7 +12,6 @@ function ContentAdress () {
 
   useEffect(()=>{
     getAdress().then((data)=>{
-      debugger
       document.getElementById('changeMapUrl').value = data.data[0].mapUrl;
       document.getElementById('changeMainTitle').value = data.data[0].adressTitle;
       document.getElementById('changeSubtitle1').value = data.data[0].adressSubtitle1;
