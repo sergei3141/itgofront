@@ -50,8 +50,8 @@ export default function AdminThemesTable (props) {
     obj.append('theme', document.getElementById(`table_theme${id}`).value)
     obj.append('hw', document.getElementById(`table_hw${id}`).value)
     obj.append('cw', document.getElementById(`table_cw${id}`).value)
-    obj.append('docx', document.getElementById(`table_docx${id}`).value)
-    obj.append('pptx', document.getElementById(`table_pptx${id}`).value)
+    obj.append('pptx', document.getElementById(`table_docx${id}`).value)
+    obj.append('docx', document.getElementById(`table_pptx${id}`).value)
 
     changeThemeById(id, obj).then((data)=>{
       if(data.status = 200){notifySucces()}else{notifyError()}

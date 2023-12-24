@@ -10,6 +10,7 @@ import Admin from './Admin/Admin'
 import Courses from './Courses/Courses'
 import Clients from './Clients/Clients'
 import Content from './Content/Content'
+import Accauntant from './Accauntant/Accauntant'
 import './App.css';
 import { useState, useEffect } from 'react';
 import { getAdress } from './API/API';
@@ -38,6 +39,7 @@ function App() {
         <Route path="/Courses" element={<Courses />}></Route>
         <Route path="/Clients" element={<Clients />}></Route>
         <Route path="/Content" element={<Content />}></Route>
+        <Route path="/Accauntant" element={<Accauntant />}></Route>
       </Routes>
     </div>
   );

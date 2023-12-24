@@ -134,6 +134,8 @@ const {
       <HeaderTeacher data={myRole}/>
       <NavLink to="/clients"><Button style={{position:'absolute', top:'24px', right:'120px', zIndex:99999}}>Клиенты</Button></NavLink>
       <NavLink to="/content"><Button style={{position:'absolute', top:'24px', right:'220px', zIndex:99999}}>Контент</Button></NavLink>
+      <NavLink to="/accauntant"><Button style={{position:'absolute', top:'24px', right:'320px', zIndex:99999}}>Бухгалтерия</Button></NavLink>
+      <NavLink to="/teacher"><Button style={{position:'absolute', top:'24px', right:'445px', zIndex:99999}}>Учительская</Button></NavLink>
 {/* =================  CREATE NEW GROUP HTML START  ================= */}
       <div className={css.card}>
         <div style={{textAlign:'left', fontSize:'18px', marginBottom:'12px', color:'rgb(55, 84, 135)'}}><b>Создать группу</b></div>

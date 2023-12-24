@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-// const base = 'http://127.0.0.1:8000/api'
+ const base = 'http://127.0.0.1:8000/api'
 // const base = 'http://91.186.196.131/api'
- const base = 'https://it-go.su:90/api'
+// const base = 'https://it-go.su:90/api'
 
 export function auth (data) {
   let config = {
@@ -182,6 +182,25 @@ export function getAllUsersAdminOnly (active) {
     method: 'get',
     maxBodyLength: Infinity,
     url: `${base}/v1/users/adminOnly?active=${active}`,
+    headers: { 
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    }
+  };
+  return(
+    axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+  }))
+}
+
+export function getAllUsersAccountantOnly (active, rowsPerPage, page, sort) {
+  let config = {
+    method: 'get',
+    maxBodyLength: Infinity,
+    url: `${base}/v1/users/adminOnly?active=${active}&perPage=${rowsPerPage}&page=${page}&sort=${sort}`,
     headers: { 
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }
@@ -709,3 +728,42 @@ export function setAdress (data) {
   }))
 }
 
+export function setTransaction (data) {
+  debugger
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: `${base}/v1/transaction`,
+    headers: { 
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    },
+    data:data,
+  };
+  return(
+    axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+  }))
+}
+
+export function getTransactions (rowsPerPage, page, sort) {
+  let config = {
+    method: 'get',
+    maxBodyLength: Infinity,
+    url: `${base}/v1/transaction?perPage=${rowsPerPage}&page=${page}&sort=${sort}`,
+    headers: { 
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    }
+  };
+  return(
+    axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+  }))
+}

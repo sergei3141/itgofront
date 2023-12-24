@@ -215,8 +215,8 @@ console.log(obj.get('studentsIdInGroup'))
             <Box sx={{ margin: 1 }}>
               <div className={css.underTable}> 
               <div style={{margin:'auto 10px', width:'4vw'}}>
-                <div style={{fontSize:'32px', cursor:'pointer'}}><Icon icon="vaadin:presentation" /></div>
-                <div style={{fontSize:'32px', cursor:'pointer'}}><Icon icon="teenyicons:doc-outline" /></div>
+                <div style={{fontSize:'32px', cursor:'pointer'}}><a href={props.r.pptx}><Icon icon="vaadin:presentation" /></a></div>
+                <div style={{fontSize:'32px', cursor:'pointer'}}><a href={props.r.docx}><Icon icon="teenyicons:doc-outline" /></a></div>
                 </div>
                 <div  style={{width:'calc(45vw - 20% + 20px)'}}>
                   <div style={{marginLeft:"15px"}}>Задания в классе:</div>

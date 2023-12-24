@@ -40,6 +40,7 @@ export default function Login() {
             id="loginPassword"
             label="Пароль"
             defaultValue=""
+            type='password'
           />
 
       <Button className={css.login__button} onClick={authorize}>Войти!</Button>

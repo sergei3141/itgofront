@@ -1,0 +1,37 @@
+.students{
+    background-color: rgb(216, 222, 236);
+    min-height: 100vh;
+    padding-bottom: 30px;
+}
+
+.tasks__table{
+    background-color: rgb(216, 222, 236);
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.tasks__cell{
+    margin: 4px;
+    padding: 3px;
+    border: 1px solid rgb(175, 185, 209);
+    width:44px;
+    background-color: aliceblue;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: .14s;
+}
+
+.tasks__cell:hover{
+    background-color: white;
+}
+
+.studentActive{
+    cursor: pointer;
+}
+
+.studentActive:hover::after { 
+content: attr(data-title); 
+
+}

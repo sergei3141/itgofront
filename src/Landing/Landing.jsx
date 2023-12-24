@@ -129,7 +129,7 @@ setTimeout(()=>{
       </section>
       <div style={{height:"12.2vh", width:"100vw", backgroundColor:"rgb(242, 242, 242)", position: "absolute", zIndex:"100", bottom:"-12.7vh"}}></div>
 
-      <section style={{background: "linear-gradient(180deg, rgb(242, 242, 242) 0%, rgb(255, 255, 255) 100%)"}}>
+      <section style={{background: "linear-gradient(180deg, rgb(242, 242, 242) 0%, rgb(255, 255, 255) 100%)", marginTop:'20px'}}>
       <img src={iconitgo} style={{width:'100px', height:'80px', marginBottom:'-35px', marginTop:"40px", zIndex:'1', position:'relative'}}></img>
         <h1 >IT GO в цифрах</h1>
 

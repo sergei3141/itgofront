@@ -1,6 +1,6 @@
 import * as React from 'react';
 import css from './Admin.module.css'
-import { getGroupByUserId, changeStudent} from '../API/API';
+import { getGroupByUserId, changeStudent, setTransaction} from '../API/API';
 
 import TextField from '@mui/material/TextField';
 import { Button } from 'antd';
@@ -61,9 +61,26 @@ export default function AdminChangeUser(props) {
     document.getElementById('changeStudentParentsPhone').value ? obj.append('parents_phone', document.getElementById('changeStudentParentsPhone').value) : obj.append('parents_phone', '')
     document.getElementById('changeStudentSales').value ? obj.append('sales', document.getElementById('changeStudentSales').value) : obj.append('sales', '')
     obj.append('balance', sumBallance)
+
+    let transaction = new FormData();
+    document.getElementById('changeStudentName').value ? transaction.append('student', document.getElementById('changeStudentName').value) : console.log(0)
+    document.getElementById('changeStudentPhone').value ? transaction.append('student_phone', document.getElementById('changeStudentPhone').value) : console.log(0)
+    document.getElementById('changeStudentBalancePlus').value ? transaction.append('add_to_balance', document.getElementById('changeStudentBalancePlus').value) : console.log(0)
+    document.getElementById('changeStudentAcceptSalePercent').value ? transaction.append('percent_sale', document.getElementById('changeStudentAcceptSalePercent').value) : console.log(0)
+    document.getElementById('changeStudentAcceptSaleFixed').value ? transaction.append('fixed_sale', document.getElementById('changeStudentAcceptSaleFixed').value) : console.log(0)
+    document.getElementById('changeStudentSales').value ? transaction.append('personal_sale_info', document.getElementById('changeStudentSales').value) : console.log(0)
+    transaction.append('total_balance', sumBallance)
+    transaction.append('balance_was', balance)
+    transaction.append('user_paid', sumToPay || 0)
+      //To accountant send
+      setTransaction(transaction).then((data)=>{console.log(data);debugger})
+
       changeStudent(obj, id).then((data)=>{
         if(data.status == 200){notifySucces();window.location.reload()}else{notifyError()}
       })
+
+
+
 
    }
 
