@@ -33,7 +33,7 @@ function Map() {
           <div class={css.footer__title} style={{marginTop:'8px'}}>Наши контакты:</div>
           <div style={{display:'flex', paddingLeft:'calc(50% - 75px'}}>
               <div className={css.footer__icons}><a href="https://telegram.me/Uz_it_go"><Icon icon="bi:telegram" /></a></div>
-              <div className={css.footer__icons}><a href="https://www.instagram.com/sergei314159/"><Icon icon="brandico:instagram-filled" /></a></div>
+              <div className={css.footer__icons}><a href="https://www.instagram.com/stories/uz_it_go/"><Icon icon="brandico:instagram-filled" /></a></div>
               <div className={css.footer__icons}><a href="tel:+998333224855"><Icon icon="bi:telephone-fill" /></a></div>
           </div>
           <div style={{textAlign:"left", marginBottom:'6px', lineHeight:2, paddingLeft:'calc(50% - 70px'}}><a href="https://e.mail.ru/compose/?to=itgoschool@mail.ru">itgoschool@mail.ru</a></div>
