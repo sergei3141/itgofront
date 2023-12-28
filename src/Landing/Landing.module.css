@@ -854,18 +854,20 @@ margin-top: 80px;
 
 @media (max-height: 600px) {
   .mainText{
-    top:30vh;
+    top:15vh;
     font-size: 48px;
   }
 }
 
 @media (max-height: 600px) {
   .mainText__join{
-    top:67vh
+    top:72vh;
+
   }
 
   .mainText__subtitle{
     top:50vh;
+    font-size:20px
   }
   
   .mainText__subtitle_adress{

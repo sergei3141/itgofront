@@ -132,12 +132,14 @@ let exercise = [{id:"1"}, {id:"2"}, {id:"3"}]
     };
     const options = {
       method: "POST",
+      //url: 'https://it-go-server.ru/submissions',
       url: 'https://judge0-ce.p.rapidapi.com/submissions',
       params: { base64_encoded: "true", fields: "*" },
       headers: {
-        "content-type": "application/json",
-        "Content-Type": "application/json",
-        "X-RapidAPI-Host": 'judge0-ce.p.rapidapi.com',
+        "content-type": "multipart/form-data; boundary=<calculated when request is sent>",
+        "Content-Type": "multipart/form-data; boundary=<calculated when request is sent>",
+        //"X-RapidAPI-Host": 'it-go-server.su',
+        // "X-RapidAPI-Host": 'judge0-ce.p.rapidapi.com',
         "X-RapidAPI-Key": '73e640b27bmshf1bd46436c43d13p15e93bjsn744af366900f',
       },
       data: formData,
@@ -171,12 +173,14 @@ let exercise = [{id:"1"}, {id:"2"}, {id:"3"}]
   const checkStatus = async (token) => {
     const options = {
       method: "GET",
+      //url: 'https://it-go-server.ru/submissions'  + "/" + token,
       url: 'https://judge0-ce.p.rapidapi.com/submissions' + "/" + token,
       params: { base64_encoded: "true", fields: "*" },
-      headers: {
-        "X-RapidAPI-Host": 'judge0-ce.p.rapidapi.com',
-        "X-RapidAPI-Key": '73e640b27bmshf1bd46436c43d13p15e93bjsn744af366900f',
-      },
+       headers: {
+      //   //"X-RapidAPI-Host": 'it-go-server.su',
+      //   "X-RapidAPI-Host": 'judge0-ce.p.rapidapi.com',
+         "X-RapidAPI-Key": '73e640b27bmshf1bd46436c43d13p15e93bjsn744af366900f',
+       },
     };
     try {
       let response = await axios.request(options);

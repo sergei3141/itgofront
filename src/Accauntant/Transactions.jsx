@@ -99,9 +99,7 @@ function StudentsBalances () {
   React.useEffect(() => {
     getTransactions(rowsPerPage, page + 1, sort)
       .then((data) => {
-        debugger
         let rows = [];
-        debugger
         setAllRows(data.totalCount);
         for (let i = 0; i < data.data.length; i++) {
           rows.push(createData(data.data[i].id, data.data[i].created_at, data.data[i].student, data.data[i].student_phone, data.data[i].percent_sale, data.data[i].fixed_sale, data.data[i].user_paid, data.data[i].add_to_balance, data.data[i].balance_was, data.data[i].total_balance, data.data[i].personal_sale_info, data.data[i].ip));

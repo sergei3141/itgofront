@@ -25,7 +25,6 @@ function Courses () {
 
   const location = useLocation();
   const { state } = location;
-
   return(
     <div>
       <div style={{zIndex:9999, position:'relative'}}>
@@ -36,7 +35,7 @@ function Courses () {
       <div className={css.backTime}>{state?.from.el.time || PROGRAMMS[0].time}</div>
       <div className={css.backgroundSplash}>
         {/* {state?.from.el?.splash ?  `Первое занятие ${state?.from.el?.splash?.replace(/[^.\d]/g, '')}` : ''} */}
-         {state?.from.el?.splash || PROGRAMMS[0].splash}
+         {state?.from.el?.splash}
         </div>
       <div className={css.backTitle}>
         {state?.from.el.name || PROGRAMMS[0].name}

@@ -38,8 +38,6 @@ export function Programms () {
 
     getAllCourses().then((data)=>{
       setCourses(data.data)
-      console.log(data.data)
-      debugger
     })
 
 
@@ -59,8 +57,6 @@ export function Programms () {
     {PROGRAMMS.map((el)=>{
       open.map((b)=>{if (b.base == el.base){el.splash = b.splash}})
       courses.map((b)=>{if (b.name == el.base){el.price = b.price}})
-      console.log(el)
-      debugger
       return(
         <NavLink to="/courses" state={{from: {el} }} key={el.id} onClick={()=>{Fireflies.terminate()}}>
           {open.map((b)=>{if (b.base == el.base){return(<div className={css.splash}>{b.splash}</div>)}})} 

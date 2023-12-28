@@ -67,7 +67,7 @@ function CustomTabPanel(props) {  //TABS
   );
 }
 
-function createData(id, course_id, theme, cw, hw, pptx, docx, lesson_num, type, created_at, studentsAndMarks) {
+function createData(id, course_id, theme, cw, hw, pptx, docx, project, lesson_num, type, created_at, studentsAndMarks) {
   return {
     id, 
     course_id,
@@ -76,6 +76,7 @@ function createData(id, course_id, theme, cw, hw, pptx, docx, lesson_num, type, 
     hw,
     pptx, 
     docx,
+    project,
     lesson_num,
     type,
     created_at,
@@ -215,8 +216,16 @@ console.log(obj.get('studentsIdInGroup'))
             <Box sx={{ margin: 1 }}>
               <div className={css.underTable}> 
               <div style={{margin:'auto 10px', width:'4vw'}}>
-                <div style={{fontSize:'32px', cursor:'pointer'}}><a href={props.r.pptx}><Icon icon="vaadin:presentation" /></a></div>
-                <div style={{fontSize:'32px', cursor:'pointer'}}><a href={props.r.docx}><Icon icon="teenyicons:doc-outline" /></a></div>
+                <div style={{fontSize:'24px', cursor:'pointer'}}>
+                  {props.r.pptx ? <a href={props.r.pptx}><Icon icon="vaadin:presentation" /></a> : <Icon icon="vaadin:presentation" color="#999" style={{cursor:'no-drop'}} />}
+                </div>
+                <div style={{fontSize:'24px', cursor:'pointer'}}>
+                  {props.r.docx ? <a href={props.r.docx}><Icon icon="teenyicons:doc-outline" /></a> : <Icon icon="teenyicons:doc-outline" color="#999" style={{cursor:'no-drop'}} />}
+                </div>
+                <div style={{fontSize:'24px', cursor:'pointer'}}>
+                  {props.r.project ? <a href={props.r.project}><Icon icon="ion:folder-outline" /></a> : <Icon icon="ion:folder-outline" color="#999" style={{cursor:'no-drop'}} />}
+                </div>
+                
                 </div>
                 <div  style={{width:'calc(45vw - 20% + 20px)'}}>
                   <div style={{marginLeft:"15px"}}>Задания в классе:</div>
@@ -310,7 +319,7 @@ export default function CollapsibleTable() {
 
   const rows2 = []
   const rows = compose?.map((el)=>{
-    rows2.push(createData(el.id, el.course_id, el.theme, el.cw, el.hw, el.pptx, el.docx, el.marks, el.type, el.created_at, el.studentsAndMarks))
+    rows2.push(createData(el.id, el.course_id, el.theme, el.cw, el.hw, el.pptx, el.docx, el.project, el.marks, el.type, el.created_at, el.studentsAndMarks))
   })
 
   const handleChange = (newValue) => {   //TABS
@@ -364,6 +373,7 @@ export default function CollapsibleTable() {
       obj.id = i
       obj.pptx = coursesCurrent[i].pptx;
       obj.docx = coursesCurrent[i].docx;
+      obj.project = coursesCurrent[i].project;
 
       obj.hw = lessonsCurrent[i]?.hw || coursesCurrent[i].hw
       obj.cw = lessonsCurrent[i]?.cw || coursesCurrent[i].cw

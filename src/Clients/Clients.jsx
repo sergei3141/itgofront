@@ -80,7 +80,7 @@ function Clients () {
               <TableCell align="right">{row.ip}</TableCell>
               <TableCell align="right">{row.name}</TableCell>
               <TableCell align="right">{row.phone}</TableCell>
-              <TableCell align="right"><Icon icon="ph:trash" style={{cursor:'pointer', fontSize:'24px'}} onClick={()=>{debugger;deleteClientById(row.id);document.getElementById(`${row.id}clients`).remove()}}/></TableCell> 
+              <TableCell align="right"><Icon icon="ph:trash" style={{cursor:'pointer', fontSize:'24px'}} onClick={()=>{deleteClientById(row.id);document.getElementById(`${row.id}clients`).remove()}}/></TableCell> 
             </TableRow>
           ))}
         </TableBody>

@@ -100,7 +100,6 @@ function StudentsBalances () {
   React.useEffect(() => {
     getAllUsersAccountantOnly(active, rowsPerPage, page + 1, sort)
       .then((data) => {
-        debugger
         let rows = [];
         setAllRows(data.totalCount);
         for (let i = 0; i < data.data.length; i++) {

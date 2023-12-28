@@ -73,15 +73,11 @@ export default function AdminChangeUser(props) {
     transaction.append('balance_was', balance)
     transaction.append('user_paid', sumToPay || 0)
       //To accountant send
-      setTransaction(transaction).then((data)=>{console.log(data);debugger})
+      setTransaction(transaction).then((data)=>{})
 
       changeStudent(obj, id).then((data)=>{
         if(data.status == 200){notifySucces();window.location.reload()}else{notifyError()}
       })
-
-
-
-
    }
 
    const defaultProps = {

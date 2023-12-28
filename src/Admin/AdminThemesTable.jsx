@@ -52,6 +52,7 @@ export default function AdminThemesTable (props) {
     obj.append('cw', document.getElementById(`table_cw${id}`).value)
     obj.append('pptx', document.getElementById(`table_docx${id}`).value)
     obj.append('docx', document.getElementById(`table_pptx${id}`).value)
+    obj.append('project', document.getElementById(`table_project${id}`).value)
 
     changeThemeById(id, obj).then((data)=>{
       if(data.status = 200){notifySucces()}else{notifyError()}
@@ -66,6 +67,7 @@ export default function AdminThemesTable (props) {
     obj.append('cw', '')
     obj.append('docx', '')
     obj.append('pptx', '')
+    obj.append('project', '')
     obj.append('course_id', courseId)
 
   createNewTheme(obj).then((data)=>{
@@ -74,8 +76,8 @@ export default function AdminThemesTable (props) {
   }
 
 
-  function createData(id, lesson_num, theme, hw, cw, pptx, docx) {
-    return { id, lesson_num, theme, hw, cw, pptx, docx };
+  function createData(id, lesson_num, theme, hw, cw, pptx, docx, project) {
+    return { id, lesson_num, theme, hw, cw, pptx, docx, project };
   }
 
 
@@ -108,6 +110,7 @@ export default function AdminThemesTable (props) {
                 <StyledTableCell align="left">CW</StyledTableCell>
                 <StyledTableCell align="left">docx</StyledTableCell>
                 <StyledTableCell align="left">pptx</StyledTableCell>
+                <StyledTableCell align="left">project</StyledTableCell>
                 <StyledTableCell align="left">sub</StyledTableCell>
                 <StyledTableCell align="left">del</StyledTableCell>
               </TableRow>
@@ -117,11 +120,12 @@ export default function AdminThemesTable (props) {
                 <StyledTableRow key={row.id} id={`tab2${row.id}`}>
                   <StyledTableCell component="th" scope="row">{row.id}</StyledTableCell>
                   <StyledTableCell align="left"><input style={{width:'40px'}}defaultValue={row.lesson_num} id={`table_lesson_num${row.id}`}></input></StyledTableCell>
-                  <StyledTableCell align="left"><input style={{width:'170px'}}defaultValue={row.theme} id={`table_theme${row.id}`}></input></StyledTableCell>
-                  <StyledTableCell align="left"><input style={{width:'170px'}}defaultValue={row.hw} id={`table_hw${row.id}`}></input></StyledTableCell>
-                  <StyledTableCell align="left"><input style={{width:'170px'}}defaultValue={row.cw} id={`table_cw${row.id}`}></input></StyledTableCell>
-                  <StyledTableCell align="left"><input style={{width:'170px'}}defaultValue={row.pptx} id={`table_pptx${row.id}`}></input></StyledTableCell>
-                  <StyledTableCell align="left"><input style={{width:'170px'}}defaultValue={row.docx} id={`table_docx${row.id}`}></input></StyledTableCell>
+                  <StyledTableCell align="left"><input style={{width:'145px'}}defaultValue={row.theme} id={`table_theme${row.id}`}></input></StyledTableCell>
+                  <StyledTableCell align="left"><input style={{width:'145px'}}defaultValue={row.hw} id={`table_hw${row.id}`}></input></StyledTableCell>
+                  <StyledTableCell align="left"><input style={{width:'145px'}}defaultValue={row.cw} id={`table_cw${row.id}`}></input></StyledTableCell>
+                  <StyledTableCell align="left"><input style={{width:'140px'}}defaultValue={row.pptx} id={`table_pptx${row.id}`}></input></StyledTableCell>
+                  <StyledTableCell align="left"><input style={{width:'140px'}}defaultValue={row.docx} id={`table_docx${row.id}`}></input></StyledTableCell>
+                  <StyledTableCell align="left"><input style={{width:'140px'}}defaultValue={row.docx} id={`table_project${row.id}`}></input></StyledTableCell>
                   <StyledTableCell align="left"><Icon icon="ei:check" style={{cursor:'pointer', fontSize:'24px'}} onClick={()=>{changeTable(row.id)}}/></StyledTableCell>           
                 <StyledTableCell align="left"><Icon icon="ph:trash" style={{cursor:'pointer', fontSize:'24px'}} onClick={()=>{deleteThemeById(row.id);document.getElementById(`tab2${row.id}`).remove()}}/></StyledTableCell> 
                 </StyledTableRow>

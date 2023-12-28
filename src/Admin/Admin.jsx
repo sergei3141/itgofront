@@ -81,7 +81,6 @@ export default function Admin() {
         id: el.id,
         price: el.price
       }})
-      debugger
       setCourses(data.data)
     })
   },[])
@@ -165,7 +164,6 @@ const {
         <div style={{marginBottom:'8px'}}>Выберите курс</div>
         <Autocomplete
         onChange={(e, obj)=>{
-          debugger
           setCoursesChosen(e.target.innerHTML);
           //Help to add 0001 or other number at the ean of groupname START
           let course_id_
