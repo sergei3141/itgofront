@@ -78,7 +78,7 @@ function Header() {
           </ListItemButton>
         </ListItem>
         </NavLink>
-        <NavLink to="/table" onClick={()=>{Fireflies.terminate()}}>
+        {/* <NavLink to="/table" onClick={()=>{Fireflies.terminate()}}>
         <ListItem key={'Расписание'} disablePadding>
           <ListItemButton>
             <ListItemIcon>
@@ -87,7 +87,7 @@ function Header() {
             <ListItemText primary={'Расписание'} />
           </ListItemButton>
         </ListItem>
-        </NavLink>
+        </NavLink> */}
         <NavLink to="/login" onClick={()=>{Fireflies.terminate()}}>
         <ListItem key={'Мой дневник'} disablePadding>
           <ListItemButton>
@@ -99,12 +99,12 @@ function Header() {
         </ListItem>
         </NavLink>
         <a href="#programms" onClick={()=>{Fireflies.terminate()}}>
-        <ListItem key={'Курсы'} disablePadding>
+        <ListItem key={'Занятия'} disablePadding>
           <ListItemButton>
             <ListItemIcon>
               <MenuBookIcon/>
             </ListItemIcon>
-            <ListItemText primary={'Курсы'} />
+            <ListItemText primary={'Занятия'} />
           </ListItemButton>
         </ListItem>
         </a>
@@ -151,10 +151,10 @@ function Header() {
         <head class={css.head}>
         <NavLink to="/"><div className={css.head_itgo}><b>IT GO!</b></div></NavLink>
           <nav class={css.head_nav} >
-          <div className={css.menu__section} onClick={()=>{Fireflies.terminate()}}><NavLink to="/courses">КУРСЫ</NavLink></div>
+          <div className={css.menu__section} onClick={()=>{Fireflies.terminate()}}><NavLink to="/courses">ЗАНЯТИЯ</NavLink></div>
           <div className={css.menu__section}><NavLink to="/">ГЛАВНАЯ</NavLink></div>
             <div className={css.menu__section} onClick={()=>{Fireflies.terminate()}}><NavLink to="/login">ДНЕВНИК</NavLink></div>
-            <div className={css.menu__section} onClick={()=>{Fireflies.terminate()}}><NavLink to="/table">РАСПИСАНИЕ</NavLink></div>
+            {/* <div className={css.menu__section} onClick={()=>{Fireflies.terminate()}}><NavLink to="/table">РАСПИСАНИЕ</NavLink></div> */}
             <div className={css.menu__section} onClick={()=>{Fireflies.terminate()}}><NavLink to="/grade">ВОПРОСЫ</NavLink></div>
           </nav>
           <div className={css.num}><a href="tel:+998333224855" style={{cursor:'pointer'}}>+998 (33) 322-48-55</a></div>

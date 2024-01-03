@@ -33,6 +33,18 @@ h3{
   background-image:url(../img/iconitgo.png);
 } */
 
+ .warning{
+  background-color: #f0cece;
+  padding: 20px;
+  font-size: 20px;
+  margin: 20px 0px;
+ }
+
+ .warning__header{
+  margin: 15px;
+  font-size: 28px;
+ }
+
 .back{
   background-image: url(../img/back.jpg);
   background-position: center;

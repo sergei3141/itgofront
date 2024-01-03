@@ -18,6 +18,7 @@ import pic11 from '../img/photo/photo12.jpg'
 
 import iconitgo from '../img/programms/iconitgo.png'
 import Header from '../Header/HeaderLanding';
+import Warning from '../Other/Warning';
 
 
 const createStyles = isActive => ({
@@ -118,8 +119,8 @@ setTimeout(()=>{
       <section id="sec">
         <div className={css.back} id="back">
         </div>
-        <div className={css.mainText} >Учебный центр <br/> IT GO!</div>
-        <div className={css.mainText__subtitle}>Получи профессию программиста <br/>и стань специалистом в сфере айти разработки</div>
+        <div className={css.mainText} >Войди в айти <br/> вместе с IT GO!</div>
+        <div className={css.mainText__subtitle}>Получи навыки программирования<br/>и стань специалистом в сфере айти разработки</div>
         <div className={css.mainText__join}><FormDialog /></div>
         <div className={css.mainText__subtitle_adress} >Чиланзар Ц 1А/2</div>
       </section>
@@ -130,7 +131,7 @@ setTimeout(()=>{
         <h1 >IT GO в цифрах</h1>
 
         <div className={css.icon}></div>
-        <h3 className={css.statistic_subtitle}>Наши курсы дадут вам практические навыки для работы в сфере айти</h3>
+        <h3 className={css.statistic_subtitle}>Наши занятия дадут вам практические навыки для работы в сфере айти</h3>
         <div className={css.statistic}>
           <div style={{display:'flex', justifyContent:'center', flexWrap:'wrap'}}>
             <div сlassName={css.statistic_section} style={{minWidth:'200px', margin:'20px 30px 0px 30px'}}>
@@ -195,6 +196,7 @@ setTimeout(()=>{
           <a name="programms"></a>
             <h1>Программы обучения</h1>
             <h3 className={css.courses_subtitle}>Запишитесь на курсы по следующим направлениям</h3>
+            <Warning></Warning>
           </div>
           
           <Programms/>
@@ -247,7 +249,7 @@ setTimeout(()=>{
         <div style={{position:'absolute', left:0,  backgroundImage:`url(${pic9})`, height:'1000px'}}></div>
           <section>
             <h1>У вас есть вопросы?</h1>
-            <h3 className={css.question_subtitle}>Мы собрали часто задаваемые вопросы от родителей. Вы узнаете о приеме в школу, о расписании, оснащении школы и о других важных вопросах.</h3>
+            <h3 className={css.question_subtitle}>Мы собрали часто задаваемые вопросы от родителей. Вы узнаете о процессе обучения, расписании и стоимости наших услуг.</h3>
             <div>
               {QUESTIONS.map(el => {return(
                 <div className={css.question}>

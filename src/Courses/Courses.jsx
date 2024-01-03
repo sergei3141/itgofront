@@ -18,6 +18,7 @@ import iconitgo from '../img/programms/iconitgo.png'
 
 import { PROGRAMMS} from '../Landing/InfoBase';
 import FormDialog from "../Landing/FormDialog";
+import Warning from "../Other/Warning";
 
 function Courses () {
 
@@ -30,44 +31,53 @@ function Courses () {
       <div style={{zIndex:9999, position:'relative'}}>
     <Header></Header>
     </div>
-      <div style={{backgroundImage:`url(${state?.from.el.img || PROGRAMMS[0].img})`}} className={css.back}></div>
+      <div style={{backgroundImage:`url(${state?.from.el.img || PROGRAMMS[5].img})`}} className={css.back}></div>
       <div className={css.backFilter}></div>
-      <div className={css.backTime}>{state?.from.el.time || PROGRAMMS[0].time}</div>
+      <div className={css.backTime}>{state?.from.el.time || PROGRAMMS[5].time}</div>
       <div className={css.backgroundSplash}>
         {/* {state?.from.el?.splash ?  `Первое занятие ${state?.from.el?.splash?.replace(/[^.\d]/g, '')}` : ''} */}
          {state?.from.el?.splash}
         </div>
       <div className={css.backTitle}>
-        {state?.from.el.name || PROGRAMMS[0].name}
+        {state?.from.el.name || PROGRAMMS[5].name}
         <div className={css.backDescription}>
-          {state?.from.el.description || PROGRAMMS[0].description}
+          {state?.from.el.description || PROGRAMMS[5].description}
         </div>
+        {state?.from.el.price 
+        ?
         <div className={css.backPrice}>
-          {new Intl.NumberFormat('ru-RU').format(state?.from.el.price || PROGRAMMS[0].price) } <div className={css.backCurrency}>UZS/месяц</div>
+          {new Intl.NumberFormat('ru-RU').format(state?.from.el.price || PROGRAMMS[5].price) } <div className={css.backCurrency}>UZS/месяц</div>
           <div className={css.mainText__join} style={{top:'260px', position:'absolute'}}><FormDialog /></div>
         </div>
+        :
+        <div className={css.backPrice}>
+        {"от " + new Intl.NumberFormat('ru-RU').format(95000) } <div className={css.backCurrency}>UZS/час</div>
+        <div className={css.mainText__join} style={{top:'260px', position:'absolute'}}><FormDialog /></div>
+      </div>
+      } 
       </div>
 
       <div className={css.textContainer}>
-        <h1>{state?.from.el.welcome || PROGRAMMS[0].welcome}</h1>
+        <h1>{state?.from.el.welcome || PROGRAMMS[5].welcome}</h1>
         <div>
-          <h3 className={css.titleH3}>О курсе:</h3>
-          <div className={css.text}>{state?.from.el.about || PROGRAMMS[0].about}</div>
+          <h3 className={css.titleH3}>О направлении:</h3>
+          <div className={css.text}>{state?.from.el.about || PROGRAMMS[5].about}</div>
         </div>
         <div>
-          <h3 className={css.titleH3}>Кому будет полезен курс:</h3>
-          <div className={css.text}>{state?.from.el.usefull || PROGRAMMS[0].usefull}</div>
+          <h3 className={css.titleH3}>Кому будут полезны занятия:</h3>
+          <div className={css.text}>{state?.from.el.usefull || PROGRAMMS[5].usefull}</div>
         </div>
         <div>
-          <h3 className={css.titleH3}>Содержание курса:</h3>
-          <div className={css.text}><ul>{state?.from.el.programm.map(el=>{return(<li>{el}</li>)}) || PROGRAMMS[0].programm.map(el=>{return(<li>{el}</li>)})}</ul></div>
+          <h3 className={css.titleH3}>Что вас ожидает:</h3>
+          <div className={css.text}><ul>{state?.from.el.programm.map(el=>{return(<li>{el}</li>)}) || PROGRAMMS[5].programm.map(el=>{return(<li>{el}</li>)})}</ul></div>
         </div>
         <div>
-          <h3 className={css.titleH3}>По окончании курса:</h3>
-          <div className={css.text}>{state?.from.el.skills || PROGRAMMS[0].skills}</div>
+          <h3 className={css.titleH3}>По окончании:</h3>
+          <div className={css.text}>{state?.from.el.skills || PROGRAMMS[5].skills}</div>
         </div>
       </div>
-      <h1>Изучите и другие наши курсы:</h1>
+      <h1>Изучите и другие дисциплины:</h1>
+      <Warning></Warning>
       <Programms />
       <div style={{backgroundImage:`url(${pic11})`, backgroundSize:"cover", paddingTop:'1px', backgroundPosition:'center'}}>
         <Map />
