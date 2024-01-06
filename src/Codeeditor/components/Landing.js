@@ -82,9 +82,11 @@ let exercise = [{id:"1"}, {id:"2"}, {id:"3"}]
   };
 
   function testing (response){
+    debugger
     let result = atob(response.stdout)
     result = result.replace(/[^\w!?,.-]/g,'')
     let keys = exerciseTestKeys.split(',').join('')
+    debugger
     if (result===keys){
       showSuccessToast(`Тесты пройдены!`);
       //POST here new tast completed Здесь мы постим и проверяем, чтобы масисв был уникален
@@ -121,6 +123,7 @@ let exercise = [{id:"1"}, {id:"2"}, {id:"3"}]
     }
   };
   const handleCompile = () => {
+    debugger
     let codeWithTests = code + exerciseTest
     setProcessing(true);
     console.log(code);
@@ -132,14 +135,14 @@ let exercise = [{id:"1"}, {id:"2"}, {id:"3"}]
     };
     const options = {
       method: "POST",
-      //url: 'https://it-go-server.ru/submissions',
-      url: 'https://judge0-ce.p.rapidapi.com/submissions',
+      url: 'https://it-go-server.ru/submissions',
+      //url: 'https://judge0-ce.p.rapidapi.com/submissions',
       params: { base64_encoded: "true", fields: "*" },
       headers: {
         "content-type": "multipart/form-data; boundary=<calculated when request is sent>",
         "Content-Type": "multipart/form-data; boundary=<calculated when request is sent>",
-        //"X-RapidAPI-Host": 'it-go-server.su',
-        // "X-RapidAPI-Host": 'judge0-ce.p.rapidapi.com',
+        "X-RapidAPI-Host": 'it-go-server.ru',
+        //"X-RapidAPI-Host": 'judge0-ce.p.rapidapi.com',
         "X-RapidAPI-Key": '73e640b27bmshf1bd46436c43d13p15e93bjsn744af366900f',
       },
       data: formData,
@@ -171,14 +174,15 @@ let exercise = [{id:"1"}, {id:"2"}, {id:"3"}]
   };
 
   const checkStatus = async (token) => {
+    debugger
     const options = {
       method: "GET",
-      //url: 'https://it-go-server.ru/submissions'  + "/" + token,
-      url: 'https://judge0-ce.p.rapidapi.com/submissions' + "/" + token,
+      url: 'https://it-go-server.ru/submissions'  + "/" + token,
+      //url: 'https://judge0-ce.p.rapidapi.com/submissions' + "/" + token,
       params: { base64_encoded: "true", fields: "*" },
        headers: {
-      //   //"X-RapidAPI-Host": 'it-go-server.su',
-      //   "X-RapidAPI-Host": 'judge0-ce.p.rapidapi.com',
+        "X-RapidAPI-Host": 'it-go-server.ru',
+         //"X-RapidAPI-Host": 'judge0-ce.p.rapidapi.com',
          "X-RapidAPI-Key": '73e640b27bmshf1bd46436c43d13p15e93bjsn744af366900f',
        },
     };
