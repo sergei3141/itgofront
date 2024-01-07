@@ -106,8 +106,8 @@ export default function AdminThemesTable (props) {
                 <StyledTableCell>id</StyledTableCell>
                 <StyledTableCell align="left">№</StyledTableCell>
                 <StyledTableCell align="left">theme</StyledTableCell>
-                <StyledTableCell align="left">HW</StyledTableCell>
                 <StyledTableCell align="left">CW</StyledTableCell>
+                <StyledTableCell align="left">HW</StyledTableCell>
                 <StyledTableCell align="left">docx</StyledTableCell>
                 <StyledTableCell align="left">pptx</StyledTableCell>
                 <StyledTableCell align="left">project</StyledTableCell>
@@ -121,8 +121,8 @@ export default function AdminThemesTable (props) {
                   <StyledTableCell component="th" scope="row">{row.id}</StyledTableCell>
                   <StyledTableCell align="left"><input style={{width:'40px'}}defaultValue={row.lesson_num} id={`table_lesson_num${row.id}`}></input></StyledTableCell>
                   <StyledTableCell align="left"><input style={{width:'145px'}}defaultValue={row.theme} id={`table_theme${row.id}`}></input></StyledTableCell>
-                  <StyledTableCell align="left"><input style={{width:'145px'}}defaultValue={row.hw} id={`table_hw${row.id}`}></input></StyledTableCell>
                   <StyledTableCell align="left"><input style={{width:'145px'}}defaultValue={row.cw} id={`table_cw${row.id}`}></input></StyledTableCell>
+                  <StyledTableCell align="left"><input style={{width:'145px'}}defaultValue={row.hw} id={`table_hw${row.id}`}></input></StyledTableCell>
                   <StyledTableCell align="left"><input style={{width:'140px'}}defaultValue={row.pptx} id={`table_pptx${row.id}`}></input></StyledTableCell>
                   <StyledTableCell align="left"><input style={{width:'140px'}}defaultValue={row.docx} id={`table_docx${row.id}`}></input></StyledTableCell>
                   <StyledTableCell align="left"><input style={{width:'140px'}}defaultValue={row.docx} id={`table_project${row.id}`}></input></StyledTableCell>

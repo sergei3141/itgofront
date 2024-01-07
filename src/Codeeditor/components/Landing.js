@@ -26,13 +26,12 @@ import Header from '../../Header/HeaderCodewings'
 //import exercise from "./Tasks";
 import {authMe, changeUsersTask, getExerciseById} from "../../API/API"
 import { useLocation } from "react-router-dom";
-
+import { getAllExercises } from "../../API/API";
 
 const Landing = () => {
   const location = useLocation();
   const { state } = location;
-
-let exercise = [{id:"1"}, {id:"2"}, {id:"3"}]
+  const [exerciseS, setExercisesS] = React.useState('')
 
   useEffect(()=>{
     authMe().then((data)=>{
@@ -46,22 +45,65 @@ let exercise = [{id:"1"}, {id:"2"}, {id:"3"}]
       setTasksCompleted(a || 1);
       setUsersId(data.id)
     })
-    let id = state?.from?.el || 1
-    getExerciseById(id).then((data)=>{
-      setCurrentExercise(data)
-      setCurrentTaskId(document.getElementById('taskId').value)
-      setExerciseText(data.description)
-      setExerciseTest(data.tests)
-      setExerciseTestKeys(data.testKeys)
+
+    getAllExercises().then((data)=>{
+      setExercisesS(data.data)
+
+      
+      let id = state?.from?.el || 1
+      for (let i = 0; i <= data.data.length; i++){
+        if (data.data.length > 0){
+          if (id == data.data[i]?.number){
+            setCurrentExercise(data.data[i])
+            setCurrentTaskId(id)
+            setExerciseText(data.data[i].description)
+            setExerciseTest(data.data[i].tests)
+            setExerciseTestKeys(data.data[i].testKeys)
+            }
+          }
+        }
+      changeTask()
+      setLoading(false)
+
     })
 
+    let id = state?.from?.el || 1
+
+    for (let i = 0; i <= exerciseS.length; i++){
+      if (exerciseS.length > 0){
+        if (id == exerciseS[i]?.number){
+          setCurrentExercise(exerciseS[i])
+          setCurrentTaskId(id)
+          setExerciseText(exerciseS[i].description)
+          setExerciseTest(exerciseS[i].tests)
+          setExerciseTestKeys(exerciseS[i].testKeys)
+          }
+        }
+      }
     changeTask()
+
   },[])
+
+  // let id = state?.from?.el || 1
+
+  // for (let i = 0; i <= exerciseS.length; i++){
+  //   if (exerciseS.length > 0){
+  //     if (id == exerciseS[i]?.number){
+  //       setCurrentExercise(exerciseS[i])
+  //       setCurrentTaskId(id)
+  //       setExerciseText(exerciseS[i].description)
+  //       setExerciseTest(exerciseS[i].tests)
+  //       setExerciseTestKeys(exerciseS[i].testKeys)
+  //       }
+  //     }
+  //   }
+  // changeTask()
 
   const [currentExercise, setCurrentExercise] = useState()
   const [currentTaskId, setCurrentTaskId] = useState(0);
   const [tasksCompleted, setTasksCompleted] = useState(0);
   const [usersId, setUsersId] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const [exerciseText, setExerciseText] = useState()
   const [exerciseTest, setExerciseTest] = useState()
@@ -82,11 +124,9 @@ let exercise = [{id:"1"}, {id:"2"}, {id:"3"}]
   };
 
   function testing (response){
-    debugger
     let result = atob(response.stdout)
     result = result.replace(/[^\w!?,.-]/g,'')
     let keys = exerciseTestKeys.split(',').join('')
-    debugger
     if (result===keys){
       showSuccessToast(`Тесты пройдены!`);
       //POST here new tast completed Здесь мы постим и проверяем, чтобы масисв был уникален
@@ -123,7 +163,6 @@ let exercise = [{id:"1"}, {id:"2"}, {id:"3"}]
     }
   };
   const handleCompile = () => {
-    debugger
     let codeWithTests = code + exerciseTest
     setProcessing(true);
     console.log(code);
@@ -174,7 +213,6 @@ let exercise = [{id:"1"}, {id:"2"}, {id:"3"}]
   };
 
   const checkStatus = async (token) => {
-    debugger
     const options = {
       method: "GET",
       url: 'https://it-go-server.ru/submissions'  + "/" + token,
@@ -250,22 +288,27 @@ let exercise = [{id:"1"}, {id:"2"}, {id:"3"}]
       progress: undefined,
     });
   };
-
   const defaultProps = {
-    options: {exercise},
-    getOptionLabel: (option) => option.id,
+    options: {exerciseS},
+    getOptionLabel: (option) => option.number,
   }
 
   function changeTask () {
-
     let id = document.getElementById('taskId').value || 1
-    getExerciseById(id).then((data)=>{
-      setCurrentExercise(data)
-      setCurrentTaskId(document.getElementById('taskId').value)
-      setExerciseText(data.description)
-      setExerciseTest(data.tests)
-      setExerciseTestKeys(data.testKeys)
-    })
+    if(exerciseS.length > 0){
+      for (let i = 0; i < exerciseS.length; i++){
+        if (id == exerciseS[i].number){
+          setCurrentExercise(exerciseS[i])
+          setCurrentTaskId(id)
+          setExerciseText(exerciseS[i].description)
+          setExerciseTest(exerciseS[i].tests)
+          setExerciseTestKeys(exerciseS[i].testKeys)
+        }
+      }
+    }
+
+
+
 
 
 
@@ -306,12 +349,13 @@ let exercise = [{id:"1"}, {id:"2"}, {id:"3"}]
               <div style={{borderBottom:'2px rgba(120,120,120,0.7) solid', display:'flex', justifyContent:'space-between', alignItems:'center', padding:"0px 10px"}} >
 
                 <Autocomplete
-                  onChange={()=>{changeTask()}}
+                  disabled={loading}
+                  onChange={()=>{setTimeout(()=>{changeTask()}, 0)}}
                   {...defaultProps}
                   disablePortal
                   id="taskId"
-                  defaultValue={{id: state?.from?.el || 1}}
-                  options={exercise}
+                  defaultValue={{number: state?.from?.el || 1}}
+                  options={exerciseS}
                   sx={{ width: 'calc(100% - 10px)' }}
                   renderInput={(params) => <TextField  style={{backgroundColor:'grey', margin:'6px'}} {...params} label="Task number" />}
                 />

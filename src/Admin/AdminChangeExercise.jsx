@@ -36,10 +36,7 @@ export default function AdminChangeExercise(props) {
         document.getElementById('changeTag').value = currentExercise.tag
         document.getElementById('changeRank').value =  currentExercise.rank
         document.getElementById('changeLink').value =  currentExercise.link
-
-      //   getGroupByUserId(id).then((data)=>{
-      //   setStudentsGroup(data.data)
-      // })
+        document.getElementById('changeNumber').value =  currentExercise.number
     }
     },0)
   }
@@ -55,16 +52,18 @@ export default function AdminChangeExercise(props) {
     document.getElementById('changeTag').value ? obj.append('tag', document.getElementById('changeTag').value) : console.log(0)
     document.getElementById('changeRank').value ? obj.append('rank', document.getElementById('changeRank').value) : console.log(0)
     document.getElementById('changeLink').value ? obj.append('link', document.getElementById('changeLink').value) : console.log(0)
+    document.getElementById('changeNumber').value ? obj.append('number', document.getElementById('changeNumber').value) : console.log(0)
   
       changeExerciseById(obj, id).then((data)=>{
-        if(data.status == 200){notifySucces();window.location.reload()}else{notifyError()}
+        if(!data){notifyError()}else{ if(data.status == 200){notifySucces();window.location.reload()}else{notifyError()}}
+       
       })
 
    }
 
    const defaultProps = {
     options: exercises,
-    getOptionLabel: (option) => `id:${option.id}, [${option.testKeys}], ${option.description?.substring(0, 80)}`,
+    getOptionLabel: (option) => `id:${option.id}, №:${option.number}, [${option.testKeys}], ${option.description?.substring(0, 80)}`,
   }
 
 
@@ -78,14 +77,18 @@ export default function AdminChangeExercise(props) {
         disablePortal
         id="ExerciseToChange"
         sx={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Student's name" />}
+        renderInput={(params) => <TextField {...params} label="Task" />}
         onChange={()=>{getExercisesInfo()}}
         
       />
 
             <div style={{display:'flex', justifyContent:'space-between', marginTop:'20px'}}>
       <textarea style={{width:'40%', marginRight:'10px'}} placeholder='Description' id="changeDescription"></textarea>
-        <textarea style={{width:'40%'}}  id="changeTests" defaultValue={``}></textarea>
+        <div style={{width:'40%'}}>
+          <textarea  id="changeTests" defaultValue={``} style={{width:'100%', height:'190px'}}></textarea>
+          <div>№</div>
+          <TextField id="changeNumber" variant="outlined" style={{display:'block', margin:'3px'}}/>
+        </div>
             <div style={{margin:'auto', marginTop:"-98px"}}>
       <div style={{display:'block'}}>
         <div>Test Keys</div>

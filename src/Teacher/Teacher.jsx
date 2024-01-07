@@ -140,9 +140,12 @@ function Row(props) {
 
   React.useEffect(()=>{
 
-    if(props.r.cw && props.r.hw){
-      setCwOptions(props?.r?.cw.split(','))
+    if(props.r.hw){
       setHwOptions(props?.r?.hw.split(','))
+    }
+
+    if(props.r.cw){
+      setCwOptions(props?.r?.cw.split(','))
     }
   }, [])
 
@@ -374,7 +377,6 @@ export default function CollapsibleTable() {
       obj.pptx = coursesCurrent[i].pptx;
       obj.docx = coursesCurrent[i].docx;
       obj.project = coursesCurrent[i].project;
-
       obj.hw = lessonsCurrent[i]?.hw || coursesCurrent[i].hw
       obj.cw = lessonsCurrent[i]?.cw || coursesCurrent[i].cw
 
@@ -395,6 +397,7 @@ export default function CollapsibleTable() {
         }
       lessonsAndCourses.push(obj)
     }
+    debugger
     setCompose(lessonsAndCourses)
   }
 

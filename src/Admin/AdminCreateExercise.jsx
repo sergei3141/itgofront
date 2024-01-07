@@ -10,6 +10,7 @@ export default function AdminCreateExercise() {
 
   const notifyError = () => toast.error("Ошибка!");
   const notifySucces = () => toast.success(" Задание создано!");
+  const numberMustBeUnique = () => toast.error("№ задания дб уникальным числом");
 
   function sendNewStudent () {
     let obj = new FormData()
@@ -19,9 +20,13 @@ export default function AdminCreateExercise() {
     obj.append('tag', document.getElementById('outlined-basic-tag').value)
     obj.append('rank', document.getElementById('outlined-basic-rank').value)
     obj.append('link', document.getElementById('outlined-basic-link').value)
+    obj.append('number', document.getElementById('outlined-basic-number').value)
 
       createNewExercise(obj).then((data)=>{
-        if(data.id){notifySucces();window.location.reload()}else{notifyError()}
+        if(!data){numberMustBeUnique()}else{
+          if(data.id){notifySucces();window.location.reload()}else{notifyError()}
+        }
+  
       })
 
   }
@@ -31,9 +36,12 @@ export default function AdminCreateExercise() {
       <div style={{textAlign:'left', fontSize:'18px', marginBottom:'12px', color:'rgb(55, 84, 135)'}}><b>Создать задание</b></div>
       <div style={{display:'flex', justifyContent:'space-between'}}>
         <textarea style={{width:'40%'}} placeholder='Description' id="outlined-basic-description"></textarea>
-        <textarea style={{width:'40%'}}  id="outlined-basic-tests" defaultValue={`console.log(codeWings());
+        <div style={{width:'40%'}}>
+        <textarea style={{width:'100%', height:'225px'}}  id="outlined-basic-tests" defaultValue={`console.log(codeWings());
 console.log(codeWings());
 console.log(codeWings());`}></textarea>
+          <TextField id="outlined-basic-number" label="№" variant="outlined" style={{display:'block', margin:'3px', width:'20%'}}/>
+</div>
         <div style={{display:'block'}}>
           <TextField id="outlined-basic-testKeys" label="Test keys" variant="outlined" style={{display:'block', margin:'3px'}}/>
           <TextField id="outlined-basic-tag" label="Tag" variant="outlined" style={{display:'block', margin:'3px'}}/>
