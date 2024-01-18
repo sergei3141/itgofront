@@ -67,13 +67,14 @@ function CustomTabPanel(props) {  //TABS
   );
 }
 
-function createData(id, course_id, theme, cw, hw, pptx, docx, project, lesson_num, type, created_at, studentsAndMarks) {
+function createData(id, course_id, theme, cw, hw, comments, pptx, docx, project, lesson_num, type, created_at, studentsAndMarks) {
   return {
     id, 
     course_id,
     theme,
     cw,
     hw,
+    comments,
     pptx, 
     docx,
     project,
@@ -137,8 +138,13 @@ function Row(props) {
   const [open, setOpen] = React.useState(false);
   const[cwOptions, setCwOptions] = React.useState([])
   const[hwOptions, setHwOptions] = React.useState([])
+  const[commentsOptions, setCommentsOptions] = React.useState([])
 
   React.useEffect(()=>{
+
+    if(props.r.comments){
+      setCommentsOptions(props?.r?.comments)
+    }
 
     if(props.r.hw){
       setHwOptions(props?.r?.hw.split(','))
@@ -154,6 +160,7 @@ function Row(props) {
   
 
   function sendToServer () {
+    debugger
 
     let arr = []
     props.r.studentsAndMarks.map((el)=>{
@@ -165,10 +172,12 @@ function Row(props) {
     obj.append('group_id', +props.currentGroupId)
     obj.append('base', props.currentGroupName.split("_")[0])
     obj.append('group', props.currentGroupName)
+    obj.append('pptx', props.r.pptx)
     if(props.r.lesson_num){obj.append('lesson_num', props.r.lesson_num)}
     obj.append('theme', props.r.theme)
     obj.append('cw', cwOptions)
     obj.append('hw', hwOptions)
+    obj.append('comments', commentsOptions)
     obj.append('marks', marks)
     obj.append('studentsIdInGroup', props.studentsIdInGroup)
     const notifySucces = () => toast.success("Урок успешно проведён!");
@@ -182,6 +191,11 @@ console.log(obj.get('studentsIdInGroup'))
 
 
   }
+
+  const handleChangeComments = () => {
+    setCommentsOptions(document.getElementById('comments').value)
+    console.log(document.getElementById('comments').value)
+  };
 
   const handleChangeCW = (value) => {
     setCwOptions(value.join(','))
@@ -220,13 +234,13 @@ console.log(obj.get('studentsIdInGroup'))
               <div className={css.underTable}> 
               <div style={{margin:'auto 10px', width:'4vw'}}>
                 <div style={{fontSize:'24px', cursor:'pointer'}}>
-                  {props.r.pptx ? <a href={props.r.pptx}><Icon icon="vaadin:presentation" /></a> : <Icon icon="vaadin:presentation" color="#999" style={{cursor:'no-drop'}} />}
+                  {props.r.pptx ? <a  target="_blank" href={props.r.pptx}><Icon icon="vaadin:presentation" /></a> : <Icon icon="vaadin:presentation" color="#999" style={{cursor:'no-drop'}} />}
                 </div>
                 <div style={{fontSize:'24px', cursor:'pointer'}}>
-                  {props.r.docx ? <a href={props.r.docx}><Icon icon="teenyicons:doc-outline" /></a> : <Icon icon="teenyicons:doc-outline" color="#999" style={{cursor:'no-drop'}} />}
+                  {props.r.docx ? <a  target="_blank" href={props.r.docx}><Icon icon="teenyicons:doc-outline" /></a> : <Icon icon="teenyicons:doc-outline" color="#999" style={{cursor:'no-drop'}} />}
                 </div>
                 <div style={{fontSize:'24px', cursor:'pointer'}}>
-                  {props.r.project ? <a href={props.r.project}><Icon icon="ion:folder-outline" /></a> : <Icon icon="ion:folder-outline" color="#999" style={{cursor:'no-drop'}} />}
+                  {props.r.project ? <a  target="_blank" href={props.r.project}><Icon icon="ion:folder-outline" /></a> : <Icon icon="ion:folder-outline" color="#999" style={{cursor:'no-drop'}} />}
                 </div>
                 
                 </div>
@@ -263,7 +277,14 @@ console.log(obj.get('studentsIdInGroup'))
                   />
                   </div>
                 </div>
+                
               </div>
+              <div  style={{width:'100%', marginTop:'-20px'}}>
+                  <div style={{marginLeft:"15px"}}>Комментарий к заданиям:</div>
+                  <div className={css.tasks}>
+                    <textarea style={{width:'100%', height:'50px'}} defaultValue={commentsOptions} onChange={handleChangeComments} id="comments"></textarea>
+                  </div>
+                </div>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
@@ -322,7 +343,7 @@ export default function CollapsibleTable() {
 
   const rows2 = []
   const rows = compose?.map((el)=>{
-    rows2.push(createData(el.id, el.course_id, el.theme, el.cw, el.hw, el.pptx, el.docx, el.project, el.marks, el.type, el.created_at, el.studentsAndMarks))
+    rows2.push(createData(el.id, el.course_id, el.theme, el.cw, el.hw, el.comments, el.pptx, el.docx, el.project, el.marks, el.type, el.created_at, el.studentsAndMarks))
   })
 
   const handleChange = (newValue) => {   //TABS
@@ -379,9 +400,11 @@ export default function CollapsibleTable() {
       obj.project = coursesCurrent[i].project;
       obj.hw = lessonsCurrent[i]?.hw || coursesCurrent[i].hw
       obj.cw = lessonsCurrent[i]?.cw || coursesCurrent[i].cw
+      obj.comments = lessonsCurrent[i]?.comments || coursesCurrent[i].comments
 
       if (lessonsCurrent[i]?.hw === null){obj.hw = ''}
       if (lessonsCurrent[i]?.cw === null){obj.cw = ''}
+      if (lessonsCurrent[i]?.comments === null){obj.comments = ''}
 
       obj.theme = coursesCurrent[i].theme 
       let marks = lessonsCurrent[i]?.marks?.split(',') || []
@@ -397,7 +420,6 @@ export default function CollapsibleTable() {
         }
       lessonsAndCourses.push(obj)
     }
-    debugger
     setCompose(lessonsAndCourses)
   }
 

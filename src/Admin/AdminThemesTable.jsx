@@ -37,7 +37,7 @@ export default function AdminThemesTable (props) {
         setThemes(sorted)
         let rows = []
         for (let i = 0; i < data.data.length; i++){
-          rows.push(createData(data.data[i].id, data.data[i].lesson_num, data.data[i].theme, data.data[i].hw, data.data[i].cw, data.data[i].pptx, data.data[i].docx))
+          rows.push(createData(data.data[i].id, data.data[i].lesson_num, data.data[i].theme, data.data[i].hw, data.data[i].cw,  data.data[i].comments, data.data[i].pptx, data.data[i].docx))
         }
         setTable(rows)
       })
@@ -50,6 +50,7 @@ export default function AdminThemesTable (props) {
     obj.append('theme', document.getElementById(`table_theme${id}`).value)
     obj.append('hw', document.getElementById(`table_hw${id}`).value)
     obj.append('cw', document.getElementById(`table_cw${id}`).value)
+    obj.append('comments', document.getElementById(`table_comments${id}`).value)
     obj.append('pptx', document.getElementById(`table_docx${id}`).value)
     obj.append('docx', document.getElementById(`table_pptx${id}`).value)
     obj.append('project', document.getElementById(`table_project${id}`).value)
@@ -65,6 +66,7 @@ export default function AdminThemesTable (props) {
     obj.append('theme', '')
     obj.append('hw', '')
     obj.append('cw', '')
+    obj.append('comments', '')
     obj.append('docx', '')
     obj.append('pptx', '')
     obj.append('project', '')
@@ -76,8 +78,8 @@ export default function AdminThemesTable (props) {
   }
 
 
-  function createData(id, lesson_num, theme, hw, cw, pptx, docx, project) {
-    return { id, lesson_num, theme, hw, cw, pptx, docx, project };
+  function createData(id, lesson_num, theme, hw, cw, comments, pptx, docx, project) {
+    return { id, lesson_num, theme, hw, cw, comments, pptx, docx, project };
   }
 
 
@@ -108,6 +110,7 @@ export default function AdminThemesTable (props) {
                 <StyledTableCell align="left">theme</StyledTableCell>
                 <StyledTableCell align="left">CW</StyledTableCell>
                 <StyledTableCell align="left">HW</StyledTableCell>
+                <StyledTableCell align="left">Comments</StyledTableCell>
                 <StyledTableCell align="left">docx</StyledTableCell>
                 <StyledTableCell align="left">pptx</StyledTableCell>
                 <StyledTableCell align="left">project</StyledTableCell>
@@ -123,9 +126,10 @@ export default function AdminThemesTable (props) {
                   <StyledTableCell align="left"><input style={{width:'145px'}}defaultValue={row.theme} id={`table_theme${row.id}`}></input></StyledTableCell>
                   <StyledTableCell align="left"><input style={{width:'145px'}}defaultValue={row.cw} id={`table_cw${row.id}`}></input></StyledTableCell>
                   <StyledTableCell align="left"><input style={{width:'145px'}}defaultValue={row.hw} id={`table_hw${row.id}`}></input></StyledTableCell>
-                  <StyledTableCell align="left"><input style={{width:'140px'}}defaultValue={row.pptx} id={`table_pptx${row.id}`}></input></StyledTableCell>
-                  <StyledTableCell align="left"><input style={{width:'140px'}}defaultValue={row.docx} id={`table_docx${row.id}`}></input></StyledTableCell>
-                  <StyledTableCell align="left"><input style={{width:'140px'}}defaultValue={row.docx} id={`table_project${row.id}`}></input></StyledTableCell>
+                  <StyledTableCell align="left"><input style={{width:'145px'}}defaultValue={row.comments} id={`table_comments${row.id}`}></input></StyledTableCell>
+                  <StyledTableCell align="left"><input style={{width:'80px'}}defaultValue={row.pptx} id={`table_pptx${row.id}`}></input></StyledTableCell>
+                  <StyledTableCell align="left"><input style={{width:'80px'}}defaultValue={row.docx} id={`table_docx${row.id}`}></input></StyledTableCell>
+                  <StyledTableCell align="left"><input style={{width:'80px'}}defaultValue={row.project} id={`table_project${row.id}`}></input></StyledTableCell>
                   <StyledTableCell align="left"><Icon icon="ei:check" style={{cursor:'pointer', fontSize:'24px'}} onClick={()=>{changeTable(row.id)}}/></StyledTableCell>           
                 <StyledTableCell align="left"><Icon icon="ph:trash" style={{cursor:'pointer', fontSize:'24px'}} onClick={()=>{deleteThemeById(row.id);document.getElementById(`tab2${row.id}`).remove()}}/></StyledTableCell> 
                 </StyledTableRow>

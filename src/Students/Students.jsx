@@ -21,6 +21,7 @@ import Header from '../Header/HeaderStudents'
 
 import { authMe, getGroupByUserId, getLessonsByGroup, getUsersByGroup } from '../API/API';
 
+let lessomNum = 0
 
 function CustomTabPanel(props) {  //TABS
   const { children, value, index, ...other } = props;
@@ -86,6 +87,7 @@ export default function BasicTable() {
         setMyGroup(data_group)
         getLessonsByGroup(data_group?.data[0]?.id).then((lessons)=>{  //Пусть по дефолту будет группа первая по списку
           setMyLessons(lessons) //
+          lessomNum = 0;
 
 // Здесь мы смотрим в каких группах состоит ученик и собираем задания по группам. НАЧАЛО
 
@@ -105,6 +107,7 @@ export default function BasicTable() {
           let tasksFromAllGroups = []
 
            for (let i = 0; i < data_group.data.length; i++){
+
             getLessonsByGroup(data_group?.data[i]?.id).then((lessonH)=>{
               let tasks = []
               lessonH.data.map((lesson)=>{
@@ -138,6 +141,7 @@ export default function BasicTable() {
   function getMyLessons (group_id) {
     getLessonsByGroup(group_id).then((lessons)=>{
       setMyLessons(lessons)
+      lessomNum = 0
     })
   }
 
@@ -152,22 +156,22 @@ export default function BasicTable() {
             <div style={{paddingTop:'5px'}}>{headerData?.active == 1 ? <div  className={css.studentActive} title="Ваша учётная запись активна"><Icon icon="lets-icons:check-fill" color="green"/></div> : <Icon icon="material-symbols:error" color="red" className={css.studentActive} title="Ваша учётная запись приостоновлена, но вы всё ещё можете пользоваться CodeWings"/>}</div>
             <div style={{marginLeft:'auto'}}>{headerData?.phone}</div>
           </div>
-        <div style={{textAlign:'center'}}>Состоит в группах: 
+        <div style={{textAlign:'center'}}>Студент состоит в группах: 
         <div className={css.tasks__table}>
         {myGroup?.data.map((group)=>{
           return(<div key={group.name} className={css.tasks__cell} style={{width:'auto'}}>{group.name}</div>)})}
   </div>
   </div>
   </div>
-        Задания на дом
+        Тесты на дом:
         <div className={css.tasks__table}>
         {allTasks?.sort(function(a, b) {return a - b})?.map((el)=>{if(el !== "")return(<NavLink to="/codewings" state={{from: {el}}}><div key={el} className={css.tasks__cell}>{el}</div></NavLink>)})}
         </div>
-        Выполненные задания
+        Выполненные тесты:
         <div className={css.tasks__table}>
         {completedTasks?.split(',')?.sort(function(a, b) {return a - b}).map(el=>{return(<NavLink to="/codewings" state={{from: {el}}}><div className={css.tasks__cell}>{el}</div></NavLink>)})}
         </div>
-        Осталось выполнить
+        Осталось выполнить:
         <div className={css.tasks__table}>
         {completedTasks ?
         (allTasks?.sort(function(a, b) {return a - b;}).filter((n) => {return !completedTasks.split(',').includes(n)}).map(el=>{return(<NavLink to="/codewings" state={{from: {el}}}><div>{el !== "" ? <div className={css.tasks__cell}>{el}</div>:<div></div> }</div></NavLink>)})) : <div></div>}
@@ -193,22 +197,30 @@ export default function BasicTable() {
                 <TableCell ><b>Тема занятия</b></TableCell>
                 <TableCell align='center'><b>Баллы</b></TableCell>
                 <TableCell ><b>Задания</b></TableCell>
+                <TableCell align='right'><b>Материалы</b></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
+              <div style={{display:'none'}}>{lessomNum = 0}</div>
               {myLessons?.data?.map((row) => {
-                
+                lessomNum++
                 return(<TableRow
                   key={Math.random()}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                  <TableCell component="th" scope="row">{}</TableCell>
+                  <TableCell component="th" scope="row">{lessomNum}</TableCell>
                   <TableCell >{row.created_at?.slice(0,10).split('-').reverse().join('.')}</TableCell>
                   <TableCell >{row.theme}</TableCell>
                   <TableCell align='center'>{
                   row.marks.split(',')[markPlace] == -1 ? 'Студент отсутствовал' : row.marks.split(',')[markPlace]
                   }</TableCell>
-                  <TableCell >{row.cw + "," + row.hw}</TableCell>
+                  <TableCell >{(row.cw? row.cw + "," : "") + (row.hw? row.hw + "," : "") + (row.comments? row.comments : "")}</TableCell>
+                  <TableCell align='right' style={{width:'0px'}}>
+
+                    <div style={{fontSize:'24px', cursor:'pointer', width:'50px'}}>
+                  {row.pptx ? <a  target="_blank" href={row.pptx}><Icon icon="vaadin:presentation" /></a> : <Icon icon="vaadin:presentation" color="#999" style={{cursor:'no-drop'}} />}
+                </div> 
+                    </TableCell>
                 </TableRow>
 )})}
             </TableBody>
@@ -216,7 +228,7 @@ export default function BasicTable() {
         </TableContainer>
 
         <Box sx={{ width: 'calc(100% - 60px)', backgroundColor:'white'}} style={{marginTop:'50px', padding:'30px', display:'flex', justifyContent:'space-between'}}>
-          <div>Баланс:</div>
+          <div>Баланс (актуально только для занятий в группе!): </div>
           {balance >= 0 ? <div style={{color:'green'}}><b>{new Intl.NumberFormat('ru-RU').format(balance || 0)} UZS</b></div> : <div style={{color:'red'}}><b>{new Intl.NumberFormat('ru-RU').format(balance || 0)} UZS</b></div>}
         </Box>
       </div>

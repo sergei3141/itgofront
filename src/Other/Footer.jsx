@@ -27,7 +27,7 @@ function Map() {
                   <div className={css.footer__section}> <NavLink to="/">ГЛАВНАЯ</NavLink> </div>
                   <div className={css.footer__section} onClick={()=>{Fireflies.terminate()}}><NavLink to="/login">ДНЕВНИК</NavLink></div>
                   {/* <div className={css.footer__section} onClick={()=>{Fireflies.terminate()}}><NavLink to="/table">РАСПИСАНИЕ</NavLink></div> */}
-                  <div className={css.footer__section} onClick={()=>{Fireflies.terminate()}}><NavLink to="/courses">ДИСЦИПЛИНЫ</NavLink></div>
+                  <div className={css.footer__section} onClick={()=>{Fireflies.terminate()}}><NavLink to="/courses">ЗАНЯТИЯ</NavLink></div>
                   <div className={css.footer__section} onClick={()=>{Fireflies.terminate()}}><NavLink to="/grade">ВОПРОСЫ</NavLink></div>
         </div>
         <div className={css.footer__row} >
