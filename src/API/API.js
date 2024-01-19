@@ -1,8 +1,8 @@
 import axios from 'axios'
 
- const base = 'http://127.0.0.1:8000/api'
+ //const base = 'http://127.0.0.1:8000/api'
 // const base = 'http://91.186.196.131/api'
-// const base = 'https://it-go.su:90/api'
+ const base = 'https://it-go.su:90/api'
 
 export function auth (data) {
   let config = {
