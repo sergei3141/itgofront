@@ -154,14 +154,14 @@ export default function BasicTable() {
           <div style={{display:'flex', margin:'20px', fontSize:'24px'}}>
             <div>{headerData?.name}</div>
             <div style={{paddingTop:'5px'}}>{headerData?.active == 1 ? <div  className={css.studentActive} title="Ваша учётная запись активна"><Icon icon="lets-icons:check-fill" color="green"/></div> : <Icon icon="material-symbols:error" color="red" className={css.studentActive} title="Ваша учётная запись приостоновлена, но вы всё ещё можете пользоваться CodeWings"/>}</div>
-            <div style={{marginLeft:'auto'}}>{headerData?.phone}</div>
+            <div style={{marginLeft:'auto', display:'flex'}}><div style={{color: 'gray', marginRight:'10px'}}>Телефон\логин: </div> {headerData?.phone}</div>
           </div>
-        <div style={{textAlign:'center'}}>Студент состоит в группах: 
+        {/* <div style={{textAlign:'center'}}>Студент состоит в группах: 
         <div className={css.tasks__table}>
         {myGroup?.data.map((group)=>{
           return(<div key={group.name} className={css.tasks__cell} style={{width:'auto'}}>{group.name}</div>)})}
   </div>
-  </div>
+  </div> */}
   </div>
         Тесты на дом:
         <div className={css.tasks__table}>

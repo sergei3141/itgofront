@@ -28,11 +28,9 @@ export default function Login() {
             style={{width:'60%', margin:"10px", color:'black'}}
             required
             id="loginPhone"
-            label="Телефон"
+            label="Телефон или логин"
             defaultValue=""
-            InputProps={{
-              startAdornment: <InputAdornment position="start" style={{color:'black'}}>+998</InputAdornment>,
-            }}
+
           />
           <TextField
             style={{width:'60%', margin:"10px"}}
