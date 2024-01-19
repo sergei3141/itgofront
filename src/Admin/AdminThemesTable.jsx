@@ -37,7 +37,7 @@ export default function AdminThemesTable (props) {
         setThemes(sorted)
         let rows = []
         for (let i = 0; i < data.data.length; i++){
-          rows.push(createData(data.data[i].id, data.data[i].lesson_num, data.data[i].theme, data.data[i].hw, data.data[i].cw,  data.data[i].comments, data.data[i].pptx, data.data[i].docx))
+          rows.push(createData(data.data[i].id, data.data[i].lesson_num, data.data[i].theme, data.data[i].hw, data.data[i].cw,  data.data[i].comments, data.data[i].pptx, data.data[i].docx, data.data[i].project))
         }
         setTable(rows)
       })
@@ -51,8 +51,8 @@ export default function AdminThemesTable (props) {
     obj.append('hw', document.getElementById(`table_hw${id}`).value)
     obj.append('cw', document.getElementById(`table_cw${id}`).value)
     obj.append('comments', document.getElementById(`table_comments${id}`).value)
-    obj.append('pptx', document.getElementById(`table_docx${id}`).value)
-    obj.append('docx', document.getElementById(`table_pptx${id}`).value)
+    obj.append('pptx', document.getElementById(`table_pptx${id}`).value)
+    obj.append('docx', document.getElementById(`table_docx${id}`).value)
     obj.append('project', document.getElementById(`table_project${id}`).value)
 
     changeThemeById(id, obj).then((data)=>{
@@ -120,6 +120,7 @@ export default function AdminThemesTable (props) {
             </TableHead>
             <TableBody>
               {table.map((row) => (
+        
                 <StyledTableRow key={row.id} id={`tab2${row.id}`}>
                   <StyledTableCell component="th" scope="row">{row.id}</StyledTableCell>
                   <StyledTableCell align="left"><input style={{width:'40px'}}defaultValue={row.lesson_num} id={`table_lesson_num${row.id}`}></input></StyledTableCell>
@@ -127,8 +128,8 @@ export default function AdminThemesTable (props) {
                   <StyledTableCell align="left"><input style={{width:'145px'}}defaultValue={row.cw} id={`table_cw${row.id}`}></input></StyledTableCell>
                   <StyledTableCell align="left"><input style={{width:'145px'}}defaultValue={row.hw} id={`table_hw${row.id}`}></input></StyledTableCell>
                   <StyledTableCell align="left"><input style={{width:'145px'}}defaultValue={row.comments} id={`table_comments${row.id}`}></input></StyledTableCell>
-                  <StyledTableCell align="left"><input style={{width:'80px'}}defaultValue={row.pptx} id={`table_pptx${row.id}`}></input></StyledTableCell>
                   <StyledTableCell align="left"><input style={{width:'80px'}}defaultValue={row.docx} id={`table_docx${row.id}`}></input></StyledTableCell>
+                  <StyledTableCell align="left"><input style={{width:'80px'}}defaultValue={row.pptx} id={`table_pptx${row.id}`}></input></StyledTableCell>
                   <StyledTableCell align="left"><input style={{width:'80px'}}defaultValue={row.project} id={`table_project${row.id}`}></input></StyledTableCell>
                   <StyledTableCell align="left"><Icon icon="ei:check" style={{cursor:'pointer', fontSize:'24px'}} onClick={()=>{changeTable(row.id)}}/></StyledTableCell>           
                 <StyledTableCell align="left"><Icon icon="ph:trash" style={{cursor:'pointer', fontSize:'24px'}} onClick={()=>{deleteThemeById(row.id);document.getElementById(`tab2${row.id}`).remove()}}/></StyledTableCell> 
