@@ -67,7 +67,7 @@ function CustomTabPanel(props) {  //TABS
   );
 }
 
-function createData(id, course_id, theme, cw, hw, comments, pptx, docx, project, lesson_num, type, created_at, studentsAndMarks) {
+function createData(id, course_id, theme, cw, hw, comments, pptx, docx, project, lesson_num, type, created_at, studentsAndMarks, date) {
   return {
     id, 
     course_id,
@@ -81,7 +81,8 @@ function createData(id, course_id, theme, cw, hw, comments, pptx, docx, project,
     lesson_num,
     type,
     created_at,
-    studentsAndMarks
+    studentsAndMarks,
+    date
   };
 }
 
@@ -223,8 +224,7 @@ console.log(obj.get('studentsIdInGroup'))
         </TableCell>
         <TableCell align="right">
           {props.r.type === "future" ? <div>Урок запланирован </div> : <div>Урок состоялся </div>}   
-          {}        
-          <DatePicker onChange={onChangeCalendar} defaultValue={dayjs(props.r.created_at?.slice(0,10).split('-').reverse().join('.'), dateFormatList[0])} format={dateFormatList} disabled={true}/>
+          {props.r.date ? <DatePicker onChange={onChangeCalendar} defaultValue={dayjs(props.r.date)} format={dateFormatList} disabled={true}/> : <DatePicker onChange={onChangeCalendar} defaultValue={dayjs(props.r.created_at?.slice(0,10).split('-').reverse().join('.'), dateFormatList[0])} format={dateFormatList} disabled={true}/>}        
         </TableCell>
       </TableRow>
       <TableRow>
@@ -343,7 +343,7 @@ export default function CollapsibleTable() {
 
   const rows2 = []
   const rows = compose?.map((el)=>{
-    rows2.push(createData(el.id, el.course_id, el.theme, el.cw, el.hw, el.comments, el.pptx, el.docx, el.project, el.marks, el.type, el.created_at, el.studentsAndMarks))
+    rows2.push(createData(el.id, el.course_id, el.theme, el.cw, el.hw, el.comments, el.pptx, el.docx, el.project, el.marks, el.type, el.created_at, el.studentsAndMarks, el.date))
   })
 
   const handleChange = (newValue) => {   //TABS
@@ -396,6 +396,7 @@ export default function CollapsibleTable() {
       let obj = {};
       obj.id = i
       obj.pptx = coursesCurrent[i].pptx;
+      obj.date = lessonsCurrent[i]?.date;
       obj.docx = coursesCurrent[i].docx;
       obj.project = coursesCurrent[i].project;
       obj.hw = lessonsCurrent[i]?.hw || coursesCurrent[i].hw

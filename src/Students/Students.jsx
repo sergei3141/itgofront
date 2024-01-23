@@ -209,7 +209,7 @@ export default function BasicTable() {
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">{lessomNum}</TableCell>
-                  <TableCell >{row.created_at?.slice(0,10).split('-').reverse().join('.')}</TableCell>
+                  <TableCell >{row.date ? row.date.split('-').reverse().join('.') : row.created_at?.slice(0,10).split('-').reverse().join('.')}</TableCell>
                   <TableCell >{row.theme}</TableCell>
                   <TableCell align='center'>{
                   row.marks.split(',')[markPlace] == -1 ? 'Студент отсутствовал' : row.marks.split(',')[markPlace]
