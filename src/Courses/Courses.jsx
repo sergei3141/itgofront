@@ -51,7 +51,7 @@ function Courses () {
         </div>
         :
         <div className={css.backPrice}>
-        {"от " + new Intl.NumberFormat('ru-RU').format(95000) } <div className={css.backCurrency}>UZS/час</div>
+        {"от " + new Intl.NumberFormat('ru-RU').format(150000) } <div className={css.backCurrency}>UZS/час</div>
         <div className={css.mainText__join} style={{top:'260px', position:'absolute'}}><FormDialog /></div>
       </div>
       } 
