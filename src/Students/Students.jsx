@@ -66,7 +66,9 @@ export default function BasicTable() {
   const [markPlace, setMarkPlace] = React.useState();
   const [balance, setBalance] = React.useState(0);
 
-  const [allTasks, setAllTasks] = React.useState(['','']);
+  //const [allTasks, setAllTasks] = React.useState(['','']);
+  const [allTasks, setAllTasks] = React.useState(['']);
+
   const [completedTasks, setCompletedTasks] = React.useState('');
 
   const handleChange = (event, newValue) => {   //TABS
@@ -163,10 +165,10 @@ export default function BasicTable() {
   </div>
   </div> */}
   </div>
-        Тесты на дом:
+         {/* Тесты на дом:
         <div className={css.tasks__table}>
         {allTasks?.sort(function(a, b) {return a - b})?.map((el)=>{if(el !== "")return(<NavLink to="/codewings" state={{from: {el}}}><div key={el} className={css.tasks__cell}>{el}</div></NavLink>)})}
-        </div>
+        </div>  */}
         Выполненные тесты:
         <div className={css.tasks__table}>
         {completedTasks?.split(',')?.sort(function(a, b) {return a - b}).map(el=>{return(<NavLink to="/codewings" state={{from: {el}}}><div className={css.tasks__cell}>{el}</div></NavLink>)})}
@@ -174,7 +176,7 @@ export default function BasicTable() {
         Осталось выполнить:
         <div className={css.tasks__table}>
         {completedTasks ?
-        (allTasks?.sort(function(a, b) {return a - b;}).filter((n) => {return !completedTasks.split(',').includes(n)}).map(el=>{return(<NavLink to="/codewings" state={{from: {el}}}><div>{el !== "" ? <div className={css.tasks__cell}>{el}</div>:<div></div> }</div></NavLink>)})) : <div></div>}
+        (allTasks?.map(d=>d.trim()).sort(function(a, b) {return a - b;}).filter((n) => {return !completedTasks.split(',').includes(n)}).map(el=>{return(<NavLink to="/codewings" state={{from: {el}}}><div>{el !== "" ? <div className={css.tasks__cell}>{el}</div>:<div></div> }</div></NavLink>)})) : <div></div>}
         </div>
       </Box>
         <Box sx={{ width: '100%', backgroundColor:'white'}}>
