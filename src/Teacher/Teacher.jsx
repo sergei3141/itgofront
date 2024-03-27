@@ -104,14 +104,14 @@ function StudentsMark(mark, name, lesson_id){
       value={age}
       label="Mark"
       onChange={handleChange}
-      defaultValue={-1}
-    > <MenuItem value={-1}>-1</MenuItem>
-      <MenuItem value={0}>0</MenuItem>
-      <MenuItem value={1}>1</MenuItem>
-      <MenuItem value={2}>2</MenuItem>
-      <MenuItem value={3}>3</MenuItem>
+      defaultValue={5}
+    > <MenuItem value={5}>5</MenuItem>
       <MenuItem value={4}>4</MenuItem>
-      <MenuItem value={5}>5</MenuItem>
+      <MenuItem value={3}>3</MenuItem>
+      <MenuItem value={2}>2</MenuItem>
+      <MenuItem value={1}>1</MenuItem>
+      <MenuItem value={0}>0</MenuItem>
+      <MenuItem value={-1}>-1</MenuItem>
     </SelectMUI>
   </FormControl>
   )
@@ -170,19 +170,21 @@ function Row(props) {
     let marks = arr.join(',')
 
     let obj = new FormData()
+
+    console.log(document.getElementById(`theme${props.r.id}`).value)
+    debugger;
     obj.append('group_id', +props.currentGroupId)
     obj.append('base', props.currentGroupName.split("_")[0])
     obj.append('group', props.currentGroupName)
     obj.append('pptx', props.r.pptx)
     if(props.r.lesson_num){obj.append('lesson_num', props.r.lesson_num)}
-    obj.append('theme', props.r.theme)
+    obj.append('theme', document.getElementById(`theme${props.r.id}`).value)
     obj.append('cw', cwOptions)
     obj.append('hw', hwOptions)
     obj.append('comments', commentsOptions)
     obj.append('marks', marks)
     obj.append('studentsIdInGroup', props.studentsIdInGroup)
     const notifySucces = () => toast.success("Урок успешно проведён!");
-console.log(obj.get('studentsIdInGroup'))
     createNewLesson(obj).then(()=>{
 
       notifySucces()
@@ -220,7 +222,8 @@ console.log(obj.get('studentsIdInGroup'))
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {props.r.theme}
+        <input defaultValue={props.r.theme} style={{width:"100%"}} id={`theme${props.r.id}`} />
+          
         </TableCell>
         <TableCell align="right">
           {props.r.type === "future" ? <div>Урок запланирован </div> : <div>Урок состоялся </div>}   
@@ -325,7 +328,7 @@ console.log(obj.get('studentsIdInGroup'))
 
 export default function CollapsibleTable() {
 
-  const [value, setValue] = React.useState(-1);  //TABS
+  const [value, setValue] = React.useState(5);  //TABS
   const [myRole, setMyRole] = React.useState()
   const [allGroups, setAllGroups] = React.useState()
 
@@ -407,7 +410,7 @@ export default function CollapsibleTable() {
       if (lessonsCurrent[i]?.cw === null){obj.cw = ''}
       if (lessonsCurrent[i]?.comments === null){obj.comments = ''}
 
-      obj.theme = coursesCurrent[i].theme 
+      obj.theme = lessonsCurrent[i]?.theme || coursesCurrent[i].theme 
       let marks = lessonsCurrent[i]?.marks?.split(',') || []
       for(let j = 0; j < studentsCurrent.length; j++){
         arr.push({'mark': marks[j], 'student': studentsCurrent[j]})
